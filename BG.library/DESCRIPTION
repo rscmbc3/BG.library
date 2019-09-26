@@ -1,0 +1,38 @@
+Package: BG.library
+Type: Package
+Title: Library of functions to analyze BG and sensor data.
+Version: 1.0
+Date: 2019-09-10
+Author: Lillian Gorman Sanisaca
+Maintainer: Lillian Gorman Sanisaca <lgormansanisaca@usgs.gov>
+Description: Library of functions to analyze BG and sensor data.  Input files MUST be formatted EXACTLY as output from metronic minimed carelink.
+Roxygen: list(markdown=TRUE)
+VignetteBuilder: knitr
+Depends:
+  R(>= 3.5.0),
+  methods
+Imports:
+  data.table,
+  lubridate,
+  RColorBrewer,
+  dplyr,
+  gplots,
+  plotly
+Suggests:
+  knitr,
+  rmarkdown
+License: GPL (>= 2)
+URL: 
+Collate:
+  'addPumpSetting.R'
+  'barPlot.R'
+  'convertClass.R'
+  'fixtables.R'
+  'makePumpSettings.R'
+  'named.list.R'
+  'plotLine.R'
+  'prettyTime.R'
+  'summarizeData.R'
+  'summaryPlot.R'
+  'unPackList.R'
+RoxygenNote: 6.1.1
