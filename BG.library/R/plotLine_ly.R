@@ -8,7 +8,7 @@ plotLine_ly<-function(data,  scatterOnly = FALSE,pointSize = 10,
                       addBolusType = "Bolus.Volume.Delivered..U.",
                       plotSummary = "Sensor.Glucose..mg.dL.",
                       addSetting ="",settingOverlay = FALSE,percentSetting = 30,
-                      barSubPlot, percentBar = 30,
+                      barSubPlot, percentBar = 30,addPercentType = "BG.Reading..mg.dL.",
                       filterCond = "",addGoodRange = TRUE,
                       legendInset = -0.2){
   
@@ -80,7 +80,7 @@ plotLine_ly<-function(data,  scatterOnly = FALSE,pointSize = 10,
     
     
     #addPercentBG as text 
-    p<-addPercentBG_ly(data,p,addPercentBG)
+    p<-addPercentBG_ly(data,p,addPercentBG,addPercentType)
     
     #add barsubPLot of carb intake
     p<-barSubPlot_ly(p, data, barSubPlot,ay.list$ayCarb)
