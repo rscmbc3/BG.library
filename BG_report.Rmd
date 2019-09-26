@@ -1,0 +1,279 @@
+---
+title: "BG_report"
+author: "Lillian Gorman Sanisaca, lgormansanisaca@usgs.gov"
+date: "Created 9/13/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,fig.width=12, fig.height=8, warning = FALSE)
+```
+
+#BG Report
+Data import and tables
+```{r, eval=TRUE, echo=FALSE,warning=FALSE}
+#setPaths
+libraryPath<-"F:/BG.library_repos/BG.library/"
+path<-"F:/BG.library_repos/"
+fileName<-"CareLink-Export-1569105272913.csv"
+numberDays<-5
+
+#load functions
+devtools::load_all(libraryPath,recompile = FALSE) 
+
+#get pumpSettings
+pumpSettings.list<-makePumpSettings(libraryPath)
+unPackList(lists = list(pumpSettings.list = pumpSettings.list),
+           parentObj = list(NA)) 
+
+#metronic csv data import
+dataImport.list<-dataImport(path,fileName)
+unPackList(lists = list(dataImport.list = dataImport.list),
+           parentObj = list(NA)) 
+
+#summarize data
+BGvalue_Summary<-summarizeData(allData, colName = "BG.Reading..mg.dL.", numberDays = numberDays)
+Sensorvalue_Summary<-summarizeData(allData, colName = "Sensor.Glucose..mg.dL.", numberDays = numberDays)
+BGHigh_Count<-summarizeData(allData, colName = "BG.Reading..mg.dL.", numberDays = numberDays,
+                            sumFuncs = "length",
+                            filterCond = "data[data$BG.Reading..mg.dL.>150 & !is.na(data$BG.Reading..mg.dL.),]")
+BGveryHigh_Count<-summarizeData(allData, colName = "BG.Reading..mg.dL.", numberDays = numberDays,
+                                sumFuncs = "length",
+                                filterCond = "data[data$BG.Reading..mg.dL.>300 & !is.na(data$BG.Reading..mg.dL.),]")
+
+BGLow_Count<-summarizeData(allData, colName = "BG.Reading..mg.dL.", numberDays = numberDays,
+                           sumFuncs = "length",
+                           filterCond = "data[data$BG.Reading..mg.dL.<80 & !is.na(data$BG.Reading..mg.dL.),]")
+BGgood_Count<-summarizeData(allData, colName = "BG.Reading..mg.dL.", numberDays = numberDays,
+                            sumFuncs = "length",
+                            filterCond = "data[data$BG.Reading..mg.dL.>=80 & data$BG.Reading..mg.dL.<=150 & !is.na(data$BG.Reading..mg.dL.),]")
+tempBasal_count<-summarizeData(allData, colName = "Temp.Basal.Amount", numberDays = 7,
+                               sumFuncs = "length",
+                               filterCond = "data[data$Temp.Basal.Amount==0 & !is.na(data$Temp.Basal.Amount),]")
+suspendBasal_Count<-summarizeData(allData, colName = "Alarm", numberDays = numberDays,
+                                  sumFuncs = "length",
+                                  filterCond = "data[regexpr('SUSPEND',data$Alarm)>0 & !is.na(data$Alarm),]")
+
+
+#timeDayTables used for heatmaps
+BGvalue_timeDaytable<-timeDayTable(allData, tcol = "time2", dcol = "Date2", 
+                                   valueVar = "BG.Reading..mg.dL.", 
+                                   sumFunc = "mean", naRemove = TRUE,
+                                   includeTotals = TRUE,
+                                   numberDays = numberDays, filterCond = "")
+Sensorvalue_timeDaytable<-timeDayTable(allData, tcol = "time2", dcol = "Date2", 
+                                       valueVar = "Sensor.Glucose..mg.dL.", 
+                                       sumFunc = "mean", naRemove = TRUE,
+                                       includeTotals = TRUE,
+                                       numberDays = numberDays, filterCond = "")
+carbs_timeDaytable<-timeDayTable(allData, tcol = "time2", dcol = "Date2", 
+                                 valueVar = "BWZ.Carb.Input..grams.", 
+                                 sumFunc = "max", naRemove = TRUE,
+                                 includeTotals = TRUE,
+                                 numberDays = numberDays, filterCond = "")
+```
+
+##BG value stats by hour for ```{r, eval=TRUE}numberDays``` days
+```{r, eval=TRUE}
+BGvalue_Summary
+```
+##Sensor value stats by hour for ```{r, eval=TRUE}numberDays``` days
+```{r, eval=TRUE}
+Sensorvalue_Summary
+```
+
+##BG high>150 count for past ```{r, eval=TRUE}numberDays``` days
+```{r, eval=TRUE}
+BGHigh_Count
+```
+
+##BG very high count for past ```{r, eval=TRUE}numberDays``` days
+```{r, eval=TRUE}
+BGveryHigh_Count
+```
+
+##BG low count for past ```{r, eval=TRUE}numberDays``` days
+```{r, eval=TRUE}
+BGLow_Count
+```
+
+##BG good value count (>80 and <150) psat ```{r, eval=TRUE}numberDays``` days
+```{r, eval=TRUE}
+BGgood_Count
+```
+
+##Temp Basal = 0 count past 7 days
+```{r, eval=TRUE}
+tempBasal_count
+```
+
+##Suspend basal on low count past ```{r, eval=TRUE}numberDays``` days
+```{r, eval=TRUE}
+suspendBasal_Count
+```
+
+
+##BG value by time and date with mean values past ```{r, eval=TRUE}numberDays``` days
+```{r, eval=TRUE,fig.width=14, fig.height=10}
+BGvalue_timeDaytable
+#heatmap
+heatMap(BGvalue_timeDaytable, hasTotals = TRUE,
+        margins = c(6,20), brks = seq(0,450,50), 
+        brewerPallete = "RdBu")
+```
+
+##Sensor value by time and date with mean values past ```{r, eval=TRUE}numberDays``` days
+```{r, eval=TRUE,fig.width=14, fig.height=10}
+Sensorvalue_timeDaytable
+#heatmap
+heatMap(Sensorvalue_timeDaytable, hasTotals = TRUE,
+        margins = c(6,20), brks = seq(0,450,50), 
+        brewerPallete = "RdBu")
+```
+
+
+##carb intake max values by time and date paste ```{r, eval=TRUE}numberDays``` days
+```{r, eval=TRUE}
+carbs_timeDaytable
+heatMap(carbs_timeDaytable, hasTotals = TRUE,
+        margins = c(6,15), brks = seq(0,100,10), 
+        brewerPallete = "RdBu",  textCol = "deeppink")
+```
+
+#Scatter plots
+##BG values, basal rate and correction bolus values
+```{r, eval=TRUE}
+plotLine(allData, numberDays = numberDays, scatterOnly = TRUE,addSensor = FALSE,
+         plotSummary ="",
+         addBolusType = c("BWZ.Correction.Estimate..U."),
+         addSetting = c("basal"),
+         legendInset = -0.35, margins = c(10,4,3,15))
+```
+
+#Line Plots
+###daily sensor values with BG
+```{r, eval=TRUE}
+plotLine(allData, numberDays = numberDays, addSensor = TRUE,
+         colorPalleteDaily = "rainbow",plotSummary ="", 
+         addBolus = FALSE,addSetting = "",
+         legendInset = -0.35, margins = c(10,4,3,15))
+```
+
+##summary BG values with settings
+```{r, eval=TRUE}
+plotLine(allData, numberDays = numberDays, addSensor = FALSE,
+         colorPalleteDaily = "rainbow", plotSummary = "BG.Reading..mg.dL.",
+         addSetting = c("basal","corrFactor","carbRatio"), addBolus = FALSE,
+         legendInset = -0.35, margins = c(10,4,3,15))
+```
+
+##summary sensor values with basal and bolus
+```{r, eval=TRUE}
+plotLine(allData, numberDays = numberDays, addSensor = FALSE,
+         colorPalleteDaily = "rainbow",plotSummary ="Sensor.Glucose..mg.dL.",
+         addBolusType = c("Bolus.Volume.Delivered..U."),
+         addSetting = c("basal"),
+         legendInset = -0.35, margins = c(10,4,3,15))
+```
+
+###summary sensor values with BG and settings
+```{r, eval=TRUE}
+plotLine(allData, numberDays = numberDays, addSensor = FALSE,
+         colorPalleteDaily = "rainbow",plotSummary ="Sensor.Glucose..mg.dL.",
+         addBolusType = "",addBolus = FALSE,
+         addSetting = c("basal","corrFactor","carbRatio"),
+         legendInset = -0.35, margins = c(10,4,3,15))
+```
+
+
+
+#Bar Plots
+##Mean BG value with pump settings by hour
+```{r, eval=TRUE}
+barPlot(allData, basal, corrFactor,carbRatio,
+        numberDays = numberDays, plotSummary = "BG.Reading..mg.dL.", sumFunc = "mean", stackedBar = "",
+        addBG = TRUE, addSetting = c("basal","corrFactor","carbRatio"),
+        legendInset = -0.35, margins = c(10,4,2,15))
+```
+
+##stacked BG high, low, good range
+```{r, eval=TRUE}
+barPlot(allData, basal, corrFactor,carbRatio, 
+        numberDays = numberDays, plotSummary = "BG.Reading..mg.dL.", sumFunc = "mean", stackedBar = "BGrange",
+        addBG = FALSE, addSetting = c("basal","corrFactor","carbRatio"),
+        legendInset = -0.35, margins = c(10,4,2,15))
+```
+
+##stacked insulin
+```{r, eval=TRUE}
+barPlot(allData, basal, corrFactor,carbRatio, 
+        numberDays = numberDays, plotSummary = "BG.Reading..mg.dL.", sumFunc = "mean", stackedBar = "insulin",
+        addBG = FALSE, addSetting = c("corrFactor","carbRatio"),
+        legendInset = -0.35, margins = c(10,4,2,15))
+```
+
+
+##highs and lows past ```{r, eval=TRUE}numberDays``` days
+```{r, eval=TRUE}
+barPlot(allData, basal, corrFactor,carbRatio, 
+        filterCond = "data[data$BG.Reading..mg.dL.>150 & !is.na(data$BG.Reading..mg.dL.),]",
+        numberDays = numberDays, plotSummary = "BG.Reading..mg.dL.", sumFunc = "length", stackedBar = "",
+        addBG = TRUE, addSetting = c("basal","corrFactor","carbRatio"),
+        legendInset = -0.35, margins = c(10,4,2,15))
+barPlot(allData, basal, corrFactor,carbRatio, 
+        filterCond = "data[data$BG.Reading..mg.dL.<80 & !is.na(data$BG.Reading..mg.dL.),]",
+        numberDays = numberDays, plotSummary = "BG.Reading..mg.dL.", sumFunc = "length", stackedBar = "",
+        addBG = TRUE, addSetting = c("basal","corrFactor","carbRatio"),
+        legendInset = -0.35, margins = c(10,4,2,15))
+```
+
+
+#Boxplots
+##Carbs in grams with BGvalues past ```{r, eval=TRUE}numberDays``` days
+```{r, eval=TRUE}
+#boxplots
+boxPlot(allData,basal, corrFactor,carbRatio, numberDays = numberDays, filterCond = "",
+        plotSummary = "BWZ.Carb.Input..grams.", 
+        addSetting = "",
+        legendInset = -0.3, margins = c(10,4,2,15))
+```
+
+##BG values with basal
+```{r, eval=TRUE}
+boxPlot(allData,basal, corrFactor,carbRatio, numberDays = numberDays, filterCond = "",
+        plotSummary = "BG.Reading..mg.dL.", 
+        addSetting ="basal",
+        legendInset = -0.3, margins = c(10,4,2,15))
+
+
+```
+
+##Interactive Plots
+###summary sensor, subplot settings with BGvalues
+```{r, eval=TRUE}
+plotLine_ly(allData,  scatterOnly = FALSE, pointSize = 10,
+            numberDays = 5, startDate = "2019-09-08", endDate = "2019-09-08",
+            startTime = "00:00", endTime = "23:00",
+            colorPalleteDaily = "rainbow", 
+            addSensor = FALSE, addBG = TRUE, settingOverlay = FALSE,
+            addBolusType = "",   barSubPlot = FALSE,     
+            plotSummary = "Sensor.Glucose..mg.dL.",
+            addSetting =c("basal","carbRatio","corrFactor"),filterCond = "",
+            legendInset = -0.2)
+```
+
+###summary sensor, subplot carbs with BGvalues
+```{r, eval=TRUE}
+plotLine_ly(allData,  scatterOnly = FALSE, pointSize = 10,
+            numberDays = 5, startDate = "2019-09-08", endDate = "2019-09-08",
+            startTime = "00:00", endTime = "23:00",
+            colorPalleteDaily = "rainbow", 
+            addSensor = FALSE, addBG = TRUE, settingOverlay = FALSE,
+            addBolusType = "",        
+            plotSummary = "Sensor.Glucose..mg.dL.",
+            addSetting ="",
+            barSubPlot = TRUE,
+            filterCond = "",
+            legendInset = -0.2)
+```
+
