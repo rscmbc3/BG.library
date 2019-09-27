@@ -9,7 +9,7 @@
 
 
 makeYaxesBar<-function(addSetting, settingOverlay, percentSetting,barSubPlot,
-                       initYrange){
+                       initYrange,yTitle){
   
   #set yDomain
   percentBar = ""
@@ -32,7 +32,8 @@ makeYaxesBar<-function(addSetting, settingOverlay, percentSetting,barSubPlot,
   #itialize plotly plot y axis
   yaxisStr<-paste0("yaxis = list(range = c(",paste(initYrange, collapse = ","),"), 
                                  ticks = 'outside', zeroline = FALSE,showline = TRUE,
-                                 domain = c(",paste(yDomain1,collapse = ","),"))")
+                                 title = '",yTitle, "',
+                                domain = c(",paste(yDomain1,collapse = ","),"))")
   
   
   

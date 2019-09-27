@@ -51,9 +51,11 @@ barSubPlot_ly<-function(p, data, barSubPlot = FALSE,ayCarb,
       #set initial y axis range
       if(plotSummary=="BG.Reading..mg.dL." & sumFunc!="length"){
         initYrange<-c(0,450)
+        
       }else{
         initYrange<-c(0,max(data$barplot, na.rm = TRUE))
         }
+      yTitle<-plotSummary
      dataFormat<-data
       }else{#stacked insulin
         basal$rate<-basal[[length(basal)]]
@@ -75,6 +77,7 @@ barSubPlot_ly<-function(p, data, barSubPlot = FALSE,ayCarb,
         data$totalInsulin<-apply(data[-c(1)],1, function(x) sum(x,na.rm = TRUE))
         initYrange<-c(0,max(data$totalInsulin, na.rm = TRUE))
         data<-data[-c(length(data))]
+        yTitle<-"Insulin Units Delivered"
         
         dataFormat<-data
       }
@@ -88,7 +91,7 @@ barSubPlot_ly<-function(p, data, barSubPlot = FALSE,ayCarb,
         
         #get yaxis code string
         yaxisStr.list<-makeYaxesBar(addSetting, settingOverlay, percentSetting,barSubPlot,
-                                              initYrange)
+                                              initYrange,yTitle)
         unPackList(lists = list(yaxisStr.list = yaxisStr.list),
                    parentObj = list(NA)) 
         unPackList(lists = list(ay.list = ay.list),
@@ -129,6 +132,10 @@ barSubPlot_ly<-function(p, data, barSubPlot = FALSE,ayCarb,
           #create plot
           p <- p %>% add_bars(data = data, x = ~hour, y = ~barplot, 
                               name = paste0(sumFunc,"_",plotSummary))
+          
+          #add pump Settings
+          p<-addPumpSetting_ly(p,addSetting, settingOverlay, basal,corrFactor,carbRatio,ay.list,
+                               legendInset,startTime,endTime,xticks,yaxisStr)
           
         }else if (stackedBar=="insulin"){
           

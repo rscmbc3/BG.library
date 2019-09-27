@@ -1,4 +1,4 @@
-makeYaxes<-function(addBolusType, addSetting, settingOverlay, percentSetting,barSubPlot,percentBar){
+makeYaxes<-function(addBolusType, addSetting, settingOverlay, percentSetting,barSubPlot,percentBar,yTitle){
 
   #set yDomain
   domain.list<-makeYdomain(percentSetting,percentBar,addSetting,settingOverlay,barSubPlot)
@@ -18,7 +18,8 @@ makeYaxes<-function(addBolusType, addSetting, settingOverlay, percentSetting,bar
   
  #itialize plotly plot y axis
 yaxisStr<-paste0("yaxis = list(range = c(0,450), ticks = 'outside', zeroline = FALSE,showline = TRUE,
-domain = c(",paste(yDomain1,collapse = ","),"))")
+                               title = '",yTitle, "',
+                               domain = c(",paste(yDomain1,collapse = ","),"))")
 
 #add to yaxisstr
 if (addBolusType[1]!=""){

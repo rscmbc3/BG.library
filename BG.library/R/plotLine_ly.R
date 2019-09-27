@@ -27,7 +27,7 @@ plotLine_ly<-function(data,  scatterOnly = FALSE,pointSize = 10,
     
     #get yaxis code string
     yaxisStr.list<-makeYaxes(addBolusType, addSetting,settingOverlay,
-                             percentSetting,addBarSub,percentBar)
+                             percentSetting,addBarSub,percentBar,yTitle = "")
     #print(names(yaxisStr.list))
     unPackList(lists = list(yaxisStr.list = yaxisStr.list),
                parentObj = list(NA)) 
