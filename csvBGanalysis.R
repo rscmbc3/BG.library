@@ -118,6 +118,17 @@ plotLine_ly(allData,  scatterOnly = FALSE, pointSize = 10,
             filterCond = "",
             legendInset = -0.2)
 
+#barplot
+barSubPlot_ly(p = NA, data = allData, barSubPlot = FALSE,ayCarb = NA,
+                        addBarSub = FALSE,basal,
+                        numberDays = 5, filterCond = "",
+                        startDate = NA, endDate = NA,
+                        startTime = "00:00", endTime = "23:00",
+                        plotSummary ="Sensor.Glucose..mg.dL.", sumFunc = "mean", stackedBar = "",
+                        addBG = FALSE, 
+                        addSetting = "",settingOverlay = FALSE,percentSetting = 30,
+                        legendInset = -0.2)
+
 
 #plot settings
 #all plots

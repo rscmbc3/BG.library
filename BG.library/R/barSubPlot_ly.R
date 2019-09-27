@@ -8,7 +8,7 @@
 
 
 barSubPlot_ly<-function(p, data, barSubPlot = FALSE,ayCarb,
-                        addBarSub,
+                        addBarSub,basal,
                         numberDays, filterCond = "",
                         startDate = NA, endDate = NA,
                         startTime = "00:00", endTime = "23:00",
@@ -35,18 +35,108 @@ barSubPlot_ly<-function(p, data, barSubPlot = FALSE,ayCarb,
     }else{#barplot is main plot
       #subset data by date and filterCond
       data<-subsetData(data,numberDays,startDate,endDate,filterCond)
+      #data$time3<-as.POSIXct(round(as.POSIXct(data$time2,format="%H:%M"),"hours"))
       
       #if filtered data exists
       if(nrow(data)!=0){
+      #save data for xticks
+      dataOrig<-data
+      
+      if (stackedBar!="insulin"){
+      data$barplot<-eval(parse(text = paste0("data$",plotSummary)))
+      data<-data[!is.na(data$barplot),]
+      #data<-data[c("time3","barplot")]
+      data<-data[c("hour","barplot")]
+      
+      #set initial y axis range
+      if(plotSummary=="BG.Reading..mg.dL." & sumFunc!="length"){
+        initYrange<-c(0,450)
+      }else{
+        initYrange<-c(0,max(data$barplot, na.rm = TRUE))
+        }
+     dataFormat<-data
+      }else{#stacked insulin
+        basal$rate<-basal[[length(basal)]]
         
+        #format time
+        #basal$time2<-as.POSIXlt(basal$time,format="%H:%M")
+        basal$hours<- basal$time$hour + basal$time$min/60 
+        
+        data<-merge(data, basal, by = "hours")
+        data<-data[c("hours","BWZ.Food.Estimate..U.","BWZ.Correction.Estimate..U.","rate")]
+        data<-as.data.frame(data %>% group_by(hour) %>% summarise_all(funs(mean),na.rm=TRUE))
+        
+        orderVector<-c("hours","rate","BWZ.Food.Estimate..U.","BWZ.Correction.Estimate..U.")
+        data<-data[,match(orderVector, names(data))]
+        
+        names(data)[2]<-"basal rate"
+        
+        #set initial y axis range
+        data$totalInsulin<-apply(data[-c(1)],1, function(x) sum(x,na.rm = TRUE))
+        initYrange<-c(0,max(data$totalInsulin, na.rm = TRUE))
+        data<-data[-c(length(data))]
+        
+        dataFormat<-data
+      }
+      
+
+      
         #format time in decimal hours
-        xticks.list<-xTicks(data, basal, startTime,endTime)
+        xticks.list<-xTicks(data = dataOrig, basal, startTime,endTime)
         unPackList(lists = list(xticks.list = xticks.list),
                    parentObj = list(NA)) 
         
         #get yaxis code string
-        yaxisStr.list<-makeYaxesBar(addBolusType, addSetting,settingOverlay,
-                                 percentSetting,addBarSub,percentBar)
+        yaxisStr.list<-makeYaxesBar(addSetting, settingOverlay, percentSetting,barSubPlot,
+                                              initYrange)
+        unPackList(lists = list(yaxisStr.list = yaxisStr.list),
+                   parentObj = list(NA)) 
+        unPackList(lists = list(ay.list = ay.list),
+                   parentObj = list(NA))
+        ay.list<-yaxisStr.list$ay.list
+        
+        #get xAxis str
+        xaxisStr<-makeXaxis(addSetting, settingOverlay,xDomain)
+        
+        #make title str
+        titleStr<-paste0(min(data$Date2)," -to- ",max(data$Date2))
+        
+        ##make layoutstr
+        layoutStr<-makeLayout(titleStr,xDomain,xaxisStr,yaxisStr,addGoodRange = FALSE)
+        
+        #initialize plot
+        p<-plot_ly()
+        #add layout
+        eval(parse(text = layoutStr))
+        #get formatted data
+        data<-dataFormat
+        
+        if(stackedBar=="") {#general bar plot
+          
+          #set up summary function string
+          if (sumFunc!="length"){
+            sumString<-paste0("as.data.frame(data %>% group_by(hour) %>% summarise_all(funs(",
+                              sumFunc,"),na.rm = TRUE))")
+          }else if (sumFunc=="length"){
+            sumString<-paste0("as.data.frame(data %>% group_by(hour) %>% summarise_all(funs(",
+                              sumFunc,")))")
+            
+          }#end sumString
+
+          #apply sumString
+          data<-eval(parse(text = sumString))
+
+          #create plot
+          p <- p %>% add_bars(data = data, x = ~hour, y = ~barplot, 
+                              name = paste0(sumFunc,"_",plotSummary))
+          
+        }else if (stackedBar=="insulin"){
+          
+        }else{#stacked bar BG
+          
+        }
+        
+        p
         
       }else{#no data for filter
         message("filtered data contains 0 rows")
