@@ -87,6 +87,10 @@ plotLine_ly<-function(data,  scatterOnly = FALSE,pointSize = 10,
     
     #add barsubPLot of carb intake
     p<-barSubPlot_ly(p, data, barSubPlot,ay.list$ayCarb)
+    #add fasting
+    assign("dataFasting",data,envir = .GlobalEnv)
+    p<-addFasting_ly(p, data, addFasting,addFastingAnnot)
+    
     #plot it
     p 
     
