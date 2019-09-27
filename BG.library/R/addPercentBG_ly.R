@@ -56,7 +56,7 @@ addPercentBG_ly<-function(data, p,addPercentBG,addPercentType){
     posData<-data.frame(x = rep(17,length(addPercentBG)), y = yPos, percentStr = percentStr)
     
     p <- p %>% add_text(data = posData, x = ~x, y = ~y, text = ~percentStr, 
-                        textposition = "right",hoverinfo='skip')
+                        textposition = "right",hoverinfo='skip', showlegend = FALSE)
   }#if addPercentBG
   return(p)
 }#end func
