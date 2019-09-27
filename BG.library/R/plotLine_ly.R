@@ -38,8 +38,11 @@ plotLine_ly<-function(data,  scatterOnly = FALSE,pointSize = 10,
     #get xAxis str
     xaxisStr<-makeXaxis(addSetting, settingOverlay,xDomain)
     
+    #make title str
+    titleStr<-paste0(min(data$Date2)," -to- ",max(data$Date2))
+
     ##make layoutstr
-    layoutStr<-makeLayout(xDomain,xaxisStr,yaxisStr,addGoodRange)
+    layoutStr<-makeLayout(titleStr,xDomain,xaxisStr,yaxisStr,addGoodRange)
 
     #initialize plot
     p<-plot_ly(data)
