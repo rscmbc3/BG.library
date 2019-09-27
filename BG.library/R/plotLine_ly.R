@@ -8,8 +8,9 @@ plotLine_ly<-function(data,  scatterOnly = FALSE,pointSize = 10,
                       addBolusType = "Bolus.Volume.Delivered..U.",
                       plotSummary = "Sensor.Glucose..mg.dL.",
                       addSetting ="",settingOverlay = FALSE,percentSetting = 30,
-                      barSubPlot, percentBar = 30,addPercentType = "BG.Reading..mg.dL.",
+                      barSubPlot = TRUE,addBarSub, percentBar = 30,addPercentType = "BG.Reading..mg.dL.",
                       filterCond = "",addGoodRange = TRUE,
+                      addFasting = TRUE,addFastingAnnot = TRUE,
                       legendInset = -0.2){
   
   #subset data by date and filterCond
@@ -26,7 +27,7 @@ plotLine_ly<-function(data,  scatterOnly = FALSE,pointSize = 10,
     
     #get yaxis code string
     yaxisStr.list<-makeYaxes(addBolusType, addSetting,settingOverlay,
-                             percentSetting,barSubPlot,percentBar)
+                             percentSetting,addBarSub,percentBar)
     #print(names(yaxisStr.list))
     unPackList(lists = list(yaxisStr.list = yaxisStr.list),
                parentObj = list(NA)) 
@@ -85,8 +86,17 @@ plotLine_ly<-function(data,  scatterOnly = FALSE,pointSize = 10,
     #addPercentBG as text 
     p<-addPercentBG_ly(data,p,addPercentBG,addPercentType)
     
-    #add barsubPLot of carb intake
-    p<-barSubPlot_ly(p, data, barSubPlot,ay.list$ayCarb)
+    #add addBarSub of carb intake
+    p<-barSubPlot_ly(p, data, barSubPlot,ay.list$ayCarb,
+                     addBarSub,
+                     numberDays, filterCond,
+                     startDate, endDate,
+                     startTime = "00:00", endTime = "23:00",
+                     plotSummary, sumFunc = "length", stackedBar = "",
+                     addBG, 
+                     addSetting,settingOverlay,percentSetting,
+                     legendInset)
+    
     #add fasting
     assign("dataFasting",data,envir = .GlobalEnv)
     p<-addFasting_ly(p, data, addFasting,addFastingAnnot)

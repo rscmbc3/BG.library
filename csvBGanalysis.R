@@ -60,7 +60,8 @@ plotLine_ly(allData,  scatterOnly = FALSE, pointSize = 10,
             #addBolusType = "Bolus.Volume.Delivered..U.",
             #addBolusType = c("Bolus.Volume.Delivered..U.","BWZ.Correction.Estimate..U.","BWZ.Food.Estimate..U."),
             addBolusType = "",   
-            barSubPlot = TRUE,
+            #barSubPlot = TRUE,
+            addBarSub = FALSE,
             plotSummary = "Sensor.Glucose..mg.dL.",
                       addSetting ="",filterCond = "",
                       legendInset = -0.2)
@@ -75,7 +76,7 @@ plotLine_ly(allData,  scatterOnly = FALSE, pointSize = 10,
             addBolusType = "",        
             plotSummary = "Sensor.Glucose..mg.dL.",
             addSetting =c("basal","carbRatio","corrFactor"),
-            barSubPlot = FALSE,addPercentType = "Sensor.Glucose..mg.dL.",
+            addBarSub = FALSE,addPercentType = "Sensor.Glucose..mg.dL.",
             filterCond = "",
             legendInset = -0.2)
 #same as previous with percent BG not percent SG
@@ -87,7 +88,7 @@ plotLine_ly(allData,  scatterOnly = FALSE, pointSize = 10,
             addBolusType = "",        
             plotSummary = "Sensor.Glucose..mg.dL.",
             addSetting =c("basal","carbRatio","corrFactor"),
-            barSubPlot = FALSE,
+            addBarSub = FALSE,
             filterCond = "",
             legendInset = -0.2)
 
@@ -100,7 +101,7 @@ plotLine_ly(allData,  scatterOnly = FALSE, pointSize = 10,
             addBolusType = "",        
             plotSummary = "Sensor.Glucose..mg.dL.",
             addSetting ="",
-            barSubPlot = TRUE,
+            addBarSub = TRUE,
             filterCond = "",
             legendInset = -0.2)
 
@@ -113,7 +114,7 @@ plotLine_ly(allData,  scatterOnly = FALSE, pointSize = 10,
             addBolusType = "",        
             plotSummary = "Sensor.Glucose..mg.dL.",
             addSetting =c("basal","carbRatio","corrFactor"),
-            barSubPlot = TRUE,
+            addBarSub = TRUE,
             filterCond = "",
             legendInset = -0.2)
 
