@@ -7,7 +7,7 @@
 #'@return `p` plot_ly interactive plot with BG values added if addBG
 
 
-addBGpoints_ly<-function(data, p, addBG, pointSize){
+addBGpoints_ly<-function(data, p, yAxis = 'y', addBG, pointSize){
   if (addBG){#add bG values
     p <- p %>% add_trace( data = data, x = ~hours, y = ~BG.Reading..mg.dL., 
                           type = "scatter", 
@@ -19,7 +19,8 @@ addBGpoints_ly<-function(data, p, addBG, pointSize){
                           text = ~paste('</br> Date: ',Date2,
                                         '</br> Time: ',time2,
                                         '</br> BG value :',BG.Reading..mg.dL.),
-                          name = "BG.Reading..mg.dL.")
+                          name = "BG.Reading..mg.dL.",
+                          yaxis = yAxis)
     
     
   }#if addBG

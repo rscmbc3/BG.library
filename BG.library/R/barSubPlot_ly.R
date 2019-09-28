@@ -13,7 +13,7 @@ barSubPlot_ly<-function(p, data, barSubPlot = FALSE,ayCarb,
                         startDate = NA, endDate = NA,
                         startTime = "00:00", endTime = "23:00",
                         plotSummary, sumFunc = "length", stackedBar = "",
-                        addBG = TRUE, 
+                        addBG = TRUE, pointSize = 10,
                         addSetting = "",settingOverlay = FALSE,percentSetting = 30,
                         legendInset = -0.2){
   if (barSubPlot & addBarSub){#barplot is not main plot and add subplot
@@ -91,15 +91,13 @@ barSubPlot_ly<-function(p, data, barSubPlot = FALSE,ayCarb,
         dataFormat<-data
       }
       
-
-      
         #format time in decimal hours
         xticks.list<-xTicks(data = dataOrig, basal, startTime,endTime)
         unPackList(lists = list(xticks.list = xticks.list),
                    parentObj = list(NA)) 
         
         #get yaxis code string
-        yaxisStr.list<-makeYaxesBar(addSetting, settingOverlay, percentSetting,barSubPlot,
+        yaxisStr.list<-makeYaxesBar(addSetting, settingOverlay, percentSetting,barSubPlot,addBG,
                                               initYrange,yTitle)
         unPackList(lists = list(yaxisStr.list = yaxisStr.list),
                    parentObj = list(NA)) 
@@ -142,9 +140,6 @@ barSubPlot_ly<-function(p, data, barSubPlot = FALSE,ayCarb,
           p <- p %>% add_trace(data = data, x = ~hour, y = ~barplot,type = 'bar', 
                               name = paste0(sumFunc,"_",plotSummary))
           
-          #add pump Settings
-          p<-addPumpSetting_ly(p,addSetting, settingOverlay, basal,corrFactor,carbRatio,ay.list,
-                               legendInset,startTime,endTime,xticks,yaxisStr)
           
           
         }else if (stackedBar=="insulin"){
@@ -168,6 +163,8 @@ barSubPlot_ly<-function(p, data, barSubPlot = FALSE,ayCarb,
           p<-addPumpSetting_ly(p,addSetting, settingOverlay, basalOrig,corrFactor,carbRatio,ay.list,
                                legendInset,startTime,endTime,xticks,yaxisStr)
           
+          #add bG values
+          p<-addBGpoints_ly(data = dataOrig, p,yAxis = 'y7', addBG, pointSize)
         p
         
       }else{#no data for filter

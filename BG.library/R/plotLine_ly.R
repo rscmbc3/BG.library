@@ -73,7 +73,7 @@ plotLine_ly<-function(data,  scatterOnly = FALSE,pointSize = 10,
     }
     
     #add bG values
-    p<-addBGpoints_ly(data, p, addBG, pointSize)
+    p<-addBGpoints_ly(data, p,yAxis = 'y', addBG, pointSize)
     
     #addBolusPOints
     p<-addBolusPoints_ly(data, p, addBolusType,pointSize)

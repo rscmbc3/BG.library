@@ -8,7 +8,7 @@
 #'@return `yaxisStr.list` named.list(yaxisStr,ay.list, xDomain)
 
 
-makeYaxesBar<-function(addSetting, settingOverlay, percentSetting,barSubPlot,
+makeYaxesBar<-function(addSetting, settingOverlay, percentSetting,barSubPlot,addBG,
                        initYrange,yTitle){
   
   #set yDomain
@@ -45,6 +45,28 @@ makeYaxesBar<-function(addSetting, settingOverlay, percentSetting,barSubPlot,
              parentObj = list(NA)) 
   unPackList(lists = list(ay.list = ay.list),
              parentObj = list(NA)) 
+  }
+  
+  if(addBG){
+    ayBG<-list(
+      tickfont = list(color = I("black")),
+      color = I("black"),
+      overlaying = 'y',
+      side = 'right',
+      title = 'BG.Reading..mg.dL.' ,
+      showgrid = FALSE,
+      showline = TRUE,
+      # tickprefix = " ",
+      ticks = 'outside',
+      anchor = 'free',
+      position  = min(allPosition),
+      range = c(0,450),
+      domain = yDomain1,
+      zeroline = FALSE)
+    
+    yStr<-"yaxis7=ayBG"
+    
+    yaxisStr<-paste0(yaxisStr,",",yStr)
   }
   
   #make list of all ay objects
