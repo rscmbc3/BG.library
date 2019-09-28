@@ -12,9 +12,12 @@ addFasting_ly<-function(p, data, addFasting, addFastingAnnot){
     #merge with data
     data<-merge(data,fastingTimes, by= c("Date2","hours"))
     
+    
     #calculate mean fasting value and replicate for length unique(hours)
-    meanFasting<-data.frame(hours = unique(data$hours))
-    meanFasting$value<-rep(mean(data$BG.Reading..mg.dL.),nrow(meanFasting))
+    meanFasting<-as.data.frame(data %>% group_by(Date2, hours) %>% summarize(BG.Reading..mg.dL. = max(BG.Reading..mg.dL.,na.rm = TRUE)))
+    meanFasting<-meanFasting[,names(meanFasting) %in% c("hours","BG.Reading..mg.dL.")]
+    meanFasting$value<-rep(mean(meanFasting$BG.Reading..mg.dL.),nrow(meanFasting))
+
     
     #add trace
     lineText<-paste0("Mean Fasting BG = ",round(unique(meanFasting$value)))
