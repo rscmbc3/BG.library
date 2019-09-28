@@ -118,7 +118,7 @@ plotLine_ly(allData,  scatterOnly = FALSE, pointSize = 10,
             filterCond = "",
             legendInset = -0.2)
 
-#barplot
+#barplot simple
 barSubPlot_ly(p = NA, data = allData, barSubPlot = FALSE,ayCarb = NA,
                         addBarSub = FALSE,basal,
                         numberDays = 5, filterCond = "",
@@ -128,6 +128,57 @@ barSubPlot_ly(p = NA, data = allData, barSubPlot = FALSE,ayCarb = NA,
                         addBG = FALSE, 
                         addSetting = "",settingOverlay = FALSE,percentSetting = 30,
                         legendInset = -0.2)
+#simple with setting subplot
+barSubPlot_ly(p = NA, data = allData, barSubPlot = FALSE,ayCarb = NA,
+              addBarSub = FALSE,basal,
+              numberDays = 5, filterCond = "",
+              startDate = NA, endDate = NA,
+              startTime = "00:00", endTime = "23:00",
+              plotSummary ="Sensor.Glucose..mg.dL.", sumFunc = "mean", stackedBar = "",
+              addBG = TRUE, 
+              addSetting = c("basal","corrFactor","carbRatio"),settingOverlay = FALSE,percentSetting = 30,
+              legendInset = -0.2)
+#simple with setting subplot, filtered to high values
+barSubPlot_ly(p = NA, data = allData, barSubPlot = FALSE,ayCarb = NA,
+              addBarSub = FALSE,basal,
+              numberDays = 5, filterCond = "data[data$BG.Reading..mg.dL.>150 & !is.na(data$BG.Reading..mg.dL.),]",
+              startDate = NA, endDate = NA,
+              startTime = "00:00", endTime = "23:00",
+              plotSummary ="BG.Reading..mg.dL.", sumFunc = "length", stackedBar = "",
+              addBG = FALSE, 
+              addSetting = c("basal","corrFactor","carbRatio"),settingOverlay = FALSE,percentSetting = 30,
+              legendInset = -0.2)
+#simple with setting subplot, filtered to low values
+barSubPlot_ly(p = NA, data = allData, barSubPlot = FALSE,ayCarb = NA,
+              addBarSub = FALSE,basal,
+              numberDays = 5, filterCond = "data[data$BG.Reading..mg.dL.<80 & !is.na(data$BG.Reading..mg.dL.),]",
+              startDate = NA, endDate = NA,
+              startTime = "00:00", endTime = "23:00",
+              plotSummary ="BG.Reading..mg.dL.", sumFunc = "length", stackedBar = "",
+              addBG = FALSE, 
+              addSetting = c("basal","corrFactor","carbRatio"),settingOverlay = FALSE,percentSetting = 30,
+              legendInset = -0.2)
+#stcked insulin
+barSubPlot_ly(p = NA, data = allData, barSubPlot = FALSE,ayCarb = NA,
+              addBarSub = FALSE,basal,
+              numberDays = 5, filterCond = "",
+              startDate = NA, endDate = NA,
+              startTime = "00:00", endTime = "23:00",
+              plotSummary ="", sumFunc = "", stackedBar = "insulin",
+              addBG = FALSE, 
+              addSetting = c("basal","corrFactor","carbRatio"),settingOverlay = FALSE,percentSetting = 30,
+              legendInset = -0.2)
+#stcked BG
+barSubPlot_ly(p = NA, data = allData, barSubPlot = FALSE,ayCarb = NA,
+              addBarSub = FALSE,basal,
+              numberDays = 5, filterCond = "",
+              startDate = NA, endDate = NA,
+              startTime = "00:00", endTime = "23:00",
+              plotSummary ="BG.Reading..mg.dL.", sumFunc = "length", stackedBar = "BG",
+              addBG = FALSE, 
+              addSetting = c("basal","corrFactor","carbRatio"),settingOverlay = FALSE,percentSetting = 30,
+              legendInset = -0.2)
+
 
 
 #plot settings

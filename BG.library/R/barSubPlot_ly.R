@@ -41,7 +41,8 @@ barSubPlot_ly<-function(p, data, barSubPlot = FALSE,ayCarb,
       if(nrow(data)!=0){
       #save data for xticks
       dataOrig<-data
-      
+      dataOrig$hours<- dataOrig$hour + dataOrig$min/60 
+      basalOrig<-basal
       if (stackedBar!="insulin"){
       data$barplot<-eval(parse(text = paste0("data$",plotSummary)))
       data<-data[!is.na(data$barplot),]
@@ -49,26 +50,34 @@ barSubPlot_ly<-function(p, data, barSubPlot = FALSE,ayCarb,
       data<-data[c("hour","barplot")]
       
       #set initial y axis range
-      if(plotSummary=="BG.Reading..mg.dL." & sumFunc!="length"){
+      if(plotSummary %in% c("BG.Reading..mg.dL.","Sensor.Glucose..mg.dL.") & sumFunc!="length"){
         initYrange<-c(0,450)
         
-      }else{
+      }else if (sumFunc=="length"){
+        rangeData<-as.data.frame(data %>% group_by(hour) %>% summarise_all(funs(length)))
+        initYrange<-c(0,max(rangeData$barplot, na.rm = TRUE))
+        }else{
         initYrange<-c(0,max(data$barplot, na.rm = TRUE))
         }
-      yTitle<-plotSummary
+      
+      yTitle<-ifelse(sumFunc!="length",paste0(sumFunc,"_",plotSummary),paste0("number_",plotSummary))
      dataFormat<-data
+     
       }else{#stacked insulin
         basal$rate<-basal[[length(basal)]]
         
         #format time
-        #basal$time2<-as.POSIXlt(basal$time,format="%H:%M")
-        basal$hours<- basal$time$hour + basal$time$min/60 
-        
-        data<-merge(data, basal, by = "hours")
-        data<-data[c("hours","BWZ.Food.Estimate..U.","BWZ.Correction.Estimate..U.","rate")]
+        basal$time2<-as.POSIXlt(basal$time,format="%H:%M")
+        basal$hours<- basal$time2$hour + basal$time2$min/60 
+        basal$hour<-basal$time2$hour
+       
+        data$hours<- data$hour + data$min/60 
+        data<-merge(data, basal, by = "hour", all = TRUE)
+        data<-data[c("hour","BWZ.Food.Estimate..U.","BWZ.Correction.Estimate..U.","rate")]
+        names(data)[1]<-"hour"
         data<-as.data.frame(data %>% group_by(hour) %>% summarise_all(funs(mean),na.rm=TRUE))
         
-        orderVector<-c("hours","rate","BWZ.Food.Estimate..U.","BWZ.Correction.Estimate..U.")
+        orderVector<-c("hour","rate","BWZ.Food.Estimate..U.","BWZ.Correction.Estimate..U.")
         data<-data[,match(orderVector, names(data))]
         
         names(data)[2]<-"basal rate"
@@ -105,8 +114,8 @@ barSubPlot_ly<-function(p, data, barSubPlot = FALSE,ayCarb,
         titleStr<-paste0(min(data$Date2)," -to- ",max(data$Date2))
         
         ##make layoutstr
-        layoutStr<-makeLayout(titleStr,xDomain,xaxisStr,yaxisStr,addGoodRange = FALSE)
-        
+        layoutStr<-makeLayout(titleStr,xDomain,xaxisStr,yaxisStr,addGoodRange = FALSE,stackedBar = stackedBar)
+
         #initialize plot
         p<-plot_ly()
         #add layout
@@ -130,19 +139,35 @@ barSubPlot_ly<-function(p, data, barSubPlot = FALSE,ayCarb,
           data<-eval(parse(text = sumString))
 
           #create plot
-          p <- p %>% add_bars(data = data, x = ~hour, y = ~barplot, 
+          p <- p %>% add_trace(data = data, x = ~hour, y = ~barplot,type = 'bar', 
                               name = paste0(sumFunc,"_",plotSummary))
           
           #add pump Settings
           p<-addPumpSetting_ly(p,addSetting, settingOverlay, basal,corrFactor,carbRatio,ay.list,
                                legendInset,startTime,endTime,xticks,yaxisStr)
           
-        }else if (stackedBar=="insulin"){
           
+        }else if (stackedBar=="insulin"){
+          cls<-c("white","gray","black")
+         p <- addStackbar_ly(p,data,cls) 
+         
         }else{#stacked bar BG
+          data$veryHigh<-ifelse(data$barplot>240,1,0)
+          data$high<-ifelse(data$barplot>150 & data$barplot<=240,1,0)
+          data$good<-ifelse(data$barplot>=80 & data$barplot<=150,1,0)
+          data$low<-ifelse(data$barplot<80,1,0)
+          data<-data[,names(data)!="barplot"]
+          data<-as.data.frame(data %>% group_by(hour) %>% summarise_all(funs(sum),na.rm=TRUE))
+          orderVector<-c("hour","low","good","high","veryHigh")
+          data<-data[,match(names(data),orderVector)]
+          cls<-c("blue","white","red","darkred")
+          p <- addStackbar_ly(p,data,cls) 
           
         }
-        
+        #add pump Settings
+          p<-addPumpSetting_ly(p,addSetting, settingOverlay, basalOrig,corrFactor,carbRatio,ay.list,
+                               legendInset,startTime,endTime,xticks,yaxisStr)
+          
         p
         
       }else{#no data for filter
