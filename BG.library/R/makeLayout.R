@@ -33,6 +33,7 @@ if (stackedBar!=""){
                     shapeStr,",",
                     barmodeStr,"
                     margin = list(r = 100),
-                    title = list(text = '",titleStr,"'))")
+                    title = list(text = '",titleStr,"',
+                    xanchor  = 'right'))")
   return(layoutStr)
 }
