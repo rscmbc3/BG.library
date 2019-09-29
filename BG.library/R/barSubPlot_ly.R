@@ -13,6 +13,7 @@ barSubPlot_ly<-function(p, data, barSubPlot = FALSE,ayCarb,
                         startDate = NA, endDate = NA,
                         startTime = "00:00", endTime = "23:00",
                         plotSummary, sumFunc = "length", stackedBar = "",
+                        uniqueDT = TRUE,replaceNAs = TRUE,ignoreNAs = FALSE,
                         addBG = TRUE, pointSize = 10,
                         addSetting = "",settingOverlay = FALSE,percentSetting = 30,
                         legendInset = -0.2){
@@ -40,14 +41,27 @@ barSubPlot_ly<-function(p, data, barSubPlot = FALSE,ayCarb,
       #if filtered data exists
       if(nrow(data)!=0){
       #save data for xticks
-      dataOrig<-data
-      dataOrig$hours<- dataOrig$hour + dataOrig$min/60 
+      data$hours<- data$hour + data$min/60
+        dataOrig<-data
+       
       basalOrig<-basal
       if (stackedBar!="insulin"){
       data$barplot<-eval(parse(text = paste0("data$",plotSummary)))
-      data<-data[!is.na(data$barplot),]
-      #data<-data[c("time3","barplot")]
+
+
+      #get uniques
+      if (stackedBar=="" & uniqueDT){
+        NAMES<-c("Date2","hours","hour","barplot")
+        data<-uniqueDateTime(data, NAMES, replaceNAs)
+      }
+
       data<-data[c("hour","barplot")]
+      
+
+      #ignoreNAs
+     if (ignoreNAs){
+        data<-data[!is.na(data$barplot),]
+      }
       
       #set initial y axis range
       if(plotSummary %in% c("BG.Reading..mg.dL.","Sensor.Glucose..mg.dL.") & sumFunc!="length"){
@@ -62,7 +76,7 @@ barSubPlot_ly<-function(p, data, barSubPlot = FALSE,ayCarb,
       
       yTitle<-ifelse(sumFunc!="length",paste0(sumFunc,"_",plotSummary),paste0("number_",plotSummary))
      dataFormat<-data
-     
+
       }else{#stacked insulin
         basal$rate<-basal[[length(basal)]]
         
@@ -70,11 +84,29 @@ barSubPlot_ly<-function(p, data, barSubPlot = FALSE,ayCarb,
         basal$time2<-as.POSIXlt(basal$time,format="%H:%M")
         basal$hours<- basal$time2$hour + basal$time2$min/60 
         basal$hour<-basal$time2$hour
-       
+
+        #get on hour values only
+       basal2<-basal[,c("hours","hour","rate")]
+        basal2<-as.data.frame(basal2 %>% group_by(hour) %>% summarise_all(funs(max),na.rm=TRUE))
+
         data$hours<- data$hour + data$min/60 
-        data<-merge(data, basal, by = "hour", all = TRUE)
+        
+        #only look at pump data
+        data<-data[is.na(data$Sensor.Glucose..mg.dL.),]
+       
+        #get unique values (max) per Date2 and hours
+        NAMES<-c("Date2","hours","hour","BWZ.Food.Estimate..U.","BWZ.Correction.Estimate..U.")
+        data<-uniqueDateTime(data, NAMES, replaceNAs = TRUE)
+        
+        
+        #merge with basal
+        data<-merge(data, basal2, by = "hour", all = TRUE)
         data<-data[c("hour","BWZ.Food.Estimate..U.","BWZ.Correction.Estimate..U.","rate")]
         names(data)[1]<-"hour"
+        
+        
+        
+        #summarize by mean
         data<-as.data.frame(data %>% group_by(hour) %>% summarise_all(funs(mean),na.rm=TRUE))
         
         orderVector<-c("hour","rate","BWZ.Food.Estimate..U.","BWZ.Correction.Estimate..U.")

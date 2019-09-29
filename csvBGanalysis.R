@@ -135,6 +135,7 @@ barSubPlot_ly(p = NA, data = allData, barSubPlot = FALSE,ayCarb = NA,
               startDate = NA, endDate = NA,
               startTime = "00:00", endTime = "23:00",
               plotSummary ="Sensor.Glucose..mg.dL.", sumFunc = "mean", stackedBar = "",
+              uniqueDT = TRUE,replaceNAs = FALSE,
               addBG = TRUE, 
               addSetting = c("basal","corrFactor","carbRatio"),settingOverlay = FALSE,percentSetting = 30,
               legendInset = -0.2)
@@ -145,7 +146,7 @@ barSubPlot_ly(p = NA, data = allData, barSubPlot = FALSE,ayCarb = NA,
               startDate = NA, endDate = NA,
               startTime = "00:00", endTime = "23:00",
               plotSummary ="BG.Reading..mg.dL.", sumFunc = "length", stackedBar = "",
-              addBG = FALSE, 
+              addBG = FALSE, uniqueDT = TRUE,replaceNAs = FALSE,
               addSetting = c("basal","corrFactor","carbRatio"),settingOverlay = FALSE,percentSetting = 30,
               legendInset = -0.2)
 #simple with setting subplot, filtered to low values
@@ -155,7 +156,7 @@ barSubPlot_ly(p = NA, data = allData, barSubPlot = FALSE,ayCarb = NA,
               startDate = NA, endDate = NA,
               startTime = "00:00", endTime = "23:00",
               plotSummary ="BG.Reading..mg.dL.", sumFunc = "length", stackedBar = "",
-              addBG = FALSE, 
+              addBG = FALSE, uniqueDT = TRUE,replaceNAs = FALSE,
               addSetting = c("basal","corrFactor","carbRatio"),settingOverlay = FALSE,percentSetting = 30,
               legendInset = -0.2)
 #stcked insulin
@@ -165,7 +166,7 @@ barSubPlot_ly(p = NA, data = allData, barSubPlot = FALSE,ayCarb = NA,
               startDate = NA, endDate = NA,
               startTime = "00:00", endTime = "23:00",
               plotSummary ="", sumFunc = "", stackedBar = "insulin",
-              addBG = FALSE, 
+              addBG = FALSE, uniqueDT = TRUE,replaceNAs = TRUE,
               addSetting = c("basal","corrFactor","carbRatio"),settingOverlay = FALSE,percentSetting = 30,
               legendInset = -0.2)
 #stcked BG
@@ -175,7 +176,7 @@ barSubPlot_ly(p = NA, data = allData, barSubPlot = FALSE,ayCarb = NA,
               startDate = NA, endDate = NA,
               startTime = "00:00", endTime = "23:00",
               plotSummary ="BG.Reading..mg.dL.", sumFunc = "length", stackedBar = "BG",
-              addBG = FALSE, 
+              addBG = FALSE, uniqueDT = TRUE,replaceNAs = FALSE,ignoreNAs = TRUE,
               addSetting = c("basal","corrFactor","carbRatio"),settingOverlay = FALSE,percentSetting = 30,
               legendInset = -0.2)
 
