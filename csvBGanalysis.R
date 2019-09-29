@@ -317,7 +317,7 @@ barPlot(allData, basal, corrFactor,carbRatio,
         legendInset = -0.35, margins = c(10,4,2,15))
 
 #boxplots
-  boxPlot(allData,basal, corrFactor,carbRatio, numberDays = 7, filterCond = "",
+boxPlot(allData,basal, corrFactor,carbRatio, numberDays = 7, filterCond = "",
           plotSummary = "BWZ.Carb.Input..grams.", 
           addSetting = "",
           legendInset = -0.3, margins = c(10,4,2,15))
