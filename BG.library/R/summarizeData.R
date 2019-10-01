@@ -1,5 +1,6 @@
 summarizeData<-function(data, colName, sumFuncs = "min, mean, max, sd", 
-                        numberDays, filterCond = ""){
+                        numberDays, filterCond = "",
+                        timeStep = "hour", period = 1){
   #subset for numberDays
   data<-data[data$Date2>=max(data$Date2)-numberDays+1,]
   
@@ -9,6 +10,9 @@ summarizeData<-function(data, colName, sumFuncs = "min, mean, max, sd",
     data<-eval(parse(text = filterCond))
   }
   if(nrow(data)!=0){
+  #get unique values
+  NAMES<-c("dateTime","Date2","time2","hour",colName)
+  data<-uniqueDateTime(data, NAMES, replaceNAs = FALSE,timeStep = timeStep, period = period)
   
   data<-data[c("time2",colName)]
   data$time3<-as.POSIXct(round(as.POSIXct(data$time2,format="%H:%M"),"hours"))

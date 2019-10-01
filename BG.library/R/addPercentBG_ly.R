@@ -1,6 +1,7 @@
 addPercentBG_ly<-function(data, p,addPercentBG,addPercentType){
   if (addPercentBG[1]!=""){
     
+
     if (addPercentType=="BG.Reading..mg.dL."){
      data<-data[!is.na(data$BG.Reading..mg.dL.),] 
      data$value<-data$BG.Reading..mg.dL.
@@ -10,6 +11,10 @@ addPercentBG_ly<-function(data, p,addPercentBG,addPercentType){
       data$value<-data$Sensor.Glucose..mg.dL.
       typeStr<-"SG"
     }
+   
+    #get unique values
+    NAMES<-c("dateTime","hour","value")
+    data<-uniqueDateTime(data, NAMES, replaceNAs = FALSE,timeStep = "hour", period = 1)
     
     yPos<-numeric(0)
     percentStr<-character(0)

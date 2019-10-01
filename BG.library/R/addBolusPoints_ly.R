@@ -23,12 +23,17 @@ if (addBolusType[1]!=""){#if add bolus type
     #add temp column to data
     data$bolusType<-eval(parse(text = paste0("data$",b)))
 
+    #get unique values
+    NAMES<-c("dateTime","Date2","time2","hours","hour","bolusType")
+    data2<-uniqueDateTime(data, NAMES, replaceNAs = FALSE,timeStep = "hour", period = 1)
+    
+    
     #set marker text
     markerText<-paste0("~paste('</br> Date: ',Date2,
                                             '</br> Time: ',time2,
                                             '</br> ",b," :',bolusType)")
     #add trace
-    p <- p %>% add_trace( data = data, x = ~hours, y = ~bolusType, 
+    p <- p %>% add_trace( data = data2, x = ~hours, y = ~bolusType, 
                           type = "scatter", 
                           mode = "markers",
                           marker = list(symbol = sh,

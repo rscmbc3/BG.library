@@ -1,7 +1,8 @@
 timeDayTable<-function(data, tcol, dcol, valueVar, 
                        sumFunc, naRemove = TRUE,
                        includeTotals = TRUE,
-                       numberDays, filterCond = ""){
+                       numberDays, filterCond = "",replaceNAs = FALSE,
+                       timeStep = "hour", period = 1){
   
   #subset for numberDays
   data<-data[data$Date2>=max(data$Date2)-numberDays+1,]
@@ -12,6 +13,12 @@ timeDayTable<-function(data, tcol, dcol, valueVar,
   }
   if(nrow(data)!=0){
   
+    #get unique values
+    NAMES<-c("dateTime",dcol,tcol,valueVar)
+    data<-uniqueDateTime(data, NAMES, replaceNAs = replaceNAs,sumFunc = sumFunc,
+                         timeStep = timeStep, period = period)
+    
+    
   subdata<-data
 
   subdata$time<-eval(parse(text = paste0("data$",tcol)))  
