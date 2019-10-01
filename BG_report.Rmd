@@ -15,7 +15,7 @@ Data import and tables
 #setPaths
 libraryPath<-"F:/BG.library_repos/BG.library/"
 path<-"F:/BG.library_repos/"
-fileName<-"CareLink-Export-1569105272913.csv"
+fileName<-"CareLink-Export-1569716195944.csv"
 numberDays<-5
 
 #load functions
@@ -73,31 +73,31 @@ carbs_timeDaytable<-timeDayTable(allData, tcol = "time2", dcol = "Date2",
                                  numberDays = numberDays, filterCond = "")
 ```
 
-##BG value stats by hour for ```{r, eval=TRUE}numberDays``` days
+##BG value stats by hour
 ```{r, eval=TRUE}
 BGvalue_Summary
 ```
-##Sensor value stats by hour for ```{r, eval=TRUE}numberDays``` days
+##Sensor value stats by hour
 ```{r, eval=TRUE}
 Sensorvalue_Summary
 ```
 
-##BG high>150 count for past ```{r, eval=TRUE}numberDays``` days
+##BG high>150 count
 ```{r, eval=TRUE}
 BGHigh_Count
 ```
 
-##BG very high count for past ```{r, eval=TRUE}numberDays``` days
+##BG very high count
 ```{r, eval=TRUE}
 BGveryHigh_Count
 ```
 
-##BG low count for past ```{r, eval=TRUE}numberDays``` days
+##BG low count
 ```{r, eval=TRUE}
 BGLow_Count
 ```
 
-##BG good value count (>80 and <150) psat ```{r, eval=TRUE}numberDays``` days
+##BG good value count (>80 and <150)
 ```{r, eval=TRUE}
 BGgood_Count
 ```
@@ -107,13 +107,13 @@ BGgood_Count
 tempBasal_count
 ```
 
-##Suspend basal on low count past ```{r, eval=TRUE}numberDays``` days
+##Suspend basal on low count
 ```{r, eval=TRUE}
 suspendBasal_Count
 ```
 
 
-##BG value by time and date with mean values past ```{r, eval=TRUE}numberDays``` days
+##BG value by time and date with mean values
 ```{r, eval=TRUE,fig.width=14, fig.height=10}
 BGvalue_timeDaytable
 #heatmap
@@ -122,7 +122,7 @@ heatMap(BGvalue_timeDaytable, hasTotals = TRUE,
         brewerPallete = "RdBu")
 ```
 
-##Sensor value by time and date with mean values past ```{r, eval=TRUE}numberDays``` days
+##Sensor value by time and date with mean values
 ```{r, eval=TRUE,fig.width=14, fig.height=10}
 Sensorvalue_timeDaytable
 #heatmap
@@ -132,7 +132,7 @@ heatMap(Sensorvalue_timeDaytable, hasTotals = TRUE,
 ```
 
 
-##carb intake max values by time and date paste ```{r, eval=TRUE}numberDays``` days
+##carb intake max values by time and date
 ```{r, eval=TRUE}
 carbs_timeDaytable
 heatMap(carbs_timeDaytable, hasTotals = TRUE,
