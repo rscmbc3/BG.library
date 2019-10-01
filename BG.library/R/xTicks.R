@@ -1,5 +1,11 @@
-xTicks<-function(data, basal, startTime,endTime){
-  xticks<-unique(format(round(as.POSIXct(basal$time,format="%H:%M"),"hours"),"%H:%M"))
+xTicks<-function(data, basal, startTime,endTime,timeStep,period){
+#  xticks<-unique(format(round(as.POSIXct(basal$time,format="%H:%M"),"hours"),"%H:%M"))
+
+  if (timeStep=="hour"){
+    xticks<-seq.POSIXt(as.POSIXct("00:00",format="%H:%M"),as.POSIXct("23:00",format="%H:%M"),by = paste0(period," hour"))
+  xticks<-format(xticks,"%H:%M")
+  }
+  
   data$time3<-as.POSIXlt(data$time2,format="%H:%M")
   data$hours<- data$time3$hour + data$time3$min/60 
   
@@ -15,6 +21,6 @@ xTicks<-function(data, basal, startTime,endTime){
   xticksRange<- xticksRange$hour + xticksRange$min/60
   xticks<-xticks[xticksRange>=startTime & xticksRange<=endTime]
 
-  xticks.list<-named.list(data,xticks,startTime,endTime)
+  xticks.list<-named.list(data,xticks,xticksRange,startTime,endTime)
   return(xticks.list)
   }

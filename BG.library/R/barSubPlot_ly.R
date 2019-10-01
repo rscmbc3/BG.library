@@ -12,6 +12,7 @@ barSubPlot_ly<-function(p, data, barSubPlot = FALSE,ayCarb,
                         numberDays, filterCond = "",
                         startDate = NA, endDate = NA,
                         startTime = "00:00", endTime = "23:00",
+                        timeStep = "hour",period = 1,
                         plotSummary, sumFunc = "length", stackedBar = "",
                         uniqueDT = TRUE,replaceNAs = TRUE,ignoreNAs = FALSE,
                         addBG = TRUE, pointSize = 10,
@@ -44,16 +45,24 @@ barSubPlot_ly<-function(p, data, barSubPlot = FALSE,ayCarb,
         return(p)
     }else{#barplot is main plot
       #subset data by date and filterCond
-      data<-subsetData(data,numberDays,startDate,endDate,filterCond)
+      data<-subsetData(data,numberDays,startDate,endDate,filterCond,timeStep,period)
       #data$time3<-as.POSIXct(round(as.POSIXct(data$time2,format="%H:%M"),"hours"))
       
       #if filtered data exists
       if(nrow(data)!=0){
-      #save data for xticks
+      #get hours as number
       data$hours<- data$hour + data$min/60
-        dataOrig<-data
-       
+      
+
+      #change hours column to time step
+      #data$hour<-setTimeStep(data, timeStep, period)
+
+      
+      #save data for xticks
+      dataOrig<-data
       basalOrig<-basal
+      
+      
       if (stackedBar!="insulin"){
       data$barplot<-eval(parse(text = paste0("data$",plotSummary)))
 
@@ -94,10 +103,12 @@ barSubPlot_ly<-function(p, data, barSubPlot = FALSE,ayCarb,
         basal$time2<-as.POSIXlt(basal$time,format="%H:%M")
         basal$hours<- basal$time2$hour + basal$time2$min/60 
         basal$hour<-basal$time2$hour
+        basal2<-setTimeStep(basal, timeStep, period)
 
         #get on hour values only
-       basal2<-basal[,c("hours","hour","rate")]
-        basal2<-as.data.frame(basal2 %>% group_by(hour) %>% summarise_all(funs(max),na.rm=TRUE))
+       basal2<-basal2[,c("hours","hour","rate")]
+       
+        basal2<-as.data.frame(basal2 %>% group_by(hour) %>% summarise_all(funs(mean),na.rm=TRUE))
 
         data$hours<- data$hour + data$min/60 
         
@@ -134,10 +145,10 @@ barSubPlot_ly<-function(p, data, barSubPlot = FALSE,ayCarb,
       }
       
         #format time in decimal hours
-        xticks.list<-xTicks(data = dataOrig, basal, startTime,endTime)
+        xticks.list<-xTicks(data = dataOrig, basal, startTime,endTime,timeStep,period)
         unPackList(lists = list(xticks.list = xticks.list),
                    parentObj = list(NA)) 
-        
+
         #get yaxis code string
         yaxisStr.list<-makeYaxesBar(addSetting, settingOverlay, percentSetting,barSubPlot,addBG,
                                               initYrange,yTitle)

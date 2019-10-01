@@ -179,6 +179,38 @@ barSubPlot_ly(p = NA, data = allData, barSubPlot = FALSE,ayCarb = NA,
               addBG = FALSE, uniqueDT = TRUE,replaceNAs = FALSE,ignoreNAs = TRUE,
               addSetting = c("basal","corrFactor","carbRatio"),settingOverlay = FALSE,percentSetting = 30,
               legendInset = -0.2)
+#every 3 hours
+barSubPlot_ly(p = NA, data = allData, barSubPlot = FALSE,ayCarb = NA,
+              addBarSub = FALSE,basal,
+              numberDays = 5, filterCond = "",
+              startDate = NA, endDate = NA,
+              period = 3,
+              startTime = "00:00", endTime = "23:00",
+              plotSummary ="BG.Reading..mg.dL.", sumFunc = "length", stackedBar = "BG",
+              addBG = FALSE, uniqueDT = TRUE,replaceNAs = FALSE,ignoreNAs = TRUE,
+              addSetting = "",settingOverlay = FALSE,percentSetting = 30,
+              legendInset = -0.2)
+#stcked insulinevery 3 hours
+barSubPlot_ly(p = NA, data = allData, barSubPlot = FALSE,ayCarb = NA,
+              addBarSub = FALSE,basal,
+              numberDays = 5, filterCond = "",
+              startDate = NA, endDate = NA, period = 3,
+              startTime = "00:00", endTime = "23:00",
+              plotSummary ="", sumFunc = "", stackedBar = "insulin",
+              addBG = FALSE, uniqueDT = TRUE,replaceNAs = TRUE,
+              addSetting = c("basal","corrFactor","carbRatio"),settingOverlay = FALSE,percentSetting = 30,
+              legendInset = -0.2)
+#simple barplot period 3 hours
+barSubPlot_ly(p = NA, data = allData, barSubPlot = FALSE,ayCarb = NA,
+              addBarSub = FALSE,basal,
+              numberDays = 5, filterCond = "",
+              startDate = NA, endDate = NA,
+              startTime = "00:00", endTime = "23:00",period = 3,
+              plotSummary ="Sensor.Glucose..mg.dL.", sumFunc = "mean", stackedBar = "",
+              uniqueDT = TRUE,replaceNAs = FALSE,ignoreNAs = TRUE,
+              addBG = FALSE, 
+              addSetting = c("basal","corrFactor","carbRatio"),settingOverlay = FALSE,percentSetting = 30,
+              legendInset = -0.2)
 
 
 

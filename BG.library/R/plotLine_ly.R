@@ -2,6 +2,7 @@
 plotLine_ly<-function(data,  scatterOnly = FALSE,pointSize = 10,
                       numberDays = NA, startDate = NA, endDate = NA,
                       startTime = "00:00", endTime = "23:00",
+                      timeStep = "hour",period = 1,
                       colorPalleteDaily = "rainbow", 
                       addSensor = TRUE, addBG = TRUE, 
                       addPercentBG = c("low","good","high","very high"),
@@ -14,14 +15,14 @@ plotLine_ly<-function(data,  scatterOnly = FALSE,pointSize = 10,
                       legendInset = -0.2){
   
   #subset data by date and filterCond
-  data<-subsetData(data,numberDays,startDate,endDate,filterCond)
+  data<-subsetData(data,numberDays,startDate,endDate,filterCond,timeStep,period)
   
   #if filtered data exists
   if(nrow(data)!=0){
     
     
     #format time in decimal hours
-    xticks.list<-xTicks(data, basal, startTime,endTime)
+    xticks.list<-xTicks(data, basal, startTime,endTime,timeStep,period)
     unPackList(lists = list(xticks.list = xticks.list),
                parentObj = list(NA)) 
     

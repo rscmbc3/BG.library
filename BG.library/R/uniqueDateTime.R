@@ -26,6 +26,17 @@ uniqueDateTime<-function(data, NAMES, replaceNAs, sumFunc = "mean",
   
   #apply sumString
   data<-eval(parse(text = sumString))
+  data$dateTime<-as.POSIXct(data$dateTime, origin = "1970-01-01")
+
+  data<-prettyTime(data,"dateTime")
+  #regenerate time2, hour, minute based on timeStep and period
+  data<-setTimeStep(data, timeStep, period)
+  
+  data$hours<- data$hour + data$minute/60 
+  data<-data[,NAMES]
+  assign("uniqueData",data,envir = .GlobalEnv)
+  data<-data[,names(data)!="dateTime"]
+  
   
   return(data)
 }

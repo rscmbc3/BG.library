@@ -1,4 +1,4 @@
-subsetData<-function(data,numberDays,startDate,endDate,filterCond){
+subsetData<-function(data,numberDays,startDate,endDate,filterCond,timeStep,period){
   #set date range, numberDays overrules start/endDates
   if (!is.na(numberDays)){
     data<-data[data$Date2>=max(data$Date2)-numberDays+1,]
@@ -19,5 +19,9 @@ subsetData<-function(data,numberDays,startDate,endDate,filterCond){
   if (filterCond!=""){
     data<-eval(parse(text = filterCond))
   }
-   return(data)
+  
+  #regenerate time2, hour, minute based on timeStep and period
+  data<-setTimeStep(data, timeStep, period)
+  
+  return(data)
 }

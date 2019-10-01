@@ -1,7 +1,7 @@
 makeXaxis<-function(addSetting, settingOverlay,xDomain){
 
  xAxis<- paste("xaxis  = list(tickmode = 'array',
-               tickvals = seq(startTime,endTime,1),
+               tickvals = xticksRange,
                ticks = 'outside',
                ticktext = xticks,
                tick0 = xticks[1],",
