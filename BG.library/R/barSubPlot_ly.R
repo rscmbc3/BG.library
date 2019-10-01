@@ -19,14 +19,23 @@ barSubPlot_ly<-function(p, data, barSubPlot = FALSE,ayCarb,
                         legendInset = -0.2){
   if (barSubPlot & addBarSub){#barplot is not main plot and add subplot
     
+    #only look at pump data
+    data<-data[is.na(data$Sensor.Glucose..mg.dL.),]
+    
     #format data
-      data<-data[,names(data) %in% c("hours","BWZ.Carb.Input..grams.")]
-      data$hours<-round(data$hours)
-      data$BWZ.Carb.Input..grams.<-as.numeric(ifelse(data$BWZ.Carb.Input..grams.==0,NA,data$BWZ.Carb.Input..grams.))
-      data<-as.data.frame(data %>% group_by(hours) %>% summarise_all(funs(mean),na.rm = TRUE))
+    NAMES<-c("dateTime","Date2","hours","hour","BWZ.Carb.Input..grams.")
+    data<-uniqueDateTime(data, NAMES, replaceNAs = TRUE,timeStep = timeStep, period = period)
+    
+      data<-data[,names(data) %in% c("hour","BWZ.Carb.Input..grams.")]
+      #data$hours<-round(data$hours)
+      
+      
+      
+      #data$BWZ.Carb.Input..grams.<-as.numeric(ifelse(data$BWZ.Carb.Input..grams.==0,NA,data$BWZ.Carb.Input..grams.))
+      data<-as.data.frame(data %>% group_by(hour) %>% summarise_all(funs(mean),na.rm = TRUE))
 
       #create plot
-      p <- p %>% add_bars(data = data, x = ~hours, y = ~BWZ.Carb.Input..grams., 
+      p <- p %>% add_bars(data = data, x = ~hour, y = ~BWZ.Carb.Input..grams., 
                           name = "mean BWZ.Carb.Input..grams.",
                           yaxis = "y6")
 
@@ -48,20 +57,21 @@ barSubPlot_ly<-function(p, data, barSubPlot = FALSE,ayCarb,
       if (stackedBar!="insulin"){
       data$barplot<-eval(parse(text = paste0("data$",plotSummary)))
 
-
-      #get uniques
-      if (stackedBar=="" & uniqueDT){
-        NAMES<-c("Date2","hours","hour","barplot")
-        data<-uniqueDateTime(data, NAMES, replaceNAs)
-      }
-
-      data<-data[c("hour","barplot")]
-      
-
       #ignoreNAs
      if (ignoreNAs){
         data<-data[!is.na(data$barplot),]
+     }
+      
+      #get uniques
+      #if (stackedBar=="" & uniqueDT){
+      if (uniqueDT){
+        NAMES<-c("dateTime","Date2","hours","hour","barplot")
+        data<-uniqueDateTime(data, NAMES, replaceNAs,timeStep = timeStep, period = period)
       }
+
+      data<-data[c("hour","barplot")]
+
+
       
       #set initial y axis range
       if(plotSummary %in% c("BG.Reading..mg.dL.","Sensor.Glucose..mg.dL.") & sumFunc!="length"){
@@ -95,10 +105,10 @@ barSubPlot_ly<-function(p, data, barSubPlot = FALSE,ayCarb,
         data<-data[is.na(data$Sensor.Glucose..mg.dL.),]
        
         #get unique values (max) per Date2 and hours
-        NAMES<-c("Date2","hours","hour","BWZ.Food.Estimate..U.","BWZ.Correction.Estimate..U.")
-        data<-uniqueDateTime(data, NAMES, replaceNAs = TRUE)
+        NAMES<-c("dateTime","Date2","hours","hour","BWZ.Food.Estimate..U.","BWZ.Correction.Estimate..U.")
+        data<-uniqueDateTime(data, NAMES, replaceNAs = TRUE,timeStep = timeStep, period = period)
         
-        
+
         #merge with basal
         data<-merge(data, basal2, by = "hour", all = TRUE)
         data<-data[c("hour","BWZ.Food.Estimate..U.","BWZ.Correction.Estimate..U.","rate")]
@@ -139,7 +149,7 @@ barSubPlot_ly<-function(p, data, barSubPlot = FALSE,ayCarb,
         
         #get xAxis str
         xaxisStr<-makeXaxis(addSetting, settingOverlay,xDomain)
-        
+
         #make title str
         titleStr<-paste0(min(data$Date2)," -to- ",max(data$Date2))
         
