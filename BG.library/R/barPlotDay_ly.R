@@ -58,6 +58,7 @@ barPlotDay_ly<-function(data,basal,barSubPlot,
       basal$time2<-as.POSIXlt(basal$time,format="%H:%M")
       basal$hours<- basal$time2$hour + basal$time2$min/60 
       basal$hour<-basal$time2$hour
+      basal<-basal[,names(basal)!="time2"]
       basal$Date2<-as.Date(rep(NA,nrow(basal)))
       basalDate<-basal[0,]
       
@@ -65,7 +66,8 @@ barPlotDay_ly<-function(data,basal,barSubPlot,
       days<-as.Date(xticks,format = "%Y-%m-%d")
       
       for (d in names(basal)[!names(basal) %in% c("Date2","rate","time2","time","hours","hour")]){
-        basalsubDate<-basal
+        basalsubDate<-basal[,names(basal)!="Date2"]
+        basalsubDate<-as.data.frame(basalsubDate %>% group_by(hour) %>% summarise_all(funs(mean),na.rm=TRUE))
         dateStr<-gsub("X","",d)
         dateStr<-gsub("\\.","-",dateStr)
         
@@ -98,8 +100,8 @@ barPlotDay_ly<-function(data,basal,barSubPlot,
       #get unique values (max) per Date2 and hours
       #NAMES<-c("dateTime","Date2","hours","hour","BWZ.Food.Estimate..U.","BWZ.Correction.Estimate..U.")
       NAMES<-c("dateTime","Date2","BWZ.Food.Estimate..U.","BWZ.Correction.Estimate..U.")
-      data<-uniqueDateTime(data, NAMES, replaceNAs = TRUE,timeStep = timeStep, period = period)
-      
+      data<-uniqueDateTime(data, NAMES, replaceNAs = TRUE,timeStep = timeStep, period = period, sumFunc = "max")
+
        #summarize by sum
       data<-as.data.frame(data %>% group_by(Date2) %>% summarise_all(funs(sum),na.rm=TRUE))
 
@@ -124,6 +126,7 @@ barPlotDay_ly<-function(data,basal,barSubPlot,
       yTitle<-"Insulin Units Delivered"
       
       dataFormat<-data
+
     }#end data setup for stacked insulin
     
     #format time in decimal hours

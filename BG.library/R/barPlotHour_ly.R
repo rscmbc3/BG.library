@@ -76,7 +76,7 @@ barPlotHour_ly<-function(data,basal,barSubPlot,
       
       #get unique values (max) per Date2 and hours
       NAMES<-c("dateTime","Date2","hours","hour","BWZ.Food.Estimate..U.","BWZ.Correction.Estimate..U.")
-      data<-uniqueDateTime(data, NAMES, replaceNAs = TRUE,timeStep = timeStep, period = period)
+      data<-uniqueDateTime(data, NAMES, replaceNAs = TRUE,timeStep = timeStep, period = period,sumFunc = "max")
       
       #summarize by mean
       data<-as.data.frame(data %>% group_by(hour) %>% summarise_all(funs(mean),na.rm=TRUE))
