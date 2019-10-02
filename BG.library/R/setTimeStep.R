@@ -20,6 +20,23 @@ setTimeStep<-function(data, timeStep, period){
     data$minute<-minute(data$time2)
     data$time2<-format(data$time2,"%H:%M")
     data<-data[,regexpr("timeNew",names(data))<0]
-  }
+  }else if (timeStep=="day"){
+    seqDate<-seq.Date(from = min(data$Date2),to = max(data$Date2),by=paste0(period," day"))
+    data$dateNew<-data$Date2
+    data$dateNew2<-as.Date(rep(NA,nrow(data)),origin = "1970-01-01")
+    for (s in 2:length(seqDate)){
+      if (s==1){
+        data<-transform(data, dateNew2 = ifelse(is.na(data$dateNew2) & dateNew<=seqDate[s],seqDate[s],dateNew2))
+      }else{
+        data<-transform(data, dateNew2 = ifelse(is.na(data$dateNew2) & dateNew<seqDate[s] & dateNew>=seqDate[s-1],seqDate[s-1],dateNew2))
+      }
+    }
+    #add last in sequence
+    data<-transform(data, dateNew2 = ifelse(is.na(data$dateNew2) & dateNew>=seqDate[length(seqDate)],seqDate[length(seqDate)],dateNew2))
+
+    #replace core columns
+    data$Date2<-as.Date(data$dateNew2, format = "%Y-%m-%d", origin = "1970-01-01")
+    data<-data[,regexpr("dateNew",names(data))<0]
+  }#end if timestep date
   return(data)
 }

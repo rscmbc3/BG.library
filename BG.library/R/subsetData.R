@@ -20,7 +20,7 @@ subsetData<-function(data,numberDays,startDate,endDate,filterCond,timeStep,perio
     data<-eval(parse(text = filterCond))
   }
   
-  #regenerate time2, hour, minute based on timeStep and period
+  #regenerate new time/date columns based on timeStep and period
   data<-setTimeStep(data, timeStep, period)
   
   return(data)

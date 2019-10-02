@@ -25,15 +25,25 @@ barPlot_ly<-function(p, data, barSubPlot = FALSE,ayCarb,
     
   }else if (timeStep=="hour"){#barplot is main plot timestep hour
     p <- barPlotHour_ly(data,basal,barSubPlot,
-                             numberDays, filterCond,
-                             startDate, endDate,
-                             startTime, endTime,
-                             timeStep,period,
-                             plotSummary, sumFunc, stackedBar,
-                             uniqueDT,replaceNAs,ignoreNAs,
-                             addBG, pointSize,
-                             addSetting,settingOverlay,percentSetting,
-                             legendInset)
+                        numberDays, filterCond,
+                        startDate, endDate,
+                        startTime, endTime,
+                        timeStep,period,
+                        plotSummary, sumFunc, stackedBar,
+                        uniqueDT,replaceNAs,ignoreNAs,
+                        addBG, pointSize,
+                        addSetting,settingOverlay,percentSetting,
+                        legendInset)
       p
-  }#end barplot is main plot
+  }else if (timeStep=="day"){#barplot is main plot timestep day
+    p <- barPlotDay_ly(data,basal,barSubPlot,
+                            numberDays, filterCond,
+                            startDate, endDate,
+                            startTime, endTime,
+                            timeStep,period,
+                            plotSummary, sumFunc, stackedBar,
+                            uniqueDT,replaceNAs,ignoreNAs,
+                            legendInset)
+      p
+    }
 }#end function

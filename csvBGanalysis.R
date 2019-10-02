@@ -228,7 +228,47 @@ barPlot_ly(p = NA, data = allData, barSubPlot = FALSE,ayCarb = NA,
               addBG = FALSE, 
               addSetting = c("basal","corrFactor","carbRatio"),settingOverlay = FALSE,percentSetting = 30,
               legendInset = -0.2)
-
+#simple barplot timeStep day
+barPlot_ly(p = NA, data = allData, barSubPlot = FALSE,ayCarb = NA,
+           addBarSub = FALSE,basal,
+           numberDays = 5, filterCond = "",
+           startDate = NA, endDate = NA,
+           startTime = "00:00", endTime = "23:00",period = 1,timeStep = "day",
+           plotSummary ="Sensor.Glucose..mg.dL.", sumFunc = "mean", stackedBar = "",
+           uniqueDT = TRUE,replaceNAs = FALSE,ignoreNAs = TRUE,
+           addBG = FALSE, 
+           addSetting = c("basal","corrFactor","carbRatio"),settingOverlay = FALSE,percentSetting = 30,
+           legendInset = -0.2)
+#stcked insulinevery timeStep day
+barPlot_ly(p = NA, data = allData, barSubPlot = FALSE,ayCarb = NA,
+           addBarSub = FALSE,basal,
+           numberDays = 5, filterCond = "",
+           startDate = NA, endDate = NA, period = 1,timeStep = "day",
+           startTime = "00:00", endTime = "23:00",
+           plotSummary ="", sumFunc = "", stackedBar = "insulin",
+           addBG = FALSE, uniqueDT = TRUE,replaceNAs = TRUE,
+           addSetting = c("basal","corrFactor","carbRatio"),settingOverlay = FALSE,percentSetting = 30,
+           legendInset = -0.2)
+#stcked BG timestep day
+barPlot_ly(p = NA, data = allData, barSubPlot = FALSE,ayCarb = NA,
+           addBarSub = FALSE,basal,
+           numberDays = 5, filterCond = "",
+           startDate = NA, endDate = NA,
+           startTime = "00:00", endTime = "23:00",timeStep = "day",
+           plotSummary ="BG.Reading..mg.dL.", sumFunc = "length", stackedBar = "BG",
+           addBG = FALSE, uniqueDT = TRUE,replaceNAs = FALSE,ignoreNAs = TRUE,
+           addSetting = c("basal","corrFactor","carbRatio"),settingOverlay = FALSE,percentSetting = 30,
+           legendInset = -0.2)
+#stcked SG timestep day
+barPlot_ly(p = NA, data = allData, barSubPlot = FALSE,ayCarb = NA,
+           addBarSub = FALSE,basal,
+           numberDays = 5, filterCond = "",
+           startDate = NA, endDate = NA,
+           startTime = "00:00", endTime = "23:00",timeStep = "day",
+           plotSummary ="Sensor.Glucose..mg.dL.", sumFunc = "length", stackedBar = "BG",
+           addBG = FALSE, uniqueDT = TRUE,replaceNAs = FALSE,ignoreNAs = TRUE,
+           addSetting = c("basal","corrFactor","carbRatio"),settingOverlay = FALSE,percentSetting = 30,
+           legendInset = -0.2)
 
 
 #plot settings
