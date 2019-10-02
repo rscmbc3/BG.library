@@ -1,4 +1,4 @@
-#'@title barSubPlot_ly
+#'@title barPlot_ly
 #'@description Add subplot of mean carb intake per hour as barplot  \\cr \\cr
 #'@param data data.frame with BG values in BG.Reading..mg.dL.
 #'@param p current plot_ly plot
@@ -7,7 +7,7 @@
 #'@return `p` plot_ly interactive plot
 
 
-barSubPlot_ly<-function(p, data, barSubPlot = FALSE,ayCarb,
+barPlot_ly<-function(p, data, barSubPlot = FALSE,ayCarb,
                         addBarSub,basal,
                         numberDays, filterCond = "",
                         startDate = NA, endDate = NA,

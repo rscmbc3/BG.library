@@ -88,7 +88,7 @@ plotLine_ly<-function(data,  scatterOnly = FALSE,pointSize = 10,
     p<-addPercentBG_ly(data,p,addPercentBG,addPercentType)
     
     #add addBarSub of carb intake
-    p<-barSubPlot_ly(p, data, barSubPlot,ay.list$ayCarb,
+    p<-barPlot_ly(p, data, barSubPlot,ay.list$ayCarb,
                      addBarSub,
                      numberDays, filterCond,
                      startDate, endDate,

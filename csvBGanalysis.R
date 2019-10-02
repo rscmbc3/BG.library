@@ -119,7 +119,7 @@ plotLine_ly(allData,  scatterOnly = FALSE, pointSize = 10,
             legendInset = -0.2)
 
 #barplot simple
-barSubPlot_ly(p = NA, data = allData, barSubPlot = FALSE,ayCarb = NA,
+barPlot_ly(p = NA, data = allData, barSubPlot = FALSE,ayCarb = NA,
                         addBarSub = FALSE,basal,
                         numberDays = 5, filterCond = "",
                         startDate = NA, endDate = NA,
@@ -129,7 +129,7 @@ barSubPlot_ly(p = NA, data = allData, barSubPlot = FALSE,ayCarb = NA,
                         addSetting = "",settingOverlay = FALSE,percentSetting = 30,
                         legendInset = -0.2)
 #simple with setting subplot
-barSubPlot_ly(p = NA, data = allData, barSubPlot = FALSE,ayCarb = NA,
+barPlot_ly(p = NA, data = allData, barSubPlot = FALSE,ayCarb = NA,
               addBarSub = FALSE,basal,
               numberDays = 5, filterCond = "",
               startDate = NA, endDate = NA,
@@ -140,7 +140,7 @@ barSubPlot_ly(p = NA, data = allData, barSubPlot = FALSE,ayCarb = NA,
               addSetting = c("basal","corrFactor","carbRatio"),settingOverlay = FALSE,percentSetting = 30,
               legendInset = -0.2)
 #simple with setting subplot, filtered to high values
-barSubPlot_ly(p = NA, data = allData, barSubPlot = FALSE,ayCarb = NA,
+barPlot_ly(p = NA, data = allData, barSubPlot = FALSE,ayCarb = NA,
               addBarSub = FALSE,basal,
               numberDays = 5, filterCond = "data[data$BG.Reading..mg.dL.>150 & !is.na(data$BG.Reading..mg.dL.),]",
               startDate = NA, endDate = NA,
@@ -150,7 +150,7 @@ barSubPlot_ly(p = NA, data = allData, barSubPlot = FALSE,ayCarb = NA,
               addSetting = c("basal","corrFactor","carbRatio"),settingOverlay = FALSE,percentSetting = 30,
               legendInset = -0.2)
 #simple with setting subplot, filtered to low values
-barSubPlot_ly(p = NA, data = allData, barSubPlot = FALSE,ayCarb = NA,
+barPlot_ly(p = NA, data = allData, barSubPlot = FALSE,ayCarb = NA,
               addBarSub = FALSE,basal,
               numberDays = 5, filterCond = "data[data$BG.Reading..mg.dL.<80 & !is.na(data$BG.Reading..mg.dL.),]",
               startDate = NA, endDate = NA,
@@ -160,7 +160,7 @@ barSubPlot_ly(p = NA, data = allData, barSubPlot = FALSE,ayCarb = NA,
               addSetting = c("basal","corrFactor","carbRatio"),settingOverlay = FALSE,percentSetting = 30,
               legendInset = -0.2)
 #stcked insulin
-barSubPlot_ly(p = NA, data = allData, barSubPlot = FALSE,ayCarb = NA,
+barPlot_ly(p = NA, data = allData, barSubPlot = FALSE,ayCarb = NA,
               addBarSub = FALSE,basal,
               numberDays = 5, filterCond = "",
               startDate = NA, endDate = NA,
@@ -170,7 +170,7 @@ barSubPlot_ly(p = NA, data = allData, barSubPlot = FALSE,ayCarb = NA,
               addSetting = c("basal","corrFactor","carbRatio"),settingOverlay = FALSE,percentSetting = 30,
               legendInset = -0.2)
 #stcked BG
-barSubPlot_ly(p = NA, data = allData, barSubPlot = FALSE,ayCarb = NA,
+barPlot_ly(p = NA, data = allData, barSubPlot = FALSE,ayCarb = NA,
               addBarSub = FALSE,basal,
               numberDays = 5, filterCond = "",
               startDate = NA, endDate = NA,
@@ -180,7 +180,7 @@ barSubPlot_ly(p = NA, data = allData, barSubPlot = FALSE,ayCarb = NA,
               addSetting = c("basal","corrFactor","carbRatio"),settingOverlay = FALSE,percentSetting = 30,
               legendInset = -0.2)
 #every 3 hours
-barSubPlot_ly(p = NA, data = allData, barSubPlot = FALSE,ayCarb = NA,
+barPlot_ly(p = NA, data = allData, barSubPlot = FALSE,ayCarb = NA,
               addBarSub = FALSE,basal,
               numberDays = 5, filterCond = "",
               startDate = NA, endDate = NA,
@@ -191,7 +191,7 @@ barSubPlot_ly(p = NA, data = allData, barSubPlot = FALSE,ayCarb = NA,
               addSetting = "",settingOverlay = FALSE,percentSetting = 30,
               legendInset = -0.2)
 #stcked insulinevery 3 hours
-barSubPlot_ly(p = NA, data = allData, barSubPlot = FALSE,ayCarb = NA,
+barPlot_ly(p = NA, data = allData, barSubPlot = FALSE,ayCarb = NA,
               addBarSub = FALSE,basal,
               numberDays = 5, filterCond = "",
               startDate = NA, endDate = NA, period = 3,
@@ -201,7 +201,7 @@ barSubPlot_ly(p = NA, data = allData, barSubPlot = FALSE,ayCarb = NA,
               addSetting = c("basal","corrFactor","carbRatio"),settingOverlay = FALSE,percentSetting = 30,
               legendInset = -0.2)
 #simple barplot period 3 hours
-barSubPlot_ly(p = NA, data = allData, barSubPlot = FALSE,ayCarb = NA,
+barPlot_ly(p = NA, data = allData, barSubPlot = FALSE,ayCarb = NA,
               addBarSub = FALSE,basal,
               numberDays = 5, filterCond = "",
               startDate = NA, endDate = NA,
