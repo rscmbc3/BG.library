@@ -18,6 +18,12 @@ unPackList(lists = list(dataImport.list = dataImport.list),
 
 #summarize data
 BGvalue_Summary<-summarizeData(allData, colName = "BG.Reading..mg.dL.", numberDays = 7)
+BGpercent_Summary<-addPercentBG_ly(allData, p = NA,addPercentBG = c("very high","high","good","low"),
+                                   addPercentType = "BG.Reading..mg.dL.",outputType = "table",
+                                   numberDays = 5)
+SGpercent_Summary<-addPercentBG_ly(allData, p = NA,addPercentBG = c("very high","high","good","low"),
+                                   addPercentType = "Sensor.Glucose..mg.dL.",outputType = "table",
+                                   numberDays = 5)
 BGHigh_Count<-summarizeData(allData, colName = "BG.Reading..mg.dL.", numberDays = 7,
                             sumFuncs = "length",
                             filterCond = "data[data$BG.Reading..mg.dL.>150 & !is.na(data$BG.Reading..mg.dL.),]")
@@ -77,6 +83,17 @@ plotLine_ly(allData,  scatterOnly = FALSE, pointSize = 10,
             plotSummary = "Sensor.Glucose..mg.dL.",
             addSetting =c("basal","carbRatio","corrFactor"),
             addBarSub = FALSE,addPercentType = "Sensor.Glucose..mg.dL.",
+            filterCond = "",
+            legendInset = -0.2)
+plotLine_ly(allData,  scatterOnly = FALSE, pointSize = 10,
+            numberDays = 5, startDate = "2019-09-08", endDate = "2019-09-08",
+            startTime = "00:00", endTime = "23:00",
+            colorPalleteDaily = "rainbow", 
+            addSensor = FALSE, addBG = TRUE, settingOverlay = FALSE,
+            addBolusType = "",        
+            plotSummary = "Sensor.Glucose..mg.dL.",
+            addSetting =c("basal","carbRatio","corrFactor"),
+            addBarSub = FALSE,addPercentType = "BG.Reading..mg.dL.",
             filterCond = "",
             legendInset = -0.2)
 #same as previous with percent BG not percent SG

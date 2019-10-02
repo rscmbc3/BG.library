@@ -1,6 +1,12 @@
-addPercentBG_ly<-function(data, p,addPercentBG,addPercentType){
+addPercentBG_ly<-function(data, p,addPercentBG,addPercentType,outputType = "plot_ly",
+                          numberDays = NA, filterCond = "",
+                          startDate = NA,endDate = NA,
+                          timeStep = "hour",period = 1){
   if (addPercentBG[1]!=""){
-    
+    if (outputType != "plot_ly"){
+    #subset data by date and filterCond
+    data<-subsetData(data,numberDays,startDate,endDate,filterCond,timeStep,period)
+    }
 
     if (addPercentType=="BG.Reading..mg.dL."){
      data<-data[!is.na(data$BG.Reading..mg.dL.),] 
@@ -18,6 +24,7 @@ addPercentBG_ly<-function(data, p,addPercentBG,addPercentType){
     
     yPos<-numeric(0)
     percentStr<-character(0)
+    allPercent<-numeric(0)
     for (j in addPercentBG) {
       if (length(grep("very high",addPercentBG))!=0 | length(grep("high",addPercentBG))==0){
         subsetStr<-ifelse(j=="low","<80",
@@ -49,6 +56,7 @@ addPercentBG_ly<-function(data, p,addPercentBG,addPercentType){
       subsetValues<-eval(parse(text = subsetStr))
       
       percent<-round(length(subsetValues)/nrow(data)*100)
+      allPercent<-c(allPercent,percent)
       
       rangeStr<-paste0(percent,"% ",rangeStr)
       percentStr<-c(percentStr,rangeStr)
@@ -60,8 +68,24 @@ addPercentBG_ly<-function(data, p,addPercentBG,addPercentType){
     #get positional data
     posData<-data.frame(x = rep(17,length(addPercentBG)), y = yPos, percentStr = percentStr)
     
+    if (outputType == "plot_ly"){
     p <- p %>% add_text(data = posData, x = ~x, y = ~y, text = ~percentStr, 
                         textposition = "right",hoverinfo='skip', showlegend = FALSE)
+}else{#output table
+  if (addPercentType=="BG.Reading..mg.dL."){
+    percentOut<-data.frame(BGtype = addPercentBG, percent = allPercent)
+  }else{
+    percentOut<-data.frame(SGtype = addPercentBG, percent = allPercent)
+    
+  }
+}
+    
   }#if addPercentBG
+  
+  if (outputType == "plot_ly"){
   return(p)
+  }else{
+    return(percentOut)
+  }
+    
 }#end func
