@@ -19,6 +19,9 @@ summaryPlot_ly<-function(p, data, barSubPlot = FALSE,ayCarb,
                      addBG = TRUE, pointSize = 10,
                      addSetting = "",settingOverlay = FALSE,percentSetting = 30,
                      legendInset = -0.2){
+  #get basal
+  basal<-makePumpSettings(libraryPath)$basal
+  
   if (barSubPlot){#barplot is not main plot and add subplot
     
     p <- barSubPlot_ly(data, p, addBarSub,timeStep, period)

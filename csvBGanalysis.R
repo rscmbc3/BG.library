@@ -128,7 +128,7 @@ summaryPlot_ly(p = NA, data = allData, barSubPlot = FALSE,ayCarb = NA,
 
 #simple barplot period 3 hours
 summaryPlot_ly(p = NA, data = allData, barSubPlot = FALSE,ayCarb = NA,
-              addBarSub = FALSE,basal,
+              addBarSub = FALSE,
               numberDays = 5, filterCond = "",
               startDate = NA, endDate = NA,
               startTime = "00:00", endTime = "23:00",period = 3,
@@ -139,7 +139,7 @@ summaryPlot_ly(p = NA, data = allData, barSubPlot = FALSE,ayCarb = NA,
               legendInset = -0.2)
 #simple barplot timeStep day
 summaryPlot_ly(p = NA, data = allData, barSubPlot = FALSE,ayCarb = NA,
-           addBarSub = FALSE,basal,
+           addBarSub = FALSE,
            numberDays = 5, filterCond = "",
            startDate = NA, endDate = NA,
            startTime = "00:00", endTime = "23:00",period = 1,timeStep = "day",
@@ -168,7 +168,7 @@ summaryPlot_ly(p = NA, data = allData, barSubPlot = FALSE,ayCarb = NA,
                addSetting = "",settingOverlay = FALSE,percentSetting = 30,
                legendInset = -0.2)
 summaryPlot_ly(p = NA, data = allData, barSubPlot = FALSE,ayCarb = NA,
-               addBarSub = FALSE,basal,plotType = "box",
+               addBarSub = FALSE,plotType = "box",
                numberDays = 5, filterCond = "",
                startDate = NA, endDate = NA,
                startTime = "00:00", endTime = "23:00",timeStep = "day",
