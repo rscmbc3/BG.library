@@ -308,7 +308,43 @@ summaryPlot_ly(p = NA, data = allData, barSubPlot = FALSE,ayCarb = NA,
                addBG = FALSE, uniqueDT = TRUE,replaceNAs = TRUE,ignoreNAs = TRUE,
                addSetting = c("basal","corrFactor","carbRatio"),settingOverlay = FALSE,percentSetting = 30,
                legendInset = -0.2)
-
+#3hour boxplots
+summaryPlot_ly(p = NA, data = allData, barSubPlot = FALSE,ayCarb = NA,
+               addBarSub = FALSE,basal,plotType = "box",
+               numberDays = 5, filterCond = "",
+               startDate = NA, endDate = NA,
+               startTime = "00:00", endTime = "23:00",period = 3,
+               plotSummary ="Sensor.Glucose..mg.dL.", sumFunc = "", stackedBar = "",
+               addBG = FALSE, uniqueDT = TRUE,replaceNAs = FALSE,ignoreNAs = TRUE,
+               addSetting = c("basal","corrFactor","carbRatio"),settingOverlay = FALSE,percentSetting = 30,
+               legendInset = -0.2)
+summaryPlot_ly(p = NA, data = allData, barSubPlot = FALSE,ayCarb = NA,
+               addBarSub = FALSE,basal,plotType = "box",
+               numberDays = 5, filterCond = "",
+               startDate = NA, endDate = NA,
+               startTime = "00:00", endTime = "23:00",period = 3,
+               plotSummary ="BG.Reading..mg.dL.", sumFunc = "", stackedBar = "",
+               addBG = FALSE, uniqueDT = TRUE,replaceNAs = FALSE,ignoreNAs = TRUE,
+               addSetting = c("basal","corrFactor","carbRatio"),settingOverlay = FALSE,percentSetting = 30,
+               legendInset = -0.2)
+summaryPlot_ly(p = NA, data = allData, barSubPlot = FALSE,ayCarb = NA,
+               addBarSub = FALSE,basal,plotType = "box",
+               numberDays = 5, filterCond = "",
+               startDate = NA, endDate = NA,
+               startTime = "00:00", endTime = "23:00",period = 3,
+               plotSummary ="BWZ.Correction.Estimate..U.", sumFunc = "", stackedBar = "",
+               addBG = FALSE, uniqueDT = TRUE,replaceNAs = TRUE,ignoreNAs = TRUE,
+               addSetting = c("basal","corrFactor","carbRatio"),settingOverlay = FALSE,percentSetting = 30,
+               legendInset = -0.2)
+summaryPlot_ly(p = NA, data = allData, barSubPlot = FALSE,ayCarb = NA,
+               addBarSub = FALSE,basal,plotType = "box",
+               numberDays = 5, filterCond = "",
+               startDate = NA, endDate = NA,
+               startTime = "00:00", endTime = "23:00",period = 3,
+               plotSummary ="BWZ.Food.Estimate..U.", sumFunc = "", stackedBar = "",
+               addBG = FALSE, uniqueDT = TRUE,replaceNAs = TRUE,ignoreNAs = TRUE,
+               addSetting = c("basal","corrFactor","carbRatio"),settingOverlay = FALSE,percentSetting = 30,
+               legendInset = -0.2)
 
 #plot settings
 #all plots
