@@ -1,40 +1,49 @@
-summaryPlot_ly<-function(data, plotSummary, p){
-  
-  
-  sumdata<-data[c("time2",plotSummary)]
-  sumdata$time3<-as.POSIXct(round(as.POSIXct(sumdata$time2,format="%H:%M"),"hours"))
-  sumdata<-sumdata[c("time3",plotSummary)]
-  sumdata<-as.data.frame(sumdata %>% group_by(time3) %>% summarise_all(funs(min, mean, max),na.rm = TRUE))
-  
-  sumdata$time3<-as.POSIXlt(sumdata$time3,format="%H:%M")
-  sumdata$hours<- sumdata$time3$hour + sumdata$time3$min/60 
-  
-  p <- p %>% add_trace(data=sumdata, 
-                       x=~hours, y=~min, mode='lines',
-                       type="scatter", color=I("gray"), 
-                       hoverinfo = 'text',
-                       text = ~paste(
-                                     '</br> Time: ',format(time3,"%H:%M"),
-                                     paste0("'</br> ",plotSummary," min value : '"),min),
-                       name = paste0("min_",plotSummary))
-  p <- p %>% add_trace(data=sumdata, 
-                       x=~hours, y=~mean, mode='lines',
-                       type="scatter", color=I("black"), 
-                       hoverinfo = 'text',
-                       text = ~paste(
-                         '</br> Time: ',format(time3,"%H:%M"),
-                         paste0("'</br> ",plotSummary," mean value : '"),round(mean)),
-                       name = paste0("mean_",plotSummary))
-  p <- p %>% add_trace(data=sumdata, 
-                       x=~hours, y=~max, mode='lines',
-                       type="scatter", color=I("gray"), 
-                       hoverinfo = 'text',
-                       text = ~paste(
-                         '</br> Time: ',format(time3,"%H:%M"),
-                         paste0("'</br> ",plotSummary," max value : '"),max),
-                       name = paste0("max_",plotSummary))
-  return(p)
-  
-  
+#'@title summaryPlot_ly
+#'@description generate bar and box summary plots and carb subbarplot  \\cr \\cr
+#'@param data data.frame with BG values in BG.Reading..mg.dL.
+#'@param p current plot_ly plot
+#'@param barSubPlot TRUE/FALSE whether subplot should be added to main plot
+#'@param ayCarb list of y axis specifications for carb barplot
+#'@return `p` plot_ly interactive plot
+
+
+summaryPlot_ly<-function(p, data, barSubPlot = FALSE,ayCarb,
+                     addBarSub,basal,plotType = "bar",
+                     numberDays, filterCond = "",
+                     startDate = NA, endDate = NA,
+                     startTime = "00:00", endTime = "23:00",
+                     timeStep = "hour",period = 1,
+                     plotSummary, sumFunc = "length", stackedBar = "",
+                     uniqueDT = TRUE,replaceNAs = TRUE,ignoreNAs = FALSE,
+                     addBG = TRUE, pointSize = 10,
+                     addSetting = "",settingOverlay = FALSE,percentSetting = 30,
+                     legendInset = -0.2){
+  if (barSubPlot){#barplot is not main plot and add subplot
+    
+    p <- barSubPlot_ly(data, p, addBarSub,timeStep, period)
+    return(p)
+    
+  }else if (timeStep=="hour"){#barplot is main plot timestep hour
+    p <- summaryPlotHour_ly(data,basal,barSubPlot,plotType,
+                        numberDays, filterCond,
+                        startDate, endDate,
+                        startTime, endTime,
+                        timeStep,period,
+                        plotSummary, sumFunc, stackedBar,
+                        uniqueDT,replaceNAs,ignoreNAs,
+                        addBG, pointSize,
+                        addSetting,settingOverlay,percentSetting,
+                        legendInset)
+      p
+  }else if (timeStep=="day"){#barplot is main plot timestep day
+    p <- summaryPlotDay_ly(data,basal,barSubPlot,plotType,
+                            numberDays, filterCond,
+                            startDate, endDate,
+                            startTime, endTime,
+                            timeStep,period,
+                            plotSummary, sumFunc, stackedBar,
+                            uniqueDT,replaceNAs,ignoreNAs,
+                            legendInset)
+      p
+    }
 }#end function
-  

@@ -70,7 +70,7 @@ plotLine_ly<-function(data,  scatterOnly = FALSE,pointSize = 10,
       
       
     }else if (!scatterOnly){#min, max, mean #if daily sensor
-      p<-summaryPlot_ly(data, plotSummary, p)
+      p<-summaryLinePlot_ly(data, plotSummary, p)
     }
     
     #add bG values
@@ -88,7 +88,7 @@ plotLine_ly<-function(data,  scatterOnly = FALSE,pointSize = 10,
     p<-addPercentBG_ly(data,p,addPercentBG,addPercentType)
     
     #add addBarSub of carb intake
-    p<-barPlot_ly(p, data, barSubPlot,ay.list$ayCarb,
+    p<-summaryPlot_ly(p, data, barSubPlot,ay.list$ayCarb,
                      addBarSub,
                      numberDays, filterCond,
                      startDate, endDate,

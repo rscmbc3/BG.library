@@ -1,4 +1,4 @@
-#'@title makeYaxesBar
+#'@title makeYaxesSummary
 #'@description Set up y axes for barplot as main plot \\cr \\cr
 #'@param addSetting character vector of settings to plot c("basal,"corrFactor","carbRatio")
 #'@param settingOverlay TRUE/FALSE whether or not settings overlay main plot
@@ -8,7 +8,7 @@
 #'@return `yaxisStr.list` named.list(yaxisStr,ay.list, xDomain)
 
 
-makeYaxesBar<-function(addSetting, settingOverlay, percentSetting,barSubPlot,addBG,
+makeYaxesSummary<-function(addSetting, settingOverlay, percentSetting,barSubPlot,addBG,
                        initYrange,yTitle){
   
   #set yDomain

@@ -311,7 +311,7 @@ plotLine_ly(allData,  scatterOnly = FALSE, pointSize = 10,
 
 ###simple with setting subplot, filtered to high values
 ```{r, eval=TRUE}
-barPlot_ly(p = NA, data = allData, barSubPlot = FALSE,ayCarb = NA,
+summaryPlot_ly(p = NA, data = allData, barSubPlot = FALSE,ayCarb = NA,
               addBarSub = FALSE,basal,
               numberDays = 5, filterCond = "data[data$BG.Reading..mg.dL.>150 & !is.na(data$BG.Reading..mg.dL.),]",
               startDate = NA, endDate = NA,
@@ -324,7 +324,7 @@ barPlot_ly(p = NA, data = allData, barSubPlot = FALSE,ayCarb = NA,
 
 ###simple with setting subplot, filtered to low values
 ```{r, eval=TRUE}
-barPlot_ly(p = NA, data = allData, barSubPlot = FALSE,ayCarb = NA,
+summaryPlot_ly(p = NA, data = allData, barSubPlot = FALSE,ayCarb = NA,
               addBarSub = FALSE,basal,
               numberDays = 5, filterCond = "data[data$BG.Reading..mg.dL.<80 & !is.na(data$BG.Reading..mg.dL.),]",
               startDate = NA, endDate = NA,
@@ -337,7 +337,7 @@ barPlot_ly(p = NA, data = allData, barSubPlot = FALSE,ayCarb = NA,
 
 ###stcked insulin
 ```{r, eval=TRUE}
-barPlot_ly(p = NA, data = allData, barSubPlot = FALSE,ayCarb = NA,
+summaryPlot_ly(p = NA, data = allData, barSubPlot = FALSE,ayCarb = NA,
               addBarSub = FALSE,basal,
               numberDays = 5, filterCond = "",
               startDate = NA, endDate = NA,
@@ -350,7 +350,7 @@ barPlot_ly(p = NA, data = allData, barSubPlot = FALSE,ayCarb = NA,
 
 ###stcked BG
 ```{r, eval=TRUE}
-barPlot_ly(p = NA, data = allData, barSubPlot = FALSE,ayCarb = NA,
+summaryPlot_ly(p = NA, data = allData, barSubPlot = FALSE,ayCarb = NA,
               addBarSub = FALSE,basal,
               numberDays = 5, filterCond = "",
               startDate = NA, endDate = NA,
@@ -363,7 +363,7 @@ barPlot_ly(p = NA, data = allData, barSubPlot = FALSE,ayCarb = NA,
 
 ###every 3 hours
 ```{r, eval=TRUE}
-barPlot_ly(p = NA, data = allData, barSubPlot = FALSE,ayCarb = NA,
+summaryPlot_ly(p = NA, data = allData, barSubPlot = FALSE,ayCarb = NA,
               addBarSub = FALSE,basal,
               numberDays = 5, filterCond = "",
               startDate = NA, endDate = NA,
@@ -377,7 +377,7 @@ barPlot_ly(p = NA, data = allData, barSubPlot = FALSE,ayCarb = NA,
 
 ###stcked insulinevery 3 hours
 ```{r, eval=TRUE}
-barPlot_ly(p = NA, data = allData, barSubPlot = FALSE,ayCarb = NA,
+summaryPlot_ly(p = NA, data = allData, barSubPlot = FALSE,ayCarb = NA,
               addBarSub = FALSE,basal,
               numberDays = 5, filterCond = "",
               startDate = NA, endDate = NA, period = 3,
@@ -390,7 +390,7 @@ barPlot_ly(p = NA, data = allData, barSubPlot = FALSE,ayCarb = NA,
 
 ###simple barplot period 3 hours
 ```{r, eval=TRUE}
-barPlot_ly(p = NA, data = allData, barSubPlot = FALSE,ayCarb = NA,
+summaryPlot_ly(p = NA, data = allData, barSubPlot = FALSE,ayCarb = NA,
               addBarSub = FALSE,basal,
               numberDays = 5, filterCond = "",
               startDate = NA, endDate = NA,
