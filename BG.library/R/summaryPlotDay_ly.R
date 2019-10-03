@@ -20,21 +20,21 @@ summaryPlotDay_ly<-function(data,basal,barSubPlot,plotType,
     basalOrig<-basal
     
     
-    if (stackedBar!="insulin"){
-      data$barplot<-eval(parse(text = paste0("data$",plotSummary)))
+    if (stackedBar!="insulin" | plotType!="bar"){
+      data$temp<-eval(parse(text = paste0("data$",plotSummary)))
       
       #ignoreNAs
       if (ignoreNAs){
-        data<-data[!is.na(data$barplot),]
+        data<-data[!is.na(data$temp),]
       }
      
       #get uniques
       if (uniqueDT){
-        NAMES<-c("dateTime","Date2","hours","hour","barplot")
+        NAMES<-c("dateTime","Date2","hours","hour","temp")
         data<-uniqueDateTime(data, NAMES, replaceNAs,timeStep = timeStep, period = period)
       }
       
-      data<-data[c("Date2","barplot")]
+      data<-data[c("Date2","temp")]
       
       
       #set initial y axis range
@@ -43,9 +43,9 @@ summaryPlotDay_ly<-function(data,basal,barSubPlot,plotType,
         
       }else if (sumFunc=="length"){
         rangeData<-as.data.frame(data %>% group_by(Date2) %>% summarise_all(funs(length)))
-        initYrange<-c(0,max(rangeData$barplot, na.rm = TRUE))
+        initYrange<-c(0,max(rangeData$temp, na.rm = TRUE))
       }else{
-        initYrange<-c(0,max(data$barplot, na.rm = TRUE))
+        initYrange<-c(0,max(data$temp, na.rm = TRUE))
       }
       
       yTitle<-ifelse(sumFunc!="length",paste0(sumFunc,"_",plotSummary),paste0("number_",plotSummary))
@@ -159,8 +159,8 @@ summaryPlotDay_ly<-function(data,basal,barSubPlot,plotType,
     #get formatted data
     data<-dataFormat
 
-    if(stackedBar=="") {#general bar plot
-      
+    if(stackedBar=="" | plotType!="bar") {#general bar plot
+      if (plotType=="bar"){
       #set up summary function string
       if (sumFunc!="length"){
         sumString<-paste0("as.data.frame(data %>% group_by(Date2) %>% summarise_all(funs(",
@@ -175,9 +175,12 @@ summaryPlotDay_ly<-function(data,basal,barSubPlot,plotType,
       data<-eval(parse(text = sumString))
 
       #create plot
-      p <- p %>% add_trace(data = data, x = ~Date2, y = ~barplot,type = 'bar', 
+      p <- p %>% add_trace(data = data, x = ~Date2, y = ~temp,type = 'bar', 
                            name = paste0(sumFunc,"_",plotSummary))
-      
+      }else{#boxplot
+        p <- p %>% add_trace(data = data, x = ~Date2, y = ~temp,type = 'box', 
+                             name = paste0(sumFunc,"_",plotSummary))
+      }
       
       
     }else if (stackedBar=="insulin"){
@@ -185,11 +188,11 @@ summaryPlotDay_ly<-function(data,basal,barSubPlot,plotType,
       p <- addStackbar_ly(p,data,cls,timeStep) 
       
     }else{#stacked bar BG
-      data$veryHigh<-ifelse(data$barplot>240,1,0)
-      data$high<-ifelse(data$barplot>150 & data$barplot<=240,1,0)
-      data$good<-ifelse(data$barplot>=80 & data$barplot<=150,1,0)
-      data$low<-ifelse(data$barplot<80,1,0)
-      data<-data[,names(data)!="barplot"]
+      data$veryHigh<-ifelse(data$temp>240,1,0)
+      data$high<-ifelse(data$temp>150 & data$temp<=240,1,0)
+      data$good<-ifelse(data$temp>=80 & data$temp<=150,1,0)
+      data$low<-ifelse(data$temp<80,1,0)
+      data<-data[,names(data)!="temp"]
       data<-as.data.frame(data %>% group_by(Date2) %>% summarise_all(funs(sum),na.rm=TRUE))
       orderVector<-c("Date2","low","good","high","veryHigh")
       data<-data[,match(names(data),orderVector)]
