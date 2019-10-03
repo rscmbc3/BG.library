@@ -137,8 +137,9 @@ summaryPlotHour_ly<-function(data,basal,barSubPlot,plotType,
     #get formatted data
     data<-dataFormat
     
-    if(stackedBar=="") {#general bar plot
-      
+    if(stackedBar=="" | plotType!="bar") {#general bar plot
+       
+      if (plotType=="bar"){
       #set up summary function string
       if (sumFunc!="length"){
         sumString<-paste0("as.data.frame(data %>% group_by(hour) %>% summarise_all(funs(",
@@ -153,8 +154,14 @@ summaryPlotHour_ly<-function(data,basal,barSubPlot,plotType,
       data<-eval(parse(text = sumString))
       
       #create plot
-      p <- p %>% add_trace(data = data, x = ~hour, y = ~temp,type = 'bar', 
-                           name = paste0(sumFunc,"_",plotSummary))
+             p <- p %>% add_trace(data = data, x = ~hour, y = ~temp,type = 'bar', 
+                           name = paste0(sumFunc,"_",plotSummary)) 
+      }else{#boxplot
+        
+        p <- p %>% add_trace(data = data, x = ~hour, y = ~temp,type = 'box', 
+                             name = paste0(sumFunc,"_",plotSummary)) 
+      }
+
       
       
       
