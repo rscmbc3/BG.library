@@ -1,4 +1,4 @@
-summaryPlotHour_ly<-function(data,basal,barSubPlot,plotType,
+summaryPlotHour_ly<-function(data,basal,barSubPlot,boxBar,
                          numberDays, filterCond = "",
                          startDate = NA, endDate = NA,
                          startTime = "00:00", endTime = "23:00",
@@ -25,7 +25,7 @@ summaryPlotHour_ly<-function(data,basal,barSubPlot,plotType,
     dataOrig<-data
 
     
-    if (stackedBar!="insulin" | plotType!="bar"){
+    if (stackedBar!="insulin" | boxBar!="bar"){
       data$temp<-eval(parse(text = paste0("data$",plotSummary)))
       
       #ignoreNAs
@@ -137,9 +137,9 @@ summaryPlotHour_ly<-function(data,basal,barSubPlot,plotType,
     #get formatted data
     data<-dataFormat
     
-    if(stackedBar=="" | plotType!="bar") {#general bar plot
+    if(stackedBar=="" | boxBar!="bar") {#general bar plot
        
-      if (plotType=="bar"){
+      if (boxBar=="bar"){
       #set up summary function string
       if (sumFunc!="length"){
         sumString<-paste0("as.data.frame(data %>% group_by(hour) %>% summarise_all(funs(",

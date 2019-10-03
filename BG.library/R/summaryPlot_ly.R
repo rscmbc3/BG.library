@@ -8,7 +8,8 @@
 
 
 summaryPlot_ly<-function(p, data, barSubPlot = FALSE,ayCarb,
-                     addBarSub,basal,plotType = "bar",
+                     addBarSub,
+                     boxBar = "bar",
                      numberDays, filterCond = "",
                      startDate = NA, endDate = NA,
                      startTime = "00:00", endTime = "23:00",
@@ -24,7 +25,7 @@ summaryPlot_ly<-function(p, data, barSubPlot = FALSE,ayCarb,
     return(p)
     
   }else if (timeStep=="hour"){#barplot is main plot timestep hour
-    p <- summaryPlotHour_ly(data,basal,barSubPlot,plotType,
+    p <- summaryPlotHour_ly(data,basal,barSubPlot,boxBar,
                         numberDays, filterCond,
                         startDate, endDate,
                         startTime, endTime,
@@ -36,7 +37,7 @@ summaryPlot_ly<-function(p, data, barSubPlot = FALSE,ayCarb,
                         legendInset)
       p
   }else if (timeStep=="day"){#barplot is main plot timestep day
-    p <- summaryPlotDay_ly(data,basal,barSubPlot,plotType,
+    p <- summaryPlotDay_ly(data,basal,barSubPlot,boxBar,
                             numberDays, filterCond,
                             startDate, endDate,
                             startTime, endTime,

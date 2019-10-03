@@ -1,4 +1,4 @@
-summaryPlotDay_ly<-function(data,basal,barSubPlot,plotType,
+summaryPlotDay_ly<-function(data,basal,barSubPlot,boxBar,
                          numberDays, filterCond = "",
                          startDate = NA, endDate = NA,
                          startTime = "00:00", endTime = "23:00",
@@ -20,7 +20,7 @@ summaryPlotDay_ly<-function(data,basal,barSubPlot,plotType,
     basalOrig<-basal
     
     
-    if (stackedBar!="insulin" | plotType!="bar"){
+    if (stackedBar!="insulin" | boxBar!="bar"){
       data$temp<-eval(parse(text = paste0("data$",plotSummary)))
       
       #ignoreNAs
@@ -159,8 +159,8 @@ summaryPlotDay_ly<-function(data,basal,barSubPlot,plotType,
     #get formatted data
     data<-dataFormat
 
-    if(stackedBar=="" | plotType!="bar") {#general bar plot
-      if (plotType=="bar"){
+    if(stackedBar=="" | boxBar!="bar") {#general bar plot
+      if (boxBar=="bar"){
       #set up summary function string
       if (sumFunc!="length"){
         sumString<-paste0("as.data.frame(data %>% group_by(Date2) %>% summarise_all(funs(",
