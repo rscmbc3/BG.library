@@ -18,6 +18,7 @@ unPackList(lists = list(dataImport.list = dataImport.list),
 
 #summarize data
 BGvalue_Summary<-summarizeData(allData, colName = "BG.Reading..mg.dL.", numberDays = 7)
+BGvalue_SummaryDaily<-summarizeData(allData, colName = "BG.Reading..mg.dL.", numberDays = 7, timeStep = "day")
 BGpercent_Summary<-addPercentBG_ly(allData, p = NA,addPercentBG = c("very high","high","good","low"),
                                    addPercentType = "BG.Reading..mg.dL.",outputType = "table",
                                    numberDays = 5)
