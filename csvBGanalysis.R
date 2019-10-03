@@ -52,6 +52,11 @@ BGvalue_timeDaytable<-timeDayTable(allData, tcol = "time2", dcol = "Date2",
                                    sumFunc = "mean", naRemove = TRUE,
                                    includeTotals = TRUE,
                                    numberDays = 7, filterCond = "")
+SGvalue_timeDaytable<-timeDayTable(allData, tcol = "time2", dcol = "Date2", 
+                                   valueVar = "Sensor.Glucose..mg.dL.", 
+                                   sumFunc = "mean", naRemove = TRUE,
+                                   includeTotals = TRUE,
+                                   numberDays = 7, filterCond = "")
 carbs_timeDaytable<-timeDayTable(allData, tcol = "time2", dcol = "Date2", 
                                  valueVar = "BWZ.Carb.Input..grams.", 
                                  sumFunc = "max", naRemove = TRUE,
@@ -89,6 +94,17 @@ executeSavedPlot(data = allData, numberDays = 5, plotName = "boxFoodU3hour_Sett"
 ##daily boxplots
 executeSavedPlot(data = allData, numberDays = 5, plotName = "boxSGdaily", libraryPath)
 executeSavedPlot(data = allData, numberDays = 5, plotName = "boxBGdaily", libraryPath)
+
+#heatmap
+heatMap(BGvalue_timeDaytable, hasTotals = TRUE,
+        margins = c(6,30), brks = seq(0,450,50), 
+        brewerPallete = "RdBu")
+heatMap(SGvalue_timeDaytable, hasTotals = TRUE,
+        margins = c(6,30), brks = seq(0,450,50), 
+        brewerPallete = "RdBu")
+heatMap(carbs_timeDaytable, hasTotals = TRUE,
+        margins = c(6,30), brks = seq(0,100,10), 
+        brewerPallete = "RdBu",  textCol = "deeppink")
 
 #line plot
 plotLine_ly(allData,  scatterOnly = FALSE, pointSize = 10,
@@ -324,10 +340,3 @@ boxPlot(allData,basal, corrFactor,carbRatio, numberDays = 7, filterCond = "",
         addSetting ="basal",
         legendInset = -0.3, margins = c(10,4,2,15))
 
-#heatmap
-heatMap(BGvalue_timeDaytable, hasTotals = TRUE,
-        margins = c(6,30), brks = seq(0,450,50), 
-        brewerPallete = "RdBu")
-heatMap(carbs_timeDaytable, hasTotals = TRUE,
-        margins = c(6,30), brks = seq(0,100,10), 
-        brewerPallete = "RdBu",  textCol = "deeppink")
