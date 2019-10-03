@@ -33,6 +33,7 @@ unPackList(lists = list(dataImport.list = dataImport.list),
 
 #summarize data
 BGvalue_Summary<-summarizeData(allData, colName = "BG.Reading..mg.dL.", numberDays = numberDays)
+BGvalue_SummaryDaily<-summarizeData(allData, colName = "BG.Reading..mg.dL.", numberDays = 7, timeStep = "day")
 Sensorvalue_Summary<-summarizeData(allData, colName = "Sensor.Glucose..mg.dL.", numberDays = numberDays)
 BGHigh_Count<-summarizeData(allData, colName = "BG.Reading..mg.dL.", numberDays = numberDays,
                             sumFuncs = "length",
@@ -77,6 +78,11 @@ carbs_timeDaytable<-timeDayTable(allData, tcol = "time2", dcol = "Date2",
 ```{r, eval=TRUE}
 BGvalue_Summary
 ```
+##BG value stats by day
+```{r, eval=TRUE}
+BGvalue_SummaryDaily
+```
+
 ##Sensor value stats by hour
 ```{r, eval=TRUE}
 Sensorvalue_Summary
@@ -249,155 +255,54 @@ boxPlot(allData,basal, corrFactor,carbRatio, numberDays = numberDays, filterCond
 ```
 
 ##Interactive Plots
-###summary sensor, subplot settings with BGvalues
-```{r, eval=TRUE}
-plotLine_ly(allData,  scatterOnly = FALSE, pointSize = 10,
-            numberDays = 5, startDate = "2019-09-08", endDate = "2019-09-08",
-            startTime = "00:00", endTime = "23:00",
-            colorPalleteDaily = "rainbow", 
-            addSensor = FALSE, addBG = TRUE, settingOverlay = FALSE,
-            addBolusType = "",        
-            plotSummary = "Sensor.Glucose..mg.dL.",
-            addSetting =c("basal","carbRatio","corrFactor"),
-            addBarSub = FALSE,addPercentType = "Sensor.Glucose..mg.dL.",
-            filterCond = "",
-            legendInset = -0.2)
+###linePlots
+```{r, eval=TRUE, echo=FALSE,warning=FALSE}
+executeSavedPlot(data = allData, numberDays = 5, plotName = "lineSumSens_SGper_Sett_BG", libraryPath)
+executeSavedPlot(data = allData, numberDays = 5, plotName = "lineSumSens_BGper_Sett_BG", libraryPath)
+executeSavedPlot(data = allData, numberDays = 5, plotName = "lineSumSens_BGper_subCarb_BG", libraryPath)
+executeSavedPlot(data = allData, numberDays = 5, plotName = "lineSumSens_BGper_subCarb_Sett_BG", libraryPath)
+
 ```
 
-###same as previous with percent BG not percent SG
-```{r, eval=TRUE}
-plotLine_ly(allData,  scatterOnly = FALSE, pointSize = 10,
-            numberDays = 5, startDate = "2019-09-08", endDate = "2019-09-08",
-            startTime = "00:00", endTime = "23:00",
-            colorPalleteDaily = "rainbow", 
-            addSensor = FALSE, addBG = TRUE, settingOverlay = FALSE,
-            addBolusType = "",        
-            plotSummary = "Sensor.Glucose..mg.dL.",
-            addSetting =c("basal","carbRatio","corrFactor"),
-            addBarSub = FALSE,
-            filterCond = "",
-            legendInset = -0.2)
+###barplots hourly
+```{r, eval=TRUE, echo=FALSE,warning=FALSE}
+executeSavedPlot(data = allData, numberDays = 5, plotName = "sumBar_highBG150_Sett", libraryPath)
+executeSavedPlot(data = allData, numberDays = 5, plotName = "sumBar_lowBG80_Sett", libraryPath)
+executeSavedPlot(data = allData, numberDays = 5, plotName = "stackBarInsulinHour_Sett", libraryPath)
+executeSavedPlot(data = allData, numberDays = 5, plotName = "stackBarBGallHour_Sett", libraryPath)
 ```
 
-###summary sensor, subplot carbs with BGvalues
-```{r, eval=TRUE}
-plotLine_ly(allData,  scatterOnly = FALSE, pointSize = 10,
-            numberDays = 5, startDate = "2019-09-08", endDate = "2019-09-08",
-            startTime = "00:00", endTime = "23:00",
-            colorPalleteDaily = "rainbow", 
-            addSensor = FALSE, addBG = TRUE, settingOverlay = FALSE,
-            addBolusType = "",        
-            plotSummary = "Sensor.Glucose..mg.dL.",
-            addSetting ="",
-            addBarSub = TRUE,
-            filterCond = "",
-            legendInset = -0.2)
+###every 3 hours barplots
+```{r, eval=TRUE, echo=FALSE,warning=FALSE}
+executeSavedPlot(data = allData, numberDays = 5, plotName = "stackBarBG3Hour_Sett", libraryPath)
+executeSavedPlot(data = allData, numberDays = 5, plotName = "stackBarInsulin3Hour_Sett", libraryPath)
+```
+###daily barplots
+```{r, eval=TRUE, echo=FALSE,warning=FALSE}
+executeSavedPlot(data = allData, numberDays = 5, plotName = "stackBarInsulinDaily", libraryPath)
+executeSavedPlot(data = allData, numberDays = 5, plotName = "stackBarBGDaily", libraryPath)
+executeSavedPlot(data = allData, numberDays = 5, plotName = "stackBarSGDaily", libraryPath)
 ```
 
-###summary sensor, subplot carbs and settings with BGvalues
-```{r, eval=TRUE}
-plotLine_ly(allData,  scatterOnly = FALSE, pointSize = 10,
-            numberDays = 5, startDate = "2019-09-08", endDate = "2019-09-08",
-            startTime = "00:00", endTime = "23:00",
-            colorPalleteDaily = "rainbow", 
-            addSensor = FALSE, addBG = TRUE, settingOverlay = FALSE,
-            addBolusType = "",        
-            plotSummary = "Sensor.Glucose..mg.dL.",
-            addSetting =c("basal","carbRatio","corrFactor"),
-            addBarSub = TRUE,
-            filterCond = "",
-            legendInset = -0.2)
+###boxplots hourly
+```{r, eval=TRUE, echo=FALSE,warning=FALSE}
+executeSavedPlot(data = allData, numberDays = 5, plotName = "boxSGhour_Sett", libraryPath)
+executeSavedPlot(data = allData, numberDays = 5, plotName = "boxBGhour_Sett", libraryPath)
+executeSavedPlot(data = allData, numberDays = 5, plotName = "boxCorrUhour_Sett", libraryPath)
+executeSavedPlot(data = allData, numberDays = 5, plotName = "boxFoodUhour_Sett", libraryPath)
+
 ```
 
-###simple with setting subplot, filtered to high values
-```{r, eval=TRUE}
-summaryPlot_ly(p = NA, data = allData, barSubPlot = FALSE,ayCarb = NA,
-              addBarSub = FALSE,basal,
-              numberDays = 5, filterCond = "data[data$BG.Reading..mg.dL.>150 & !is.na(data$BG.Reading..mg.dL.),]",
-              startDate = NA, endDate = NA,
-              startTime = "00:00", endTime = "23:00",
-              plotSummary ="BG.Reading..mg.dL.", sumFunc = "length", stackedBar = "",
-              addBG = FALSE, uniqueDT = TRUE,replaceNAs = FALSE,
-              addSetting = c("basal","corrFactor","carbRatio"),settingOverlay = FALSE,percentSetting = 30,
-              legendInset = -0.2)
+###3hour boxplots
+```{r, eval=TRUE, echo=FALSE,warning=FALSE}
+executeSavedPlot(data = allData, numberDays = 5, plotName = "boxSG3hour_Sett", libraryPath)
+executeSavedPlot(data = allData, numberDays = 5, plotName = "boxBG3hour_Sett", libraryPath)
+executeSavedPlot(data = allData, numberDays = 5, plotName = "boxCorrU3hour_Sett", libraryPath)
+executeSavedPlot(data = allData, numberDays = 5, plotName = "boxFoodU3hour_Sett", libraryPath)
 ```
 
-###simple with setting subplot, filtered to low values
-```{r, eval=TRUE}
-summaryPlot_ly(p = NA, data = allData, barSubPlot = FALSE,ayCarb = NA,
-              addBarSub = FALSE,basal,
-              numberDays = 5, filterCond = "data[data$BG.Reading..mg.dL.<80 & !is.na(data$BG.Reading..mg.dL.),]",
-              startDate = NA, endDate = NA,
-              startTime = "00:00", endTime = "23:00",
-              plotSummary ="BG.Reading..mg.dL.", sumFunc = "length", stackedBar = "",
-              addBG = FALSE, uniqueDT = TRUE,replaceNAs = FALSE,
-              addSetting = c("basal","corrFactor","carbRatio"),settingOverlay = FALSE,percentSetting = 30,
-              legendInset = -0.2)
-```
-
-###stcked insulin
-```{r, eval=TRUE}
-summaryPlot_ly(p = NA, data = allData, barSubPlot = FALSE,ayCarb = NA,
-              addBarSub = FALSE,basal,
-              numberDays = 5, filterCond = "",
-              startDate = NA, endDate = NA,
-              startTime = "00:00", endTime = "23:00",
-              plotSummary ="", sumFunc = "", stackedBar = "insulin",
-              addBG = FALSE, uniqueDT = TRUE,replaceNAs = TRUE,
-              addSetting = c("basal","corrFactor","carbRatio"),settingOverlay = FALSE,percentSetting = 30,
-              legendInset = -0.2)
-```
-
-###stcked BG
-```{r, eval=TRUE}
-summaryPlot_ly(p = NA, data = allData, barSubPlot = FALSE,ayCarb = NA,
-              addBarSub = FALSE,basal,
-              numberDays = 5, filterCond = "",
-              startDate = NA, endDate = NA,
-              startTime = "00:00", endTime = "23:00",
-              plotSummary ="BG.Reading..mg.dL.", sumFunc = "length", stackedBar = "BG",
-              addBG = FALSE, uniqueDT = TRUE,replaceNAs = FALSE,ignoreNAs = TRUE,
-              addSetting = c("basal","corrFactor","carbRatio"),settingOverlay = FALSE,percentSetting = 30,
-              legendInset = -0.2)
-```
-
-###every 3 hours
-```{r, eval=TRUE}
-summaryPlot_ly(p = NA, data = allData, barSubPlot = FALSE,ayCarb = NA,
-              addBarSub = FALSE,basal,
-              numberDays = 5, filterCond = "",
-              startDate = NA, endDate = NA,
-              period = 3,
-              startTime = "00:00", endTime = "23:00",
-              plotSummary ="BG.Reading..mg.dL.", sumFunc = "length", stackedBar = "BG",
-              addBG = FALSE, uniqueDT = TRUE,replaceNAs = FALSE,ignoreNAs = TRUE,
-              addSetting = "",settingOverlay = FALSE,percentSetting = 30,
-              legendInset = -0.2)
-```
-
-###stcked insulinevery 3 hours
-```{r, eval=TRUE}
-summaryPlot_ly(p = NA, data = allData, barSubPlot = FALSE,ayCarb = NA,
-              addBarSub = FALSE,basal,
-              numberDays = 5, filterCond = "",
-              startDate = NA, endDate = NA, period = 3,
-              startTime = "00:00", endTime = "23:00",
-              plotSummary ="", sumFunc = "", stackedBar = "insulin",
-              addBG = FALSE, uniqueDT = TRUE,replaceNAs = TRUE,
-              addSetting = c("basal","corrFactor","carbRatio"),settingOverlay = FALSE,percentSetting = 30,
-              legendInset = -0.2)
-```
-
-###simple barplot period 3 hours
-```{r, eval=TRUE}
-summaryPlot_ly(p = NA, data = allData, barSubPlot = FALSE,ayCarb = NA,
-              addBarSub = FALSE,basal,
-              numberDays = 5, filterCond = "",
-              startDate = NA, endDate = NA,
-              startTime = "00:00", endTime = "23:00",period = 3,
-              plotSummary ="Sensor.Glucose..mg.dL.", sumFunc = "mean", stackedBar = "",
-              uniqueDT = TRUE,replaceNAs = FALSE,ignoreNAs = TRUE,
-              addBG = FALSE, 
-              addSetting = c("basal","corrFactor","carbRatio"),settingOverlay = FALSE,percentSetting = 30,
-              legendInset = -0.2)
+###daily boxplots
+```{r, eval=TRUE, echo=FALSE,warning=FALSE}
+executeSavedPlot(data = allData, numberDays = 5, plotName = "boxSGdaily", libraryPath)
+executeSavedPlot(data = allData, numberDays = 5, plotName = "boxBGdaily", libraryPath)
 ```
