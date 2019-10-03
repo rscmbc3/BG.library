@@ -5,7 +5,8 @@
 #'@param yaxisStr character string to execute to set specifications for y axes
 #'@return `layoutStr` character string to execute for plot_ly layout
 
-makeLayout<-function(titleStr,xDomain,xaxisStr,yaxisStr,addGoodRange, stackedBar = ""){
+makeLayout<-function(titleStr,xDomain,xaxisStr,yaxisStr,addGoodRange, stackedBar = "",
+                     description, descInset){
   if (addGoodRange){
     shapeStr<-"shapes = list(list(type = 'rect',
                                 fillcolor = 'green',
@@ -23,6 +24,18 @@ if (stackedBar!=""){
   barmodeStr<-""
 }
   
+  if (description!=""){
+    description<-breakStr(description,70,"\n")
+    description<-gsub("'",'\\"',description)
+    descStr<-paste0("annotations = 
+                      list(x = 0, y =",descInset, ", text = '",description,"', 
+                           showarrow = F, xref='paper', yref='paper', 
+                           xanchor='left', yanchor='auto', xshift=0, yshift=0,
+                           font=list(size=15, color='black')),")
+  }else{
+    descStr<-""
+  }
+  
   ##make layoutstr
   layoutStr<-paste0("p <- p %>% layout( showlegend=T, legend = list(orientation = 'h',   # show entries horizontally
                     xanchor = 'center',  # use center of legend as anchor
@@ -31,8 +44,9 @@ if (stackedBar!=""){
                     xaxisStr,",",
                     yaxisStr,",",
                     shapeStr,",",
-                    barmodeStr,"
-                    margin = list(r = 100),
+                    barmodeStr,
+                    descStr,"
+                    margin = list(r = 100,b = 200),
                     title = list(text = '",titleStr,"',
                     xanchor  = 'right'))")
   return(layoutStr)

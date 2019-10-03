@@ -18,7 +18,7 @@ summaryPlot_ly<-function(p, data, barSubPlot = FALSE,ayCarb,
                      uniqueDT = TRUE,replaceNAs = TRUE,ignoreNAs = FALSE,
                      addBG = TRUE, pointSize = 10,
                      addSetting = "",settingOverlay = FALSE,percentSetting = 30,
-                     legendInset = -0.2){
+                     legendInset = -0.2,description = "",descInset = -0.15){
   #get basal
   basal<-makePumpSettings(libraryPath)$basal
   
@@ -37,7 +37,7 @@ summaryPlot_ly<-function(p, data, barSubPlot = FALSE,ayCarb,
                         uniqueDT,replaceNAs,ignoreNAs,
                         addBG, pointSize,
                         addSetting,settingOverlay,percentSetting,
-                        legendInset)
+                        legendInset,description,descInset)
       p
   }else if (timeStep=="day"){#barplot is main plot timestep day
     p <- summaryPlotDay_ly(data,basal,barSubPlot,boxBar,
@@ -47,7 +47,7 @@ summaryPlot_ly<-function(p, data, barSubPlot = FALSE,ayCarb,
                             timeStep,period,
                             plotSummary, sumFunc, stackedBar,
                             uniqueDT,replaceNAs,ignoreNAs,
-                            legendInset)
+                            legendInset,description,descInset)
       p
     }
 }#end function

@@ -12,7 +12,7 @@ plotLine_ly<-function(data,  scatterOnly = FALSE,pointSize = 10,
                       barSubPlot = TRUE,addBarSub, percentBar = 30,addPercentType = "BG.Reading..mg.dL.",
                       filterCond = "",addGoodRange = TRUE,
                       addFasting = TRUE,addFastingAnnot = TRUE,
-                      legendInset = -0.2){
+                      legendInset = -0.2,description = "",descInset = -0.15){
   
   #subset data by date and filterCond
   data<-subsetData(data,numberDays,startDate,endDate,filterCond,timeStep,period)
@@ -44,7 +44,8 @@ plotLine_ly<-function(data,  scatterOnly = FALSE,pointSize = 10,
     titleStr<-paste0(min(data$Date2)," -to- ",max(data$Date2))
 
     ##make layoutstr
-    layoutStr<-makeLayout(titleStr,xDomain,xaxisStr,yaxisStr,addGoodRange)
+    layoutStr<-makeLayout(titleStr,xDomain,xaxisStr,yaxisStr,addGoodRange,
+                          description = description,descInset = descInset)
 
     #initialize plot
     p<-plot_ly(data)

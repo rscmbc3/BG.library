@@ -7,7 +7,7 @@ summaryPlotHour_ly<-function(data,basal,barSubPlot,boxBar,
                          uniqueDT = TRUE,replaceNAs = TRUE,ignoreNAs = FALSE,
                          addBG = TRUE, pointSize = 10,
                          addSetting = "",settingOverlay = FALSE,percentSetting = 30,
-                         legendInset = -0.2){
+                         legendInset = -0.2,description,descInset){
   
   #subset data by date and filterCond
   data<-subsetData(data,numberDays,startDate,endDate,filterCond,timeStep,period)
@@ -128,7 +128,8 @@ summaryPlotHour_ly<-function(data,basal,barSubPlot,boxBar,
     titleStr<-paste0(min(data$Date2)," -to- ",max(data$Date2))
     
     ##make layoutstr
-    layoutStr<-makeLayout(titleStr,xDomain,xaxisStr,yaxisStr,addGoodRange = FALSE,stackedBar = stackedBar)
+    layoutStr<-makeLayout(titleStr,xDomain,xaxisStr,yaxisStr,addGoodRange = FALSE,stackedBar = stackedBar,
+                          description = description,descInset = descInset)
     
     #initialize plot
     p<-plot_ly()
