@@ -1,4 +1,4 @@
-xTicks<-function(data, basal, startTime,endTime,timeStep,period){
+xTicks<-function(data, startTime,endTime,timeStep,period){
 #  xticks<-unique(format(round(as.POSIXct(basal$time,format="%H:%M"),"hours"),"%H:%M"))
 
   if (timeStep=="hour"){

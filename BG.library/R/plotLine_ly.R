@@ -22,7 +22,7 @@ plotLine_ly<-function(data,  scatterOnly = FALSE,pointSize = 10,
     
     
     #format time in decimal hours
-    xticks.list<-xTicks(data, basal, startTime,endTime,timeStep,period)
+    xticks.list<-xTicks(data, startTime,endTime,timeStep,period)
     unPackList(lists = list(xticks.list = xticks.list),
                parentObj = list(NA)) 
     
