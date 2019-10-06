@@ -65,35 +65,35 @@ carbs_timeDaytable<-timeDayTable(allData, tcol = "time2", dcol = "Date2",
 
 #saved plots
 #linePlots
-executeSavedPlot(data = allData, numberDays = 5, plotName = "lineSumSens_SGper_Sett_BG", libraryPath)
-executeSavedPlot(data = allData, numberDays = 5, plotName = "lineSumSens_BGper_Sett_BG", libraryPath)
-executeSavedPlot(data = allData, numberDays = 5, plotName = "lineSumSens_BGper_subCarb_BG", libraryPath)
-executeSavedPlot(data = allData, numberDays = 5, plotName = "lineSumSens_BGper_subCarb_Sett_BG", libraryPath)
+executeSavedPlot(data = allData, numberDays = 5, plotName = "lineSumSens_SGper_Sett_BG", libraryPath = libraryPath)
+executeSavedPlot(data = allData, numberDays = 5, plotName = "lineSumSens_BGper_Sett_BG", libraryPath = libraryPath)
+executeSavedPlot(data = allData, numberDays = 5, plotName = "lineSumSens_BGper_subCarb_BG", libraryPath = libraryPath)
+executeSavedPlot(data = allData, numberDays = 5, plotName = "lineSumSens_BGper_subCarb_Sett_BG", libraryPath = libraryPath)
 #barplots hourly
-executeSavedPlot(data = allData, numberDays = 5, plotName = "sumBar_highBG150_Sett", libraryPath)
-executeSavedPlot(data = allData, numberDays = 5, plotName = "sumBar_lowBG80_Sett", libraryPath)
-executeSavedPlot(data = allData, numberDays = 5, plotName = "stackBarInsulinHour_Sett", libraryPath)
-executeSavedPlot(data = allData, numberDays = 5, plotName = "stackBarBGallHour_Sett", libraryPath)
+executeSavedPlot(data = allData, numberDays = 5, plotName = "sumBar_highBG150_Sett", libraryPath = libraryPath)
+executeSavedPlot(data = allData, numberDays = 5, plotName = "sumBar_lowBG80_Sett", libraryPath = libraryPath)
+executeSavedPlot(data = allData, numberDays = 5, plotName = "stackBarInsulinHour_Sett", libraryPath = libraryPath)
+executeSavedPlot(data = allData, numberDays = 5, plotName = "stackBarBGallHour_Sett", libraryPath = libraryPath)
 #every 3 hours barplots
-executeSavedPlot(data = allData, numberDays = 5, plotName = "stackBarBG3Hour_Sett", libraryPath)
-executeSavedPlot(data = allData, numberDays = 5, plotName = "stackBarInsulin3Hour_Sett", libraryPath)
+executeSavedPlot(data = allData, numberDays = 5, plotName = "stackBarBG3Hour_Sett", libraryPath = libraryPath)
+executeSavedPlot(data = allData, numberDays = 5, plotName = "stackBarInsulin3Hour_Sett", libraryPath = libraryPath)
 #daily barplots
-executeSavedPlot(data = allData, numberDays = 5, plotName = "stackBarInsulinDaily", libraryPath)
-executeSavedPlot(data = allData, numberDays = 5, plotName = "stackBarBGDaily", libraryPath)
-executeSavedPlot(data = allData, numberDays = 5, plotName = "stackBarSGDaily", libraryPath)
+executeSavedPlot(data = allData, numberDays = 5, plotName = "stackBarInsulinDaily", libraryPath = libraryPath)
+executeSavedPlot(data = allData, numberDays = 5, plotName = "stackBarBGDaily", libraryPath = libraryPath)
+executeSavedPlot(data = allData, numberDays = 5, plotName = "stackBarSGDaily", libraryPath = libraryPath)
 ########boxplots hourly
-executeSavedPlot(data = allData, numberDays = 5, plotName = "boxSGhour_Sett", libraryPath)
-executeSavedPlot(data = allData, numberDays = 5, plotName = "boxBGhour_Sett", libraryPath)
-executeSavedPlot(data = allData, numberDays = 5, plotName = "boxCorrUhour_Sett", libraryPath)
-executeSavedPlot(data = allData, numberDays = 5, plotName = "boxFoodUhour_Sett", libraryPath)
+executeSavedPlot(data = allData, numberDays = 5, plotName = "boxSGhour_Sett", libraryPath = libraryPath)
+executeSavedPlot(data = allData, numberDays = 5, plotName = "boxBGhour_Sett", libraryPath = libraryPath)
+executeSavedPlot(data = allData, numberDays = 5, plotName = "boxCorrUhour_Sett", libraryPath = libraryPath)
+executeSavedPlot(data = allData, numberDays = 5, plotName = "boxFoodUhour_Sett", libraryPath = libraryPath)
 #3hour boxplots
-executeSavedPlot(data = allData, numberDays = 5, plotName = "boxSG3hour_Sett", libraryPath)
-executeSavedPlot(data = allData, numberDays = 5, plotName = "boxBG3hour_Sett", libraryPath)
-executeSavedPlot(data = allData, numberDays = 5, plotName = "boxCorrU3hour_Sett", libraryPath)
-executeSavedPlot(data = allData, numberDays = 5, plotName = "boxFoodU3hour_Sett", libraryPath)
+executeSavedPlot(data = allData, numberDays = 5, plotName = "boxSG3hour_Sett", libraryPath = libraryPath)
+executeSavedPlot(data = allData, numberDays = 5, plotName = "boxBG3hour_Sett", libraryPath = libraryPath)
+executeSavedPlot(data = allData, numberDays = 5, plotName = "boxCorrU3hour_Sett", libraryPath = libraryPath)
+executeSavedPlot(data = allData, numberDays = 5, plotName = "boxFoodU3hour_Sett", libraryPath = libraryPath)
 ##daily boxplots
-executeSavedPlot(data = allData, numberDays = 5, plotName = "boxSGdaily", libraryPath)
-executeSavedPlot(data = allData, numberDays = 5, plotName = "boxBGdaily", libraryPath)
+executeSavedPlot(data = allData, numberDays = 5, plotName = "boxSGdaily", libraryPath = libraryPath)
+executeSavedPlot(data = allData, numberDays = 5, plotName = "boxBGdaily", libraryPath = libraryPath)
 
 #heatmap
 heatMap(BGvalue_timeDaytable, hasTotals = TRUE,
@@ -105,6 +105,30 @@ heatMap(SGvalue_timeDaytable, hasTotals = TRUE,
 heatMap(carbs_timeDaytable, hasTotals = TRUE,
         margins = c(6,30), brks = seq(0,100,10), 
         brewerPallete = "RdBu",  textCol = "deeppink")
+
+#dateSeq Reports
+#saved plot
+historySeqOut(data = NA,libraryPath, path, fileName,reportTitle = "Compare Summary Sensor Line Plot Since Last Pump Setting Change" ,
+              plotName = "lineSumSens_SGper_Sett_BG", paramList = NA, plotType = NA,
+                        seqType = "change", seqLength = 2) 
+historySeqOut(data = NA,libraryPath, path, fileName,reportTitle = "Compare All Pump Setting Changes Summary Sensor Line Plot" ,
+              plotName = "lineSumSens_SGper_Sett_BG", paramList = NA, plotType = NA,
+              seqType = "change", seqLength = "all")
+historySeqOut(data = allData,libraryPath, path, fileName,reportTitle = "Compare Summary Sensor Line Plot Weekly" ,
+              plotName = "lineSumSens_SGper_Sett_BG", paramList = NA, plotType = NA,
+              seqType = "days", seqLength = 3, period = 7) 
+#new plot parameters
+parmList1<-list(scatterOnly = FALSE, pointSize = 10,
+               startTime = "00:00", endTime = "23:00",
+               addSensor = FALSE, addBG = TRUE,
+               addBolusType = c("Bolus.Volume.Delivered..U.","BWZ.Correction.Estimate..U.","BWZ.Food.Estimate..U."),
+               addBarSub = FALSE,
+               plotSummary = "Sensor.Glucose..mg.dL.")
+historySeqOut(data = NA,libraryPath, path, fileName,reportTitle = "Bolus Type Points Summary Sensor Line Plot" ,
+              plotName = NA, paramList = parmList1, plotType = "plotLine_ly",
+              seqType = "change", seqLength = 2) 
+
+
 
 #line plot
 plotLine_ly(allData,  scatterOnly = FALSE, pointSize = 10,

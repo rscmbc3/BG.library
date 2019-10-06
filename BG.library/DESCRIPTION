@@ -17,8 +17,7 @@ Imports:
   RColorBrewer,
   dplyr,
   gplots,
-  plotly
-Suggests:
+  plotly,  
   knitr,
   rmarkdown
 License: GPL (>= 2)

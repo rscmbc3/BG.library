@@ -1,4 +1,4 @@
-executeSavedPlot<-function(data, numberDays, plotName, libraryPath){
+executeSavedPlot<-function(data, numberDays, plotName,changeParam.list = NA, libraryPath){
   #load saved plotList
   load(paste0(libraryPath,"/data/plotList"))
   
@@ -6,6 +6,14 @@ executeSavedPlot<-function(data, numberDays, plotName, libraryPath){
   eval(parse(text = paste0("plotList<-plotList$",plotName)))
   unPackList(lists = list(plotList = plotList),
              parentObj = list(NA))
+
+  #change parameters
+  if (!is.na(changeParam.list)){
+    for (c in names(changeParam.list)){
+      eval(parse(text = paste0("paramList$",c,"<-changeParam.list$",c)))
+    }
+  }
+  
   #unpack params
   unPackList(lists = list(paramList = paramList),
              parentObj = list(NA))

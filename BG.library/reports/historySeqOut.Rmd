@@ -1,0 +1,92 @@
+---
+title: 'Compare Summary Sensor Line Plot Since Last Pump Setting Change'
+author: 'Lillian Gorman Sanisaca'
+date: "`r format(Sys.time(), '%m-%d-%Y')`"
+output: html_document
+params:
+  libraryPath: libraryPath
+  path: path
+  fileName: fileName
+  plotName: plotName
+  paramList: parmList
+  plotType: plotType
+  seqType: seqType
+  seqLength: seqLength
+---
+ 
+```{r setup, include=FALSE}
+
+knitr::opts_chunk$set(echo = FALSE,fig.width=12, fig.height=8, warning = FALSE, message = FALSE)
+
+```
+ 
+```{r, eval=TRUE, results='asis'}
+#setPaths
+libraryPath<-params$libraryPath
+path<-params$path
+fileName<-params$fileName
+plotName<-params$plotName
+parmList<-params$parmList
+plotType<-params$plotType
+seqType<-params$seqType
+seqLength<-params$seqLength
+
+
+#load functions
+devtools::load_all(libraryPath,recompile = FALSE) 
+
+#get pumpSettings
+pumpSettings.list<-makePumpSettings(libraryPath)
+unPackList(lists = list(pumpSettings.list = pumpSettings.list),
+           parentObj = list(NA)) 
+
+#metronic csv data import
+dataImport.list<-dataImport(path,fileName)
+unPackList(lists = list(dataImport.list = dataImport.list),
+           parentObj = list(NA)) 
+data<-allData
+
+  if (seqType=='change'){
+  #get pumpSettings
+  pumpSettings.list<-makePumpSettings(libraryPath)
+  unPackList(lists = list(pumpSettings.list = pumpSettings.list),
+             parentObj = list(NA)) 
+  dateSeq<-.Date(0)
+  dateSeq<-dateSeq[0]
+  for (s in names(pumpSettings.list)){
+    eval(parse(text = paste0('temp<-pumpSettings.list$',s)))
+    dateStr<-gsub('X','',names(temp)[2:length(temp)])
+  dateStr<-gsub('\\.','-',dateStr)
+  dateStr<-as.Date(dateStr,format = '%m-%d-%Y',origin = '1970-01-01')
+    dateSeq<-c(dateSeq,dateStr)
+  }
+  dateSeq<-unique(dateSeq)
+  dateSeq<-dateSeq[order(dateSeq, decreasing = TRUE)]
+  
+  }else{#if seqType = days
+
+dateSeq<-seq.Date(from = max(data$Date2),to = min(data$Date2),by=paste0('-',period,' day'))
+
+}
+
+  #trim dateSeq
+if (seqLength!='all' & seqType=='change'){
+  if (length(dateSeq)>seqLength+1){
+
+    dateSeq<-dateSeq[1:(seqLength+1)]
+  }
+}else if (seqType!='change' & seqLength!='all'){
+          if (length(dateSeq)<seqLength+1){
+    dateSeq<-c(dateSeq,min(data$Date2))
+          }
+    }
+ 
+
+  #plot each pair
+ 
+changeParam.list<-list(startDate = "2019-09-28", endDate = "2019-10-01")
+executeSavedPlot(data, numberDays =NA, plotName,changeParam.list, libraryPath)
+ 
+changeParam.list<-list(startDate = "2019-09-26", endDate = "2019-09-28")
+executeSavedPlot(data, numberDays =NA, plotName,changeParam.list, libraryPath)
+```
