@@ -1,4 +1,4 @@
-historySeq<-function(data,libraryPath, plotName, parmList, plotType,
+historySeq<-function(data,libraryPath, plotName, paramList, plotType,
                      seqType, seqLength){
 
   

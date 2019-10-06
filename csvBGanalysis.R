@@ -111,6 +111,9 @@ heatMap(carbs_timeDaytable, hasTotals = TRUE,
 historySeqOut(data = NA,libraryPath, path, fileName,reportTitle = "Compare Summary Sensor Line Plot Since Last Pump Setting Change" ,
               plotName = "lineSumSens_SGper_Sett_BG", paramList = NA, plotType = NA,
                         seqType = "change", seqLength = 2) 
+historySeqOut(data = NA,libraryPath, path, fileName,reportTitle = "Compare Summary Sensor Line Plot Since Last Pump Setting Change" ,
+              plotName = "lineSumSens_SGper_Sett_BG", paramList = NA, plotType = NA,
+              seqType = "change", seqLength = 2, outPath ="F:/",outFileName = "testOut") 
 historySeqOut(data = NA,libraryPath, path, fileName,reportTitle = "Compare All Pump Setting Changes Summary Sensor Line Plot" ,
               plotName = "lineSumSens_SGper_Sett_BG", paramList = NA, plotType = NA,
               seqType = "change", seqLength = "all")
@@ -127,6 +130,9 @@ parmList1<-list(scatterOnly = FALSE, pointSize = 10,
 historySeqOut(data = NA,libraryPath, path, fileName,reportTitle = "Bolus Type Points Summary Sensor Line Plot" ,
               plotName = NA, paramList = parmList1, plotType = "plotLine_ly",
               seqType = "change", seqLength = 2) 
+#history sequence in Rstudio
+historySeq(data = allData,libraryPath,  plotName = "lineSumSens_SGper_Sett_BG", paramList = NA, plotType = NA,
+           seqType = "change", seqLength = 2)
 
 
 

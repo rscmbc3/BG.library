@@ -1,11 +1,18 @@
-historySeqOut<-function(data = NA,libraryPath,path,fileName,reportTitle, plotName = NA, paramList = NA, plotType = NA,
+historySeqOut<-function(data = NA,libraryPath,path,fileName,reportTitle, 
+                        outPath = NA, outFileName= NA,
+                        plotName = NA, paramList = NA, plotType = NA,
                         seqType = "change", seqLength = 2, period = NA) {
   
-  generatehistorySeqRMD(data,libraryPath,reportTitle, plotName, paramList, plotType,
-                                  seqType, seqLength, period)
+  
+  replaceHistoryTitle(libraryPath, reportTitle)
   
   reportPath<-paste0(libraryPath,"reports/historySeqOut.Rmd")
-
+if (is.na(outPath) | is.na(outFileName)){
+  outFileName<-gsub("\\.Rmd","\\.html",reportPath)
+}else{
+  outFileName<-paste0(outPath,"/",outFileName,".html")
+}
+  
   rmarkdown::render(
     reportPath, params = list(
       libraryPath = libraryPath,
@@ -17,10 +24,10 @@ historySeqOut<-function(data = NA,libraryPath,path,fileName,reportTitle, plotNam
       seqType = seqType,
       seqLength = seqLength
     ),
-    output_file = gsub("\\.Rmd","\\.html",reportPath)
+    output_file = outFileName
   )
   
-  shell.exec(gsub("\\.Rmd","\\.html",reportPath))
+  shell.exec(outFileName)
 }
 
 
