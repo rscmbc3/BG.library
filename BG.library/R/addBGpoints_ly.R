@@ -9,10 +9,9 @@
 
 addBGpoints_ly<-function(data, p, yAxis = 'y', addBG, pointSize){
   if (addBG){#add bG values
-    
     NAMES<-c("dateTime","Date2","time2","hours","hour","BG.Reading..mg.dL.")
     data<-uniqueDateTime(data, NAMES, replaceNAs = FALSE,timeStep = "hour", period = 1)
- 
+
     p <- p %>% add_trace( data = data, x = ~hours, y = ~BG.Reading..mg.dL., 
                           type = "scatter", 
                           mode = "markers",

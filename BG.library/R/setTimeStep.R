@@ -1,6 +1,6 @@
 setTimeStep<-function(data, timeStep, period){
   #regenerate time2, hour, minute based on timeStep and period
-  if (timeStep=="hour"){
+  if (timeStep=="hour" & period!=1){
     seqTime<-seq.POSIXt(as.POSIXct("00:00",format="%H:%M"),as.POSIXct("23:00",format="%H:%M"),by = paste0(period," hour"))
     data$timeNew<-as.POSIXct(data$time2,format="%H:%M")
     data$timeNew2<-as.numeric(rep(NA,nrow(data)))
