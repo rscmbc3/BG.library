@@ -134,6 +134,8 @@ historySeqOut(data = NA,libraryPath, path, fileName,reportTitle = "Bolus Type Po
 historySeq(data = allData,libraryPath,  plotName = "lineSumSens_SGper_Sett_BG", paramList = NA, plotType = NA,
            seqType = "change", seqLength = 2)
 
+#BG report
+generateBGreport(libraryPath, path, fileName, data = allData)
 
 
 #line plot

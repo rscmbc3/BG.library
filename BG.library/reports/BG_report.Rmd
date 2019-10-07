@@ -1,0 +1,209 @@
+---
+title: 'BG_report for Dates: 2019-10-01 to 2019-10-06'
+author: "Lillian Gorman Sanisaca, lgormansanisaca@usgs.gov"
+date: "Created 9/13/2019"
+output: html_document
+params:
+  libraryPath: libraryPath
+  path: path
+  fileName: fileName
+  numberDays: numberDays
+  fromChange: fromChange
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,fig.width=12, fig.height=8, warning = FALSE)
+```
+
+
+```{r, eval=TRUE, echo=FALSE,warning=FALSE, message = FALSE}
+#setPaths
+libraryPath<-params$libraryPath
+path<-params$path
+fileName<-params$fileName
+numberDays<-params$numberDays
+fromChange<-params$fromChange
+
+#load functions
+devtools::load_all(libraryPath,recompile = FALSE) 
+
+#get pumpSettings
+pumpSettings.list<-makePumpSettings(libraryPath)
+unPackList(lists = list(pumpSettings.list = pumpSettings.list),
+           parentObj = list(NA)) 
+
+#metronic csv data import
+dataImport.list<-dataImport(path,fileName,libraryPath)
+unPackList(lists = list(dataImport.list = dataImport.list),
+           parentObj = list(NA)) 
+
+
+#summarize data
+BGvalue_Summary<-summarizeData(allData, colName = "BG.Reading..mg.dL.", libraryPath = libraryPath)
+Sensorvalue_Summary<-summarizeData(allData, colName = "Sensor.Glucose..mg.dL.", libraryPath = libraryPath)
+
+BGvalue_SummaryDaily<-summarizeData(allData, colName = "BG.Reading..mg.dL.",  timeStep = "day", libraryPath = libraryPath)
+BGpercent_Summary<-addPercentBG_ly(allData, p = NA,addPercentBG = c("very high","high","good","low"),
+                                   addPercentType = "BG.Reading..mg.dL.",outputType = "table",
+                                   libraryPath = libraryPath)
+SGpercent_Summary<-addPercentBG_ly(allData, p = NA,addPercentBG = c("very high","high","good","low"),
+                                   addPercentType = "Sensor.Glucose..mg.dL.",outputType = "table",
+                                   libraryPath = libraryPath)
+BGHigh_Count<-summarizeData(allData, colName = "BG.Reading..mg.dL.", 
+                            sumFuncs = "length",
+                            filterCond = "data[data$BG.Reading..mg.dL.>150 & !is.na(data$BG.Reading..mg.dL.),]", libraryPath = libraryPath)
+BGveryHigh_Count<-summarizeData(allData, colName = "BG.Reading..mg.dL.", 
+                                sumFuncs = "length",
+                                filterCond = "data[data$BG.Reading..mg.dL.>240 & !is.na(data$BG.Reading..mg.dL.),]", libraryPath = libraryPath)
+
+BGLow_Count<-summarizeData(allData, colName = "BG.Reading..mg.dL.", 
+                           sumFuncs = "length",
+                           filterCond = "data[data$BG.Reading..mg.dL.<80 & !is.na(data$BG.Reading..mg.dL.),]", libraryPath = libraryPath)
+BGgood_Count<-summarizeData(allData, colName = "BG.Reading..mg.dL.", 
+                            sumFuncs = "length",
+                            filterCond = "data[data$BG.Reading..mg.dL.>=80 & data$BG.Reading..mg.dL.<=150 & !is.na(data$BG.Reading..mg.dL.),]",
+                            libraryPath = libraryPath)
+tempBasal_count<-summarizeData(allData, colName = "Temp.Basal.Amount", 
+                               sumFuncs = "length",
+                               filterCond = "data[data$Temp.Basal.Amount==0 & !is.na(data$Temp.Basal.Amount),]",
+                               libraryPath = libraryPath)
+suspendBasal_Count<-summarizeData(allData, colName = "Alarm", 
+                                  sumFuncs = "length",
+                                  filterCond = "data[regexpr('SUSPEND',data$Alarm)>0 & !is.na(data$Alarm),]", 
+                                  libraryPath = libraryPath)
+
+
+#timeDayTables used for heatmaps
+BGvalue_timeDaytable<-timeDayTable(allData, tcol = "time2", dcol = "Date2", 
+                                   valueVar = "BG.Reading..mg.dL.", 
+                                   sumFunc = "mean", naRemove = TRUE,
+                                   includeTotals = TRUE,
+                                  filterCond = "",
+                                   libraryPath = libraryPath)
+SGvalue_timeDaytable<-timeDayTable(allData, tcol = "time2", dcol = "Date2", 
+                                   valueVar = "Sensor.Glucose..mg.dL.", 
+                                   sumFunc = "mean", naRemove = TRUE,
+                                   includeTotals = TRUE,
+                                   filterCond = "",
+                                   libraryPath = libraryPath)
+
+
+```
+
+##BG value stats by hour
+```{r, eval=TRUE}
+BGvalue_Summary
+```
+##BG value stats by day
+```{r, eval=TRUE}
+BGvalue_SummaryDaily
+```
+
+##Sensor value stats by hour
+```{r, eval=TRUE}
+Sensorvalue_Summary
+```
+
+##BG high (>150) count
+```{r, eval=TRUE}
+BGHigh_Count
+```
+
+##BG very high (>240) count
+```{r, eval=TRUE}
+BGveryHigh_Count
+```
+
+##BG low (<80) count
+```{r, eval=TRUE}
+BGLow_Count
+```
+
+##BG good value count (>80 and <150)
+```{r, eval=TRUE}
+BGgood_Count
+```
+
+##Temp Basal = 0 count
+```{r, eval=TRUE}
+tempBasal_count
+```
+
+##Suspend basal on low count
+```{r, eval=TRUE}
+suspendBasal_Count
+```
+
+
+##BG value by time and date with mean values
+```{r, eval=TRUE,fig.width=14, fig.height=10}
+BGvalue_timeDaytable
+#heatmap
+heatMap(BGvalue_timeDaytable, hasTotals = TRUE,
+        margins = c(6,20), brks = seq(0,450,50), 
+        brewerPallete = "RdBu")
+```
+
+##Sensor value by time and date with mean values
+```{r, eval=TRUE,fig.width=14, fig.height=10}
+SGvalue_timeDaytable
+#heatmap
+heatMap(SGvalue_timeDaytable, hasTotals = TRUE,
+        margins = c(6,20), brks = seq(0,450,50), 
+        brewerPallete = "RdBu")
+```
+
+
+
+##Interactive Plots
+###linePlots
+```{r, eval=TRUE, echo=FALSE,warning=FALSE}
+executeSavedPlot(data = allData, plotName = "lineSumSens_SGper_Sett_BG", libraryPath = libraryPath)
+executeSavedPlot(data = allData, plotName = "lineSumSens_BGper_Sett_BG", libraryPath = libraryPath)
+executeSavedPlot(data = allData, plotName = "lineSumSens_BGper_subCarb_BG", libraryPath = libraryPath)
+executeSavedPlot(data = allData, plotName = "lineSumSens_BGper_subCarb_Sett_BG", libraryPath = libraryPath)
+
+```
+
+###barplots hourly
+```{r, eval=TRUE, echo=FALSE,warning=FALSE}
+executeSavedPlot(data = allData, plotName = "sumBar_highBG150_Sett", libraryPath = libraryPath)
+executeSavedPlot(data = allData, plotName = "sumBar_lowBG80_Sett", libraryPath = libraryPath)
+executeSavedPlot(data = allData, plotName = "stackBarInsulinHour_Sett", libraryPath = libraryPath)
+executeSavedPlot(data = allData, plotName = "stackBarBGallHour_Sett", libraryPath = libraryPath)
+```
+
+###every 3 hours barplots
+```{r, eval=TRUE, echo=FALSE,warning=FALSE}
+executeSavedPlot(data = allData, plotName = "stackBarBG3Hour_Sett", libraryPath = libraryPath)
+executeSavedPlot(data = allData, plotName = "stackBarInsulin3Hour_Sett", libraryPath = libraryPath)
+```
+###daily barplots
+```{r, eval=TRUE, echo=FALSE,warning=FALSE}
+executeSavedPlot(data = allData, plotName = "stackBarInsulinDaily", libraryPath = libraryPath)
+executeSavedPlot(data = allData, plotName = "stackBarBGDaily", libraryPath = libraryPath)
+executeSavedPlot(data = allData, plotName = "stackBarSGDaily", libraryPath = libraryPath)
+```
+
+###boxplots hourly
+```{r, eval=TRUE, echo=FALSE,warning=FALSE}
+executeSavedPlot(data = allData, plotName = "boxSGhour_Sett", libraryPath = libraryPath)
+executeSavedPlot(data = allData, plotName = "boxBGhour_Sett", libraryPath = libraryPath)
+executeSavedPlot(data = allData, plotName = "boxCorrUhour_Sett", libraryPath = libraryPath)
+executeSavedPlot(data = allData, plotName = "boxFoodUhour_Sett", libraryPath = libraryPath)
+
+```
+
+###3hour boxplots
+```{r, eval=TRUE, echo=FALSE,warning=FALSE}
+executeSavedPlot(data = allData, plotName = "boxSG3hour_Sett", libraryPath = libraryPath)
+executeSavedPlot(data = allData, plotName = "boxBG3hour_Sett", libraryPath = libraryPath)
+executeSavedPlot(data = allData, plotName = "boxCorrU3hour_Sett", libraryPath = libraryPath)
+executeSavedPlot(data = allData, plotName = "boxFoodU3hour_Sett", libraryPath = libraryPath)
+```
+
+###daily boxplots
+```{r, eval=TRUE, echo=FALSE,warning=FALSE}
+executeSavedPlot(data = allData, plotName = "boxSGdaily", libraryPath = libraryPath)
+executeSavedPlot(data = allData, plotName = "boxBGdaily", libraryPath = libraryPath)
+```

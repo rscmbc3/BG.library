@@ -1,12 +1,12 @@
-replaceHistoryTitle<-function(libraryPath, reportTitle){
+replaceTitle<-function(libraryPath, reportTitle, reportName){
   
-  historyRMDpath<-paste0(libraryPath,"reports/historySeqOut.Rmd")
+  RMDpath<-paste0(libraryPath,"reports/",reportName,".Rmd")
   #read Rmd file as text
-  x <- readLines(historyRMDpath)
+  x <- readLines(RMDpath)
   #find where title is designated
   editthis<-x[which(regexpr("title:",gsub(" ","",x))>0)]
   #replace with current path_master
   y <- gsub( editthis, paste0("title: '",reportTitle,"'"), x )
   #overwrite the file
-  cat(y, file=historyRMDpath, sep="\n") 
+  cat(y, file=RMDpath, sep="\n") 
 }
