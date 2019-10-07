@@ -46,7 +46,7 @@ unPackList(lists = list(pumpSettings.list = pumpSettings.list),
            parentObj = list(NA)) 
 
 #metronic csv data import
-dataImport.list<-dataImport(path,fileName)
+dataImport.list<-dataImport(path,fileName,libraryPath)
 unPackList(lists = list(dataImport.list = dataImport.list),
            parentObj = list(NA)) 
 data<-allData

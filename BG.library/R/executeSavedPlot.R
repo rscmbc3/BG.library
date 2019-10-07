@@ -1,4 +1,4 @@
-executeSavedPlot<-function(data, numberDays, plotName,changeParam.list = NA, libraryPath){
+executeSavedPlot<-function(data, numberDays = NA, plotName,changeParam.list = NA, libraryPath){
   #load saved plotList
   load(paste0(libraryPath,"/data/plotList"))
   
@@ -17,7 +17,8 @@ executeSavedPlot<-function(data, numberDays, plotName,changeParam.list = NA, lib
   #unpack params
   unPackList(lists = list(paramList = paramList),
              parentObj = list(NA))
-  
+
+
   #format plot params
   paramStr<-character(0)
 for (p in 1:length(paramList)){
@@ -25,8 +26,10 @@ for (p in 1:length(paramList)){
   pStr<-paste0(pName,"=",pName,",")
   paramStr<-paste0(paramStr,pStr)
 }
-  paramStr<-paste0(paramStr,"data = data,numberDays = numberDays")
-  
+  paramStr<-paste0(paramStr,"data = data,
+                   numberDays = numberDays, 
+                   libraryPath = libraryPath")
+
   #execute plot
   execStr<-paste0(plotType,"(",paramStr,")")
   eval(parse(text = execStr))

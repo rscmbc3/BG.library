@@ -2,13 +2,13 @@ summaryPlotDay_ly<-function(data,basal,barSubPlot,boxBar,
                          numberDays, filterCond = "",
                          startDate = NA, endDate = NA,
                          startTime = "00:00", endTime = "23:00",
-                         timeStep = "day",period = 1,
+                         timeStep = "day",period = 1,fromChange,libraryPaths,
                          plotSummary, sumFunc = "length", stackedBar = "",
                          uniqueDT = TRUE,replaceNAs = TRUE,ignoreNAs = FALSE,
                          legendInset = -0.2,description,descInset){
   
   #subset data by date and filterCond
-  data<-subsetData(data,numberDays,startDate,endDate,filterCond,timeStep,period)
+  data<-subsetData(data,numberDays,startDate,endDate,filterCond,timeStep,period, fromChange,libraryPath)
 
   #if filtered data exists
   if(nrow(data)!=0){

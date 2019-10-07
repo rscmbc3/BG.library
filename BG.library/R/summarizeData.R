@@ -1,9 +1,18 @@
 summarizeData<-function(data, colName, sumFuncs = "min, mean, max, sd", 
-                        numberDays, filterCond = "",
-                        timeStep = "hour", period = 1){
+                        numberDays = NA, filterCond = "",
+                        timeStep = "hour", period = 1, fromChange=TRUE,libraryPath){
+  if (!fromChange){
   #subset for numberDays
   data<-data[data$Date2>=max(data$Date2)-numberDays+1,]
-  
+  }else{
+    basal<-makePumpSettings(libraryPath)$basal
+    lastChange<-names(basal)[length(basal)]
+    lastChange<-gsub("X","",lastChange)
+    lastChange<-gsub("\\.","-",lastChange)
+    lastChange<-as.Date(lastChange,format = "%m-%d-%Y",origin = "1970-01-01")
+    lastChange<-as.Date(lastChange, format = "%Y-%m-%d" )
+    data<-data[data$Date2>=lastChange,]
+  }
   
   
   if (filterCond!=""){

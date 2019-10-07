@@ -1,12 +1,21 @@
 timeDayTable<-function(data, tcol, dcol, valueVar, 
                        sumFunc, naRemove = TRUE,
                        includeTotals = TRUE,
-                       numberDays, filterCond = "",replaceNAs = FALSE,
-                       timeStep = "hour", period = 1){
+                       numberDays = NA, filterCond = "",replaceNAs = FALSE,
+                       timeStep = "hour", period = 1,fromChange = TRUE,libraryPath){
   
-  #subset for numberDays
-  data<-data[data$Date2>=max(data$Date2)-numberDays+1,]
-  
+  if (!fromChange){
+    #subset for numberDays
+    data<-data[data$Date2>=max(data$Date2)-numberDays+1,]
+  }else{
+    basal<-makePumpSettings(libraryPath)$basal
+    lastChange<-names(basal)[length(basal)]
+    lastChange<-gsub("X","",lastChange)
+    lastChange<-gsub("\\.","-",lastChange)
+    lastChange<-as.Date(lastChange,format = "%m-%d-%Y",origin = "1970-01-01")
+    lastChange<-as.Date(lastChange, format = "%Y-%m-%d" )
+    data<-data[data$Date2>=lastChange,]
+  }
   
   if (filterCond!=""){
     data<-eval(parse(text = filterCond))

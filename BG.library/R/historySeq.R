@@ -29,7 +29,10 @@ historySeq<-function(data,libraryPath, plotName, paramList, plotType,
       endDate<-as.character(dateSeq[d])
     startDate<-as.character(dateSeq[d+1])
     changeParam.list<-list(startDate = startDate,
-                           endDate = endDate)
+                           endDate = endDate,
+                           fromChange = FALSE)
+    
+
     if (!is.na(plotName)){
          p<-executeSavedPlot(data, numberDays =NA, plotName,changeParam.list, libraryPath)
 print(p)

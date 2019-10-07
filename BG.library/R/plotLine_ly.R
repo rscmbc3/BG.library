@@ -1,8 +1,9 @@
 
-plotLine_ly<-function(data,  scatterOnly = FALSE,pointSize = 10,
+plotLine_ly<-function(data,
+                      scatterOnly = FALSE,pointSize = 10,
                       numberDays = NA, startDate = NA, endDate = NA,
                       startTime = "00:00", endTime = "23:00",
-                      timeStep = "hour",period = 1,
+                      timeStep = "hour",period = 1,fromChange = TRUE,libraryPath,
                       colorPalleteDaily = "rainbow", 
                       addSensor = TRUE, addBG = TRUE, 
                       addPercentBG = c("low","good","high","very high"),
@@ -15,7 +16,7 @@ plotLine_ly<-function(data,  scatterOnly = FALSE,pointSize = 10,
                       legendInset = -0.2,description = "",descInset = -0.15){
   
   #subset data by date and filterCond
-  data<-subsetData(data,numberDays,startDate,endDate,filterCond,timeStep,period)
+  data<-subsetData(data,numberDays,startDate,endDate,filterCond,timeStep,period, fromChange,libraryPath)
   
   #if filtered data exists
   if(nrow(data)!=0){
@@ -86,16 +87,17 @@ plotLine_ly<-function(data,  scatterOnly = FALSE,pointSize = 10,
     
     
     #addPercentBG as text 
-    p<-addPercentBG_ly(data,p,addPercentBG,addPercentType)
+    p<-addPercentBG_ly(data,p,addPercentBG,addPercentType,fromChange = fromChange,libraryPath = libraryPath)
     
     #add addBarSub of carb intake
-    p<-summaryPlot_ly(p, data, barSubPlot,ay.list$ayCarb,
+    p<-summaryPlot_ly(p, data,
+                      barSubPlot,ay.list$ayCarb,
                      addBarSub,
                      numberDays, filterCond,
                      startDate, endDate,
                      startTime = "00:00", endTime = "23:00",
                      plotSummary, sumFunc = "length", stackedBar = "",
-                     addBG, 
+                     addBG, libraryPath = libraryPath,
                      addSetting,settingOverlay,percentSetting,
                      legendInset)
     
