@@ -3,7 +3,7 @@
 #'@param data object from `readLines()` import to convert to readable data.frame.
 #'@return `data` data.frame with correct headers and dateTime class columns.
 
-fixtables<-function(data){
+fixtables<-function(data,libraryPath){
   #replace column names
   for (i in 1:length(data)){
     names(data)[i]<-as.character(data[1,i])
@@ -11,7 +11,7 @@ fixtables<-function(data){
   data<-data[-c(1),]
   
   #write to csv and then read to get colclasses
-  tempfile = paste0(path,"temp.csv")
+  tempfile = paste0(libraryPath,"data/temp.csv")
   write.csv(file = tempfile,data, row.names = FALSE)
   
   data<-read.csv(tempfile)

@@ -7,7 +7,7 @@
 #'@return `dataImport.list` list containing 2 data.frames (allData and joinData)
 
 
-dataImport<-function(path,fileName){
+dataImport<-function(path,fileName,libraryPath){
   #readBG
   data<-read.csv(paste0(path,fileName), header = FALSE)
   
@@ -23,8 +23,8 @@ dataImport<-function(path,fileName){
  
   
   #fix tables
-  pumpData<-fixtables(pumpData)
-  sensorData<-fixtables(sensorData)
+  pumpData<-fixtables(pumpData,libraryPath)
+  sensorData<-fixtables(sensorData,libraryPath)
 
   
   #conform colClasses
