@@ -14,7 +14,16 @@ timeDayTable<-function(data, tcol, dcol, valueVar,
     lastChange<-gsub("\\.","-",lastChange)
     lastChange<-as.Date(lastChange,format = "%m-%d-%Y",origin = "1970-01-01")
     lastChange<-as.Date(lastChange, format = "%Y-%m-%d" )
-    data<-data[data$Date2>=lastChange,]
+    prevChange<-names(basal)[length(basal)-1]
+    prevChange<-gsub("X","",prevChange)
+    prevChange<-gsub("\\.","-",prevChange)
+    prevChange<-as.Date(prevChange,format = "%m-%d-%Y",origin = "1970-01-01")
+    prevChange<-as.Date(prevChange, format = "%Y-%m-%d" )
+    if (nrow(data[data$Date2>=lastChange,])!=0){
+      data<-data[data$Date2>=lastChange,]
+    }else{
+      data<-data[data$Date2>=prevChange,]
+    }
   }
   
   if (filterCond!=""){
