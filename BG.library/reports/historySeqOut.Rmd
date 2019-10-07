@@ -1,5 +1,5 @@
 ---
-title: 'Bolus Type Points Summary Sensor Line Plot'
+title: 'Compare Summary Sensor Line Plot Since Last Pump Setting Change'
 author: 'Lillian Gorman Sanisaca'
 date: "`r paste0('Report Generated : ',format(Sys.time(), '%m-%d-%Y'))`"
 output: html_document
@@ -69,7 +69,6 @@ data<-allData
   dateSeq<-dateSeq[order(dateSeq, decreasing = TRUE)]
   
   }else{#if seqType = days
-
 dateSeq<-seq.Date(from = max(data$Date2),to = min(data$Date2),by=paste0('-',period,' day'))
 
 }
@@ -83,6 +82,8 @@ if (seqLength!='all' & seqType=='change'){
 }else if (seqType!='change' & seqLength!='all'){
           if (length(dateSeq)<seqLength+1){
     dateSeq<-c(dateSeq,min(data$Date2))
+          }else{
+            dateSeq<-dateSeq[1:(seqLength+1)]
           }
     }
  
