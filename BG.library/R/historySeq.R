@@ -19,15 +19,31 @@ historySeq<-function(data,libraryPath, plotName, paramList, plotType,
   dateSeq<-unique(dateSeq)
   dateSeq<-dateSeq[order(dateSeq, decreasing = TRUE)]
   
-  }#if seqType Change
+  }else{#if seqType = days
+    dateSeq<-seq.Date(from = max(data$Date2),to = min(data$Date2),by=paste0('-',period,' day'))
+  }
+
 
   #trim dateSeq
-  dateSeq<-dateSeq[1:(seqLength+1)]
+  if (seqLength!='all' & seqType=='change'){
+    if (length(dateSeq)>seqLength+1){
+      
+      dateSeq<-dateSeq[1:(seqLength+1)]
+    }
+  }else if (seqType!='change' & seqLength!='all'){
+    if (length(dateSeq)<seqLength+1){
+      dateSeq<-c(dateSeq,min(data$Date2))
+    }else{
+      dateSeq<-dateSeq[1:(seqLength+1)]
+    }
+  }
 
   #plot each pair
     for (d in 1:(length(dateSeq)-1)){#for each pair
       endDate<-as.character(dateSeq[d])
     startDate<-as.character(dateSeq[d+1])
+
+
     changeParam.list<-list(startDate = startDate,
                            endDate = endDate,
                            fromChange = FALSE)
