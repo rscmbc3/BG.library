@@ -4,27 +4,8 @@ timeDayTable<-function(data, tcol, dcol, valueVar,
                        numberDays = NA, filterCond = "",replaceNAs = FALSE,
                        timeStep = "hour", period = 1,fromChange = TRUE,libraryPath){
   
-  if (!fromChange){
-    #subset for numberDays
-    data<-data[data$Date2>=max(data$Date2)-numberDays+1,]
-  }else{
-    basal<-makePumpSettings(libraryPath)$basal
-    lastChange<-names(basal)[length(basal)]
-    lastChange<-gsub("X","",lastChange)
-    lastChange<-gsub("\\.","-",lastChange)
-    lastChange<-as.Date(lastChange,format = "%m-%d-%Y",origin = "1970-01-01")
-    lastChange<-as.Date(lastChange, format = "%Y-%m-%d" )
-    prevChange<-names(basal)[length(basal)-1]
-    prevChange<-gsub("X","",prevChange)
-    prevChange<-gsub("\\.","-",prevChange)
-    prevChange<-as.Date(prevChange,format = "%m-%d-%Y",origin = "1970-01-01")
-    prevChange<-as.Date(prevChange, format = "%Y-%m-%d" )
-    if (nrow(data[data$Date2>=lastChange,])!=0){
-      data<-data[data$Date2>=lastChange,]
-    }else{
-      data<-data[data$Date2>=prevChange,]
-    }
-  }
+  #get dateRange
+  data<-fromChangeDateRange(data,numberDays,fromChange,libraryPath = libraryPath)
   
   if (filterCond!=""){
     data<-eval(parse(text = filterCond))

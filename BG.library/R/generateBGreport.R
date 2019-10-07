@@ -3,18 +3,8 @@ generateBGreport<-function(libraryPath, path, fileName,
                              numberDays = NA, fromChange = TRUE,
                            data){
   #get dateRange
-  if (!fromChange){
-    #subset for numberDays
-    data<-data[data$Date2>=max(data$Date2)-numberDays+1,]
-  }else{
-    basal<-makePumpSettings(libraryPath)$basal
-    lastChange<-names(basal)[length(basal)]
-    lastChange<-gsub("X","",lastChange)
-    lastChange<-gsub("\\.","-",lastChange)
-    lastChange<-as.Date(lastChange,format = "%m-%d-%Y",origin = "1970-01-01")
-    lastChange<-as.Date(lastChange, format = "%Y-%m-%d" )
-    data<-data[data$Date2>=lastChange,]
-  }
+  data<-fromChangeDateRange(data,numberDays,fromChange,libraryPath = libraryPath)
+  
   reportTitle<-paste0("BG_report for Dates: ",min(data$Date2)," to ",max(data$Date2))
   
   replaceTitle(libraryPath, reportTitle,reportName = "BG_report")

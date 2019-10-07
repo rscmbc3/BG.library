@@ -132,7 +132,8 @@ parmList1<-list(scatterOnly = FALSE, pointSize = 10,
                addSensor = FALSE, addBG = TRUE,
                addBolusType = c("Bolus.Volume.Delivered..U.","BWZ.Correction.Estimate..U.","BWZ.Food.Estimate..U."),
                addBarSub = FALSE,
-               plotSummary = "Sensor.Glucose..mg.dL.")
+               plotSummary = "Sensor.Glucose..mg.dL.",
+               libraryPath = libraryPath)
 historySeqOut(data = NA,libraryPath, path, fileName,reportTitle = "Bolus Type Points Summary Sensor Line Plot" ,
               plotName = NA, paramList = parmList1, plotType = "plotLine_ly",
               seqType = "change", seqLength = 2) 
