@@ -4,7 +4,7 @@ historySeqOut<-function(data = NA,libraryPath,path,fileName,reportTitle,
                         seqType = "change", seqLength = 2, period = NA) {
   
   
-  replaceHistoryTitle(libraryPath, reportTitle)
+  replaceTitle(libraryPath, reportTitle,reportName = "historySeqOut")
   
   reportPath<-paste0(libraryPath,"reports/historySeqOut.Rmd")
 if (is.na(outPath) | is.na(outFileName)){
