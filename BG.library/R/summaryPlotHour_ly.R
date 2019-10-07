@@ -1,4 +1,4 @@
-summaryPlotHour_ly<-function(data,basal,barSubPlot,boxBar,
+summaryPlotHour_ly<-function(data,barSubPlot,boxBar,
                          numberDays, filterCond = "",
                          startDate = NA, endDate = NA,
                          startTime = "00:00", endTime = "23:00",
@@ -13,7 +13,10 @@ summaryPlotHour_ly<-function(data,basal,barSubPlot,boxBar,
   data<-subsetData(data,numberDays,startDate,endDate,filterCond,timeStep,period, fromChange,libraryPath)
   #data$time3<-as.POSIXct(round(as.POSIXct(data$time2,format="%H:%M"),"hours"))
   
-
+  #subset settings
+  pumpSettings.list<-subsetSetting(data,libraryPath)
+  unPackList(lists = list(pumpSettings.list = pumpSettings.list),
+             parentObj = list(NA)) 
   
   #if filtered data exists
   if(nrow(data)!=0){ 

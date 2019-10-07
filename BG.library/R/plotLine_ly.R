@@ -15,8 +15,14 @@ plotLine_ly<-function(data,
                       addFasting = TRUE,addFastingAnnot = TRUE,
                       legendInset = -0.2,description = "",descInset = -0.15){
   
+
   #subset data by date and filterCond
   data<-subsetData(data,numberDays,startDate,endDate,filterCond,timeStep,period, fromChange,libraryPath)
+  
+  #subset settings
+  pumpSettings.list<-subsetSetting(data,libraryPath)
+  unPackList(lists = list(pumpSettings.list = pumpSettings.list),
+             parentObj = list(NA)) 
   
   #if filtered data exists
   if(nrow(data)!=0){

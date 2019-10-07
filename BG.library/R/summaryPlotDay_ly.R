@@ -1,4 +1,4 @@
-summaryPlotDay_ly<-function(data,basal,barSubPlot,boxBar,
+summaryPlotDay_ly<-function(data,barSubPlot,boxBar,
                          numberDays, filterCond = "",
                          startDate = NA, endDate = NA,
                          startTime = "00:00", endTime = "23:00",
@@ -10,6 +10,11 @@ summaryPlotDay_ly<-function(data,basal,barSubPlot,boxBar,
   #subset data by date and filterCond
   data<-subsetData(data,numberDays,startDate,endDate,filterCond,timeStep,period, fromChange,libraryPath)
 
+  #subset settings
+  pumpSettings.list<-subsetSetting(data,libraryPath)
+  unPackList(lists = list(pumpSettings.list = pumpSettings.list),
+             parentObj = list(NA)) 
+  
   #if filtered data exists
   if(nrow(data)!=0){
     #get hours as number
