@@ -100,23 +100,22 @@ executeSavedPlot(data = allData, plotName = "boxFoodU3hour_Sett", libraryPath = 
 ##daily boxplots
 executeSavedPlot(data = allData, plotName = "boxSGdaily", libraryPath = libraryPath)
 executeSavedPlot(data = allData, plotName = "boxBGdaily", libraryPath = libraryPath)
+#heatmaps
+executeSavedPlot(data = allData, plotName = "meanBGheat_hist", libraryPath = libraryPath)
+executeSavedPlot(data = allData, plotName = "meanSGheat_hist", libraryPath = libraryPath)
 
-#heatmap
-heatMap(BGvalue_timeDaytable, hasTotals = TRUE,
-        margins = c(6,30), brks = seq(0,450,50), 
-        brewerPallete = "RdBu")
-heatMap(SGvalue_timeDaytable, hasTotals = TRUE,
-        margins = c(6,30), brks = seq(0,450,50), 
-        brewerPallete = "RdBu")
-heatMap(carbs_timeDaytable, hasTotals = TRUE,
-        margins = c(6,30), brks = seq(0,100,10), 
-        brewerPallete = "RdBu",  textCol = "deeppink")
+
+
+
 
 #dateSeq Reports
 #saved plot
 historySeqOut(data = NA,libraryPath, path, fileName,reportTitle = "Compare Summary Sensor Line Plot Since Last Pump Setting Change" ,
               plotName = "lineSumSens_SGper_Sett_BG", paramList = NA, plotType = NA,
-                        seqType = "change", seqLength = 2) 
+                        seqType = "change", seqLength = 2)
+historySeqOut(data = NA,libraryPath, path, fileName,reportTitle = "Compare Heat Maps of mean BG values Since Last Pump Setting Change" ,
+              plotName = "meanBGheat_hist", paramList = NA, plotType = NA,
+              seqType = "change", seqLength = 2) 
 historySeqOut(data = NA,libraryPath, path, fileName,reportTitle = "Compare Summary Sensor Line Plot Since Last Pump Setting Change" ,
               plotName = "lineSumSens_SGper_Sett_BG", paramList = NA, plotType = NA,
               seqType = "change", seqLength = 2, outPath ="F:/",outFileName = "testOut") 
@@ -233,7 +232,40 @@ summaryPlot_ly(p = NA, data = allData, barSubPlot = FALSE,ayCarb = NA,
                legendInset = -0.2)
 
 
+#plotly heat maps
+heatMap_ly(brks = c(0,50,80,150,240,300,400,500), 
+           brewerPallete = "RdBu", revPallete = TRUE,
+           textCol = "black",
+           #timeDayTable args
+           data = allData, tcol = "time2", dcol = "Date2", 
+           valueVar = "BG.Reading..mg.dL.", 
+           sumFunc = "mean", naRemove = TRUE,
+           includeTotals = TRUE,
+           filterCond = "",
+           libraryPath = libraryPath,
+           startDate = "2019-09-23",endDate = "2019-10-01", fromChange = FALSE)
+heatMap_ly(brks = c(0,50,80,150,240,300,400,500), 
+           brewerPallete = "RdBu", revPallete = TRUE,
+           textCol = "black",
+           #timeDayTable args
+           data = allData, tcol = "time2", dcol = "Date2", 
+           valueVar = "Sensor.Glucose..mg.dL.", 
+           sumFunc = "mean", naRemove = TRUE,
+           includeTotals = TRUE,
+           filterCond = "",
+           libraryPath = libraryPath)
 
+
+#heatmap
+heatMap(BGvalue_timeDaytable, hasTotals = TRUE,
+        margins = c(6,30), brks = seq(0,450,50), 
+        brewerPallete = "RdBu")
+heatMap(SGvalue_timeDaytable, hasTotals = TRUE,
+        margins = c(6,30), brks = seq(0,450,50), 
+        brewerPallete = "RdBu")
+heatMap(carbs_timeDaytable, hasTotals = TRUE,
+        margins = c(6,30), brks = seq(0,100,10), 
+        brewerPallete = "RdBu",  textCol = "deeppink")
 
 #plot settings
 #all plots

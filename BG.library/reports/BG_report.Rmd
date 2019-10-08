@@ -136,21 +136,21 @@ suspendBasal_Count
 
 
 ##BG value by time and date with mean values
-```{r, eval=TRUE,fig.width=14, fig.height=10}
+```{r, eval=TRUE,fig.width=12, fig.height=8}
 BGvalue_timeDaytable
 #heatmap
-heatMap(BGvalue_timeDaytable, hasTotals = TRUE,
-        margins = c(6,20), brks = seq(0,450,50), 
-        brewerPallete = "RdBu")
+#heatmaps
+executeSavedPlot(data = allData, plotName = "meanBGheat_hist", libraryPath = libraryPath)
+
 ```
 
 ##Sensor value by time and date with mean values
-```{r, eval=TRUE,fig.width=14, fig.height=10}
+```{r, eval=TRUE,fig.width=12, fig.height=8}
 SGvalue_timeDaytable
 #heatmap
-heatMap(SGvalue_timeDaytable, hasTotals = TRUE,
-        margins = c(6,20), brks = seq(0,450,50), 
-        brewerPallete = "RdBu")
+#heatmaps
+executeSavedPlot(data = allData, plotName = "meanSGheat_hist", libraryPath = libraryPath)
+
 ```
 
 
