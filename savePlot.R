@@ -1,33 +1,29 @@
 #3hour boxplots
 
-summaryPlot_ly(p = NA, data = allData, barSubPlot = FALSE,ayCarb = NA,
-               addBarSub = FALSE,plotType = "box",
-               numberDays = 5, filterCond = "",
-               startDate = NA, endDate = NA,
-               startTime = "00:00", endTime = "23:00",timeStep = "day",
-               plotSummary ="BG.Reading..mg.dL.", sumFunc = "", stackedBar = "",
-               addBG = FALSE, uniqueDT = TRUE,replaceNAs = FALSE,ignoreNAs = TRUE,
-               addSetting = "",settingOverlay = FALSE,percentSetting = 30,
-               legendInset = -0.2)
-plotName<-"boxBGdaily"
-plotType<-"summaryPlot_ly"
-description<-"Box plot of daily BG values."
-paramList<-list(startDate = "", 
-                endDate = "",
-                plotSummary = "BG.Reading..mg.dL.",
-                addSetting ="",
-                addBarSub = FALSE,
-                p = NA,
-                barSubPlot = FALSE,
-                ayCarb = NA,
-                sumFunc = "", 
-                stackedBar = "",
-                addBG = FALSE, 
-                uniqueDT = TRUE,
-                replaceNAs = FALSE,
-                ignoreNAs = TRUE,
-                boxBar = "box",
-                timeStep = "day")
+heatMap_ly(brks = c(0,50,80,150,240,300,400,500), 
+           brewerPallete = "RdBu", revPallete = TRUE,
+           textCol = "black",
+           #timeDayTable args
+           data = allData, tcol = "time2", dcol = "Date2", 
+           valueVar = "BG.Reading..mg.dL.", 
+           sumFunc = "mean", naRemove = TRUE,
+           includeTotals = TRUE,
+           filterCond = "",
+           libraryPath = libraryPath)
+plotName<-"meanSGheat_hist"
+plotType<-"heatMap_ly"
+description<-"Heat map of mean hourly SG values per day with histogram of groups."
+paramList<-list(brks = c(0,50,80,150,240,300,400,500),
+                brewerPallete = "RdBu",
+                revPallete = TRUE,
+                textCol = "black",
+                tcol = "time2",
+                dcol = "Date2",
+                valueVar = "Sensor.Glucose..mg.dL.",
+                sumFunc = "mean",
+                naRemove = TRUE,
+                includeTotals = TRUE,
+                filterCond = "")
 
 createSavedPlot(libraryPath, plotName,plotType,description, paramList)
 
