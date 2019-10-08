@@ -1,7 +1,7 @@
 ---
 title: 'BG_report for Dates: 2019-10-01 to 2019-10-06'
 author: "Lillian Gorman Sanisaca, lgormansanisaca@usgs.gov"
-date: "Created 9/13/2019"
+date: "`r paste0('Report Generated : ',format(Sys.time(), '%m-%d-%Y'))`"
 output: html_document
 params:
   libraryPath: libraryPath
@@ -136,7 +136,7 @@ suspendBasal_Count
 
 
 ##BG value by time and date with mean values
-```{r, eval=TRUE,fig.width=12, fig.height=8}
+```{r, eval=TRUE,fig.width=10, fig.height=8}
 BGvalue_timeDaytable
 #heatmap
 #heatmaps
@@ -145,7 +145,7 @@ executeSavedPlot(data = allData, plotName = "meanBGheat_hist", libraryPath = lib
 ```
 
 ##Sensor value by time and date with mean values
-```{r, eval=TRUE,fig.width=12, fig.height=8}
+```{r, eval=TRUE,fig.width=10, fig.height=8}
 SGvalue_timeDaytable
 #heatmap
 #heatmaps
