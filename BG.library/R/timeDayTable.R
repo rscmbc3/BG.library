@@ -1,11 +1,13 @@
 timeDayTable<-function(data, tcol, dcol, valueVar, 
                        sumFunc, naRemove = TRUE,
                        includeTotals = TRUE,
-                       numberDays = NA, filterCond = "",replaceNAs = FALSE,
+                       numberDays = NA, 
+                       startDate = NA, endDate = NA,
+                       filterCond = "",replaceNAs = FALSE,
                        timeStep = "hour", period = 1,fromChange = TRUE,libraryPath){
   
   #get dateRange
-  data<-fromChangeDateRange(data,numberDays,fromChange,libraryPath = libraryPath)
+  data<-fromChangeDateRange(data,numberDays,fromChange,startDate = startDate, endDate = endDate,libraryPath = libraryPath)
   
   if (filterCond!=""){
     data<-eval(parse(text = filterCond))
