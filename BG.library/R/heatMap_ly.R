@@ -46,9 +46,9 @@ heatMap_ly<-function(brks = seq(0,450,50),
    
  #set color palette
 # myCol<-brewer.pal(length(myBreaks)-1,"RdBu")
- myCol<-brewer.pal(length(myBreaks),"RdBu")
+ myCol<-brewer.pal(length(myBreaks),brewerPallete)
  myCol<-myCol[myCol!="#92C5DE"]
- myColLegend<-brewer.pal(length(myBreaks),"RdBu")
+ myColLegend<-brewer.pal(length(myBreaks),brewerPallete)
  if (revPallete){
    myCol<-rev(myCol)
    myColLegend<-rev(myColLegend)
