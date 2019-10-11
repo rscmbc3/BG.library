@@ -25,7 +25,7 @@ knitr::opts_chunk$set(echo = FALSE,fig.width=12, fig.height=8, warning = FALSE, 
 
 ```
  
-```{r, eval=TRUE, results='asis'}
+```{r, eval=TRUE, warning=FALSE, message=FALSE, include=FALSE}
 #setPaths
 libraryPath<-params$libraryPath
 path<-params$path
@@ -100,7 +100,7 @@ rmd <- paste(rmd, collapse = "\n")
 
 ```
 
-```{r  echo=FALSE, results='asis'}
+```{r  echo=FALSE, results='asis', warning=FALSE, message=FALSE}
 rendered <- knit(text = rmd, quiet = TRUE)
 cat("\n \n")
 cat(rendered, sep = "\n")

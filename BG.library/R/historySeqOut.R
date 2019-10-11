@@ -7,7 +7,7 @@ historySeqOut<-function(data = NA,libraryPath,path,fileName,reportTitle,
   replaceTitle(libraryPath, reportTitle,reportName = "historySeqOut")
   
   reportPath<-paste0(libraryPath,"reports/historySeqOut.Rmd")
-if (is.na(outPath) | is.na(outFileName)){
+if (is.na(outPath) | is.na(outFileName) | outPath=="" | outFileName == ""){
   outFileName<-gsub("\\.Rmd","\\.html",reportPath)
 }else{
   outFileName<-paste0(outPath,"/",outFileName,".html")

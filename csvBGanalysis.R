@@ -116,6 +116,9 @@ historySeqOut(data = NA,libraryPath, path, fileName,reportTitle = "Compare Summa
 historySeqOut(data = NA,libraryPath, path, fileName,reportTitle = "Compare Heat Maps of mean BG values Since Last Pump Setting Change" ,
               plotName = "meanBGheat_hist", paramList = NA, plotType = NA,
               seqType = "change", seqLength = 2) 
+historySeqOut(data = NA,libraryPath, path, fileName,reportTitle = "Compare Heat Maps of mean BG values Since Last Pump Setting Change" ,
+              plotName = "meanSGheat_hist", paramList = NA, plotType = NA,
+              seqType = "change", seqLength = 2) 
 historySeqOut(data = NA,libraryPath, path, fileName,reportTitle = "Compare Summary Sensor Line Plot Since Last Pump Setting Change" ,
               plotName = "lineSumSens_SGper_Sett_BG", paramList = NA, plotType = NA,
               seqType = "change", seqLength = 2, outPath ="F:/",outFileName = "testOut") 
@@ -145,6 +148,9 @@ generateBGreport(libraryPath, path, fileName, data = allData)
 
 #shiny app
 shinyPlot(libraryPath, path, fileName)
+historySeqOut(data = NA,libraryPath, path, fileName,reportTitle = "Bolus Type Points Summary Sensor Line Plot" ,
+              plotName = NA, paramList = shinyParms, plotType = "plotLine_ly",
+              seqType = "change", seqLength = 2) 
 
 #line plot
 plotLine_ly(allData,  scatterOnly = FALSE, pointSize = 10,
