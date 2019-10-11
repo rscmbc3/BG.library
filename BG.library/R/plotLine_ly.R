@@ -18,7 +18,7 @@ plotLine_ly<-function(data,
 
   #subset data by date and filterCond
   data<-subsetData(data,numberDays,startDate,endDate,filterCond,timeStep,period, fromChange,libraryPath)
-  
+
   #subset settings
   pumpSettings.list<-subsetSetting(data,libraryPath)
   unPackList(lists = list(pumpSettings.list = pumpSettings.list),
@@ -59,10 +59,14 @@ plotLine_ly<-function(data,
     #add layout
     eval(parse(text = layoutStr))
     
-    
-    if (plotSummary!="Sensor.Glucose..mg.dL." & addSensor){#daily sensor data
+
+    if (plotSummary!="Sensor.Glucose..mg.dL." & addSensor & !scatterOnly){#daily sensor data
+        if (is.na(numberDays)){
+        numberDays<-as.numeric(max(data$Date2)-min(data$Date2))
+      }
       #daily colors
       eval(parse(text = paste0("cl <- ",colorPalleteDaily,"(numberDays)")))
+    
       
       for (i in 1:numberDays){
         p <- p %>% add_trace(data=data[data$Date2==unique(data$Date2)[i],], 
@@ -79,8 +83,9 @@ plotLine_ly<-function(data,
       
     }else if (!scatterOnly){#min, max, mean #if daily sensor
       p<-summaryLinePlot_ly(data, plotSummary, p)
+      
     }
-    
+   
     #add bG values
     p<-addBGpoints_ly(data, p,yAxis = 'y', addBG, pointSize)
     
@@ -101,20 +106,20 @@ plotLine_ly<-function(data,
                      addBarSub,
                      numberDays, filterCond,
                      startDate, endDate,
-                     startTime = "00:00", endTime = "23:00",
+                     startTime, endTime,
                      plotSummary, sumFunc = "length", stackedBar = "",
                      addBG, libraryPath = libraryPath,
                      addSetting,settingOverlay,percentSetting,
                      legendInset)
-    
+  
+
     #add fasting
-    assign("dataFasting",data,envir = .GlobalEnv)
     p<-addFasting_ly(p, data, addFasting,addFastingAnnot)
     
     #plot it
-    p 
+    p
     
-    
+   
     
     
     

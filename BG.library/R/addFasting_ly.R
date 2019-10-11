@@ -1,5 +1,5 @@
 addFasting_ly<-function(p, data, addFasting, addFastingAnnot){
-  data<-dataFasting
+
   
   if(addFasting){
     #subset out before 5am values
@@ -18,7 +18,7 @@ addFasting_ly<-function(p, data, addFasting, addFastingAnnot){
     meanFasting<-meanFasting[,names(meanFasting) %in% c("hours","BG.Reading..mg.dL.")]
     meanFasting$value<-rep(mean(meanFasting$BG.Reading..mg.dL.),nrow(meanFasting))
 
-    
+
     #add trace
     lineText<-paste0("Mean Fasting BG = ",round(unique(meanFasting$value)))
     p <- p %>% add_trace(data = meanFasting, x = ~hours, y = ~value,
@@ -28,6 +28,7 @@ addFasting_ly<-function(p, data, addFasting, addFastingAnnot){
                          hoverinfo = 'text',
                          text = lineText,
                          name = "Mean Fasting BG")
+   
     if(addFastingAnnot){
     #add_annotation
     p <- p %>% add_annotations(x = max(meanFasting$hours),
