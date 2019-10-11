@@ -1,7 +1,7 @@
 shinyHistorySeq<-function(input, output, session,
                           libraryPath, path, fileName,
                           data){
-  
+  if (input$shPlotType!="Saved Plot"){
   shinySetup.list<-setupShinyParams(input, output, session,
                                     libraryPath, path, fileName,
                                     data)
@@ -17,7 +17,16 @@ shinyHistorySeq<-function(input, output, session,
     paramList<-parmList
   
     paramList<-paramList[!names(paramList) %in% c("data","numberDays")]
+  }else{
+    compiledInput<-compileInput(input, output, session)
+    unPackList(lists = list(compiledInput = compiledInput),
+               parentObj = list(NA)) 
+    
+    plotName<- input$plotName
+    paramList<-NA
+    plotType<-NA
 
+  }
     historySeqOut(data = NA,libraryPath,path,fileName,reportTitle, 
                            outPath, outFileName,
                             plotName, paramList = paramList, plotType,

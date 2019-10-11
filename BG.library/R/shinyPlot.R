@@ -33,7 +33,7 @@ shinyPlot<-function(libraryPath, path, fileName){
                      
                      #top level user input
                      selectInput("shPlotType","Select Plot Type",
-                                 choices = c("scatter","bar","box","heatmap")),
+                                 choices = c("scatter","bar","box","heatmap","Saved Plot")),
                      
                      conditionalPanel(#for plotLine_ly
                        condition = "input.shPlotType == 'scatter'",
@@ -126,6 +126,12 @@ shinyPlot<-function(libraryPath, path, fileName){
                        numericInput("descInset","Value to place plot description below plot area (must be negative)",max = 0, value = -0.15)
                       ),#end conditional panel for plotLine_ly
                       
+                    #saved plots
+                      conditionalPanel(#for plotLine_ly
+                       condition = "input.shPlotType == 'Saved Plot'",
+                      selectInput("plotName","Select saved plot by name",choices = names(plotList)),
+                      textOutput("description")
+                       ),
                        
                      
                      #historytSeq
@@ -175,6 +181,10 @@ shinyPlot<-function(libraryPath, path, fileName){
                                 libraryPath, path, fileName,
                                 data)
       })#end go history plots
+    
+    output$description <- renderText({
+      eval(parse(text = paste0("plotList$",input$plotName,"$description")))
+    })
     
   })#end shiny server
   )#end shiny app
