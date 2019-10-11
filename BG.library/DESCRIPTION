@@ -19,7 +19,10 @@ Imports:
   gplots,
   plotly,  
   knitr,
-  rmarkdown
+  rmarkdown,
+  reshape2,
+  shinyWidgets,
+  shiny
 License: GPL (>= 2)
 URL: 
 Collate:

@@ -143,6 +143,8 @@ historySeq(data = allData,libraryPath,  plotName = "lineSumSens_SGper_Sett_BG", 
 #BG report
 generateBGreport(libraryPath, path, fileName, data = allData)
 
+#shiny app
+shinyPlot(libraryPath, path, fileName)
 
 #line plot
 plotLine_ly(allData,  scatterOnly = FALSE, pointSize = 10,
