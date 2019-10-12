@@ -1,7 +1,19 @@
-setTimeStep<-function(data, timeStep, period){
+setTimeStep<-function(data,startTime,endTime, timeStep, period){
   #regenerate time2, hour, minute based on timeStep and period
   if (timeStep=="hour" & period!=1){
     seqTime<-seq.POSIXt(as.POSIXct("00:00",format="%H:%M"),as.POSIXct("23:00",format="%H:%M"),by = paste0(period," hour"))
+
+    #set time range as decimal hours
+    startTime<-as.POSIXlt(startTime,format="%H:%M", origin = "1970-01-01")
+    startTime<- startTime$hour + startTime$min/60 
+    endTime<-as.POSIXlt(endTime,format="%H:%M",origin = "1970-01-01")
+    endTime<- endTime$hour + endTime$min/60
+    #subset seqTime
+    xticksRange<-as.POSIXlt(seqTime,format="%H:%M",origin = "1970-01-01")
+    xticksRange<- xticksRange$hour + xticksRange$min/60
+    seqTime<-seqTime[xticksRange>=startTime & xticksRange<=endTime]
+    
+    
     data$timeNew<-as.POSIXct(data$time2,format="%H:%M")
     data$timeNew2<-as.numeric(rep(NA,nrow(data)))
     for (s in 2:length(seqTime)){
@@ -13,7 +25,6 @@ setTimeStep<-function(data, timeStep, period){
     }
     #add last in sequence
     data<-transform(data, timeNew2 = ifelse(is.na(data$timeNew2) & timeNew>=seqTime[length(seqTime)],seqTime[length(seqTime)],timeNew2))
-    
     #replace core columns
     data$time2<-as.POSIXlt(data$timeNew2, origin = "1970-01-01")
     data$hour<-data$time2$hour

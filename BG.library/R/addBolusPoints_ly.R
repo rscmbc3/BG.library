@@ -8,7 +8,7 @@
 #'@return `p` plot_ly interactive plot with BG values added if addBG
 
 
-addBolusPoints_ly<-function(data, p, addBolusType, pointSize){
+addBolusPoints_ly<-function(data, p, addBolusType, pointSize,startTime,endTime){
 if (addBolusType[1]!=""){#if add bolus type
   #set colors and shapes
   cls<-brewer.pal(length(addBolusType),"Set2")
@@ -25,7 +25,7 @@ if (addBolusType[1]!=""){#if add bolus type
 
     #get unique values
     NAMES<-c("dateTime","Date2","time2","hours","hour","bolusType")
-    data2<-uniqueDateTime(data, NAMES, replaceNAs = FALSE,timeStep = "hour", period = 1)
+    data2<-uniqueDateTime(data, NAMES, replaceNAs = FALSE,startTime = startTime,endTime = endTime,timeStep = "hour", period = 1)
     
     
     #set marker text

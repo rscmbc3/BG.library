@@ -8,7 +8,8 @@ summaryPlotDay_ly<-function(data,barSubPlot,boxBar,
                          legendInset = -0.2,description,descInset){
   
   #subset data by date and filterCond
-  data<-subsetData(data,numberDays,startDate,endDate,filterCond,timeStep,period, fromChange,libraryPath)
+  data<-subsetData(data,numberDays,startDate,endDate,filterCond,
+                   startTime = startTime, endTime = endTime,timeStep,period, fromChange,libraryPath)
 
   #subset settings
   pumpSettings.list<-subsetSetting(data,libraryPath)
@@ -36,7 +37,7 @@ summaryPlotDay_ly<-function(data,barSubPlot,boxBar,
       #get uniques
       if (uniqueDT){
         NAMES<-c("dateTime","Date2","hours","hour","temp")
-        data<-uniqueDateTime(data, NAMES, replaceNAs,timeStep = timeStep, period = period)
+        data<-uniqueDateTime(data, NAMES, replaceNAs,startTime = startTime,endTime = endTime,timeStep = timeStep, period = period)
       }
       
       data<-data[c("Date2","temp")]
@@ -88,7 +89,7 @@ summaryPlotDay_ly<-function(data,barSubPlot,boxBar,
       }
       basal<-basalDate
 
-      basal2<-setTimeStep(basalDate, timeStep, period)
+      basal2<-setTimeStep(basalDate, startTime,endTime, timeStep, period)
       
       #get on only relevant columns
       basal2<-basal2[,c("Date2","rate")]
@@ -105,7 +106,7 @@ summaryPlotDay_ly<-function(data,barSubPlot,boxBar,
       #get unique values (max) per Date2 and hours
       #NAMES<-c("dateTime","Date2","hours","hour","BWZ.Food.Estimate..U.","BWZ.Correction.Estimate..U.")
       NAMES<-c("dateTime","Date2","BWZ.Food.Estimate..U.","BWZ.Correction.Estimate..U.")
-      data<-uniqueDateTime(data, NAMES, replaceNAs = TRUE,timeStep = timeStep, period = period, sumFunc = "max")
+      data<-uniqueDateTime(data, NAMES, replaceNAs = TRUE,startTime = startTime,endTime = endTime,timeStep = timeStep, period = period, sumFunc = "max")
 
        #summarize by sum
       data<-as.data.frame(data %>% group_by(Date2) %>% summarise_all(funs(sum),na.rm=TRUE))

@@ -10,7 +10,9 @@ summaryPlotHour_ly<-function(data,barSubPlot,boxBar,
                          legendInset = -0.2,description,descInset){
   
   #subset data by date and filterCond
-  data<-subsetData(data,numberDays,startDate,endDate,filterCond,timeStep,period, fromChange,libraryPath)
+  data<-subsetData(data,numberDays,startDate,endDate,filterCond,
+                   startTime = startTime, endTime = endTime,timeStep,period, fromChange,libraryPath)
+
   #data$time3<-as.POSIXct(round(as.POSIXct(data$time2,format="%H:%M"),"hours"))
   
   #subset settings
@@ -27,7 +29,7 @@ summaryPlotHour_ly<-function(data,barSubPlot,boxBar,
     basalOrig<-basal
     dataOrig<-data
 
-    
+
     if (stackedBar!="insulin" | boxBar!="bar"){
       data$temp<-eval(parse(text = paste0("data$",plotSummary)))
       
@@ -39,8 +41,9 @@ summaryPlotHour_ly<-function(data,barSubPlot,boxBar,
       #get uniques
       if (uniqueDT){
         NAMES<-c("dateTime","Date2","hours","hour","temp")
-        data<-uniqueDateTime(data, NAMES, replaceNAs,timeStep = timeStep, period = period)
-      }
+        data<-uniqueDateTime(data, NAMES, replaceNAs,startTime = startTime,endTime = endTime,timeStep = timeStep, period = period)
+
+        }
       
       data<-data[c("hour","temp")]
       
@@ -67,7 +70,7 @@ summaryPlotHour_ly<-function(data,barSubPlot,boxBar,
       basal$time2<-as.POSIXlt(basal$time,format="%H:%M")
       basal$hours<- basal$time2$hour + basal$time2$min/60 
       basal$hour<-basal$time2$hour
-      basal2<-setTimeStep(basal, timeStep, period)
+      basal2<-setTimeStep(basal, startTime,endTime, timeStep, period)
       
       #get on hour values only
       basal2<-basal2[,c("hours","hour","rate")]
@@ -81,7 +84,7 @@ summaryPlotHour_ly<-function(data,barSubPlot,boxBar,
       
       #get unique values (max) per Date2 and hours
       NAMES<-c("dateTime","Date2","hours","hour","BWZ.Food.Estimate..U.","BWZ.Correction.Estimate..U.")
-      data<-uniqueDateTime(data, NAMES, replaceNAs = TRUE,timeStep = timeStep, period = period,sumFunc = "max")
+      data<-uniqueDateTime(data, NAMES, replaceNAs = TRUE,startTime = startTime,endTime = endTime,timeStep = timeStep, period = period,sumFunc = "max")
       
       #summarize by mean
       data<-as.data.frame(data %>% group_by(hour) %>% summarise_all(funs(mean),na.rm=TRUE))
@@ -107,13 +110,15 @@ summaryPlotHour_ly<-function(data,barSubPlot,boxBar,
       yTitle<-"Insulin Units Delivered"
       
       dataFormat<-data
+     
     }
     
-  
+
   #format time in decimal hours for xaxis tick marks
   xticks.list<-xTicks(data = dataOrig, startTime,endTime,timeStep,period)
   unPackList(lists = list(xticks.list = xticks.list),
              parentObj = list(NA)) 
+
     
     #get yaxis code string
     yaxisStr.list<-makeYaxesSummary(addSetting, settingOverlay, percentSetting,barSubPlot,addBG,

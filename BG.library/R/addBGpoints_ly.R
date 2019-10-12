@@ -7,10 +7,10 @@
 #'@return `p` plot_ly interactive plot with BG values added if addBG
 
 
-addBGpoints_ly<-function(data, p, yAxis = 'y', addBG, pointSize){
+addBGpoints_ly<-function(data, p, yAxis = 'y', addBG, pointSize,startTime,endTime){
   if (addBG){#add bG values
     NAMES<-c("dateTime","Date2","time2","hours","hour","BG.Reading..mg.dL.")
-    data<-uniqueDateTime(data, NAMES, replaceNAs = FALSE,timeStep = "hour", period = 1)
+    data<-uniqueDateTime(data, NAMES, replaceNAs = FALSE,startTime = startTime,endTime = endTime, timeStep = "hour", period = 1)
 
     p <- p %>% add_trace( data = data, x = ~hours, y = ~BG.Reading..mg.dL., 
                           type = "scatter", 

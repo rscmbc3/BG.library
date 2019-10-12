@@ -17,7 +17,8 @@ plotLine_ly<-function(data,
   
 
   #subset data by date and filterCond
-  data<-subsetData(data,numberDays,startDate,endDate,filterCond,timeStep,period, fromChange,libraryPath)
+  data<-subsetData(data,numberDays,startDate,endDate,filterCond,
+                   startTime = startTime, endTime = endTime,timeStep,period, fromChange,libraryPath)
 
   #subset settings
   pumpSettings.list<-subsetSetting(data,libraryPath)
@@ -87,10 +88,10 @@ plotLine_ly<-function(data,
     }
    
     #add bG values
-    p<-addBGpoints_ly(data, p,yAxis = 'y', addBG, pointSize)
+    p<-addBGpoints_ly(data, p,yAxis = 'y', addBG, pointSize,startTime,endTime)
     
     #addBolusPOints
-    p<-addBolusPoints_ly(data, p, addBolusType,pointSize)
+    p<-addBolusPoints_ly(data, p, addBolusType,pointSize,startTime,endTime)
     
     #add pump Settings
     p<-addPumpSetting_ly(p,addSetting, settingOverlay, basal,corrFactor,carbRatio,ay.list,
@@ -98,7 +99,8 @@ plotLine_ly<-function(data,
     
     
     #addPercentBG as text 
-    p<-addPercentBG_ly(data,p,addPercentBG,addPercentType,fromChange = fromChange,libraryPath = libraryPath)
+    p<-addPercentBG_ly(data,p,addPercentBG,addPercentType,fromChange = fromChange,libraryPath = libraryPath,
+                       startTime = startTime, endTime = endTime)
     
     #add addBarSub of carb intake
     p<-summaryPlot_ly(p, data,

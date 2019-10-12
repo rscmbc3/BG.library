@@ -4,6 +4,7 @@ timeDayTable<-function(data, tcol, dcol, valueVar,
                        numberDays = NA, 
                        startDate = NA, endDate = NA,
                        filterCond = "",replaceNAs = FALSE,
+                       startTime = "00:00",endTime = "23:00",
                        timeStep = "hour", period = 1,fromChange = TRUE,libraryPath){
   
   #get dateRange
@@ -17,7 +18,7 @@ timeDayTable<-function(data, tcol, dcol, valueVar,
     #get unique values
     NAMES<-c("dateTime",dcol,tcol,valueVar)
     data<-uniqueDateTime(data, NAMES, replaceNAs = replaceNAs,sumFunc = sumFunc,
-                         timeStep = timeStep, period = period)
+                         startTime = startTime,endTime = endTime,timeStep = timeStep, period = period)
     
     
   subdata<-data

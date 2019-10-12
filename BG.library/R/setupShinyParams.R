@@ -12,10 +12,9 @@ if (shPlotType=="scatter"){
 }
 startDate<-as.character(daterange[1])
 endDate<-as.character(daterange[2])
-xticks<-seq.POSIXt(as.POSIXct("00:00",format="%H:%M"),as.POSIXct("23:00",format="%H:%M"),by = paste0(period," hour"))
-xticks<-format(xticks,"%H:%M")
-startTime<-xticks[which(seq(0,23,1)==timeRange[1])]
-endTime<-xticks[which(seq(0,23,1)==timeRange[2])]
+startTime<-ifelse(nchar(as.character(timeRange[1]))==1,paste0("0",timeRange[1],":00"),paste0(timeRange[1],":00"))
+endTime<-ifelse(nchar(as.character(timeRange[2]))==1,paste0("0",timeRange[2],":00"),paste0(timeRange[2],":00"))
+
 if (!exists("addBarSub")){
   addBarSub<-FALSE
 }

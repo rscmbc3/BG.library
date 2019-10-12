@@ -1,6 +1,6 @@
 summarizeData<-function(data, colName, sumFuncs = "min, mean, max, sd", 
                         numberDays = NA, filterCond = "",
-                        timeStep = "hour", period = 1, fromChange=TRUE,libraryPath){
+                        startTime = "00:00", endTime = "23:00",timeStep = "hour", period = 1, fromChange=TRUE,libraryPath){
   #get dateRange
   data<-fromChangeDateRange(data,numberDays,fromChange,libraryPath = libraryPath)
   
@@ -11,7 +11,7 @@ summarizeData<-function(data, colName, sumFuncs = "min, mean, max, sd",
   if(nrow(data)!=0){
   #get unique values
   NAMES<-c("dateTime","Date2","time2","hour",colName)
-  data<-uniqueDateTime(data, NAMES, replaceNAs = FALSE,timeStep = timeStep, period = period)
+  data<-uniqueDateTime(data, NAMES, replaceNAs = FALSE,startTime = startTime,endTime = endTime,timeStep = timeStep, period = period)
   
   #set time series column to aggregate on
   if (timeStep=="hour"){

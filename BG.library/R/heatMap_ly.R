@@ -20,6 +20,7 @@ heatMap_ly<-function(brks = seq(0,450,50),
                      numberDays = numberDays,
                      startDate = startDate, endDate = endDate,
                      filterCond = filterCond,replaceNAs = replaceNAs,
+                     startTime = startTime,endTime = endTime,
                      timeStep = timeStep, period = period,fromChange = fromChange,
                      libraryPath = libraryPath)
   

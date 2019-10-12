@@ -1,12 +1,13 @@
 addPercentBG_ly<-function(data, p,addPercentBG,addPercentType,outputType = "plot_ly",
                           numberDays = NA, filterCond = "",
                           startDate = NA,endDate = NA,
-                          timeStep = "hour",period = 1,
+                          startTime = "00:00", endTime = "23:00",timeStep = "hour",period = 1,
                           fromChange = TRUE,libraryPath){
   if (addPercentBG[1]!=""){
     if (outputType != "plot_ly"){
     #subset data by date and filterCond
-    data<-subsetData(data,numberDays,startDate,endDate,filterCond,timeStep,period, fromChange, libraryPath)
+    data<-subsetData(data,numberDays,startDate,endDate,filterCond,
+                     startTime = startTime, endTime = endTime,timeStep,period, fromChange, libraryPath)
     }
 
     if (addPercentType=="BG.Reading..mg.dL."){
@@ -21,7 +22,7 @@ addPercentBG_ly<-function(data, p,addPercentBG,addPercentType,outputType = "plot
    
     #get unique values
     NAMES<-c("dateTime","hour","value")
-    data<-uniqueDateTime(data, NAMES, replaceNAs = FALSE,timeStep = "hour", period = 1)
+    data<-uniqueDateTime(data, NAMES, replaceNAs = FALSE,startTime = startTime,endTime = endTime,timeStep = "hour", period = 1)
     
     yPos<-numeric(0)
     percentStr<-character(0)

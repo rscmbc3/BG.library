@@ -5,7 +5,7 @@ barSubPlot_ly<-function(data, p,addBarSub, timeStep, period){
   
   #format data
   NAMES<-c("dateTime","Date2","hours","hour","BWZ.Carb.Input..grams.")
-  data<-uniqueDateTime(data, NAMES, replaceNAs = TRUE,timeStep = timeStep, period = period)
+  data<-uniqueDateTime(data, NAMES, replaceNAs = TRUE,startTime = startTime,endTime = endTime, timeStep = timeStep, period = period)
   
   #get only relavant columns
   data<-data[,names(data) %in% c("hour","BWZ.Carb.Input..grams.")]

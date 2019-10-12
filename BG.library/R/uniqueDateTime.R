@@ -1,5 +1,5 @@
 uniqueDateTime<-function(data, NAMES, replaceNAs, sumFunc = "mean",
-                         timeStep, period){
+                         startTime,endTime, timeStep, period){
   data<-data[,NAMES]
   
   if (replaceNAs){
@@ -30,7 +30,8 @@ uniqueDateTime<-function(data, NAMES, replaceNAs, sumFunc = "mean",
 
   data<-prettyTime(data,"dateTime")
   #regenerate time2, hour, minute based on timeStep and period
-  data<-setTimeStep(data, timeStep, period)
+
+  data<-setTimeStep(data,startTime,endTime, timeStep, period)
   
   data$hours<- data$hour + data$minute/60 
   data<-data[,NAMES]
