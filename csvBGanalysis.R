@@ -159,23 +159,25 @@ plotLine_ly(allData,  scatterOnly = FALSE, pointSize = 10,
                       colorPalleteDaily = "rainbow", 
                       addSensor = FALSE, addBG = TRUE, settingOverlay = FALSE,
             #addBolusType = "Bolus.Volume.Delivered..U.",
-            addBolusType = c("Bolus.Volume.Delivered..U.","BWZ.Correction.Estimate..U.","BWZ.Food.Estimate..U."),
-            #addBolusType = "",   
+            #addBolusType = c("Bolus.Volume.Delivered..U.","BWZ.Correction.Estimate..U.","BWZ.Food.Estimate..U."),
+            addBolusType = "",   
             #barSubPlot = TRUE,
-            addBarSub = FALSE,
+            addBarSub = FALSE,libraryPath = libraryPath,
             plotSummary = "Sensor.Glucose..mg.dL.",
                       addSetting ="",filterCond = "",
                       legendInset = -0.2)
 #barplots
 summaryPlot_ly(p = NA, data = allData, barSubPlot = FALSE,ayCarb = NA,
-                        addBarSub = FALSE,basal,
+                        addBarSub = FALSE,boxBar = "bar",
                         numberDays = 5, filterCond = "",
                         startDate = NA, endDate = NA,
-                        startTime = "00:00", endTime = "23:00",
+                        startTime = "06:00", endTime = "18:00",
                         plotSummary ="Sensor.Glucose..mg.dL.", sumFunc = "mean", stackedBar = "",
-                        addBG = FALSE, 
+                        addBG = FALSE, libraryPath = libraryPath,
                         addSetting = "",settingOverlay = FALSE,percentSetting = 30,
                         legendInset = -0.2)
+
+
 #simple with setting subplot
 summaryPlot_ly(p = NA, data = allData, barSubPlot = FALSE,ayCarb = NA,
               addBarSub = FALSE,basal,
