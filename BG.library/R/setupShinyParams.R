@@ -15,6 +15,7 @@ if (shPlotType=="scatter"){
   addBarSub<-FALSE
   boxBar<-shPlotType
   plotType<-"summaryPlot_ly"
+  plotSummary<-plotSummary2
 }
 startDate<-as.character(daterange[1])
 endDate<-as.character(daterange[2])
@@ -35,6 +36,7 @@ if (shPlotType=="scatter"){
   plotType<-"plotLine_ly"
   barSubPlot<-TRUE
 }
+if (shPlotType!="Saved Plot"){
     allArgs<-findCodeStr(libraryPath,plotType,"args")$arguments
 
   #format plot params
@@ -52,6 +54,10 @@ if (shPlotType=="scatter"){
 
 #return workspace
 workSpace.list<-named.list(paramStr,plotType)
+}else{
+  allArgs<-c("startDate","endDate","fromChange","numberDays","plotName")
+  workSpace.list<-list() 
+}
 for (n in allArgs){
   eval(parse(text = paste0("workSpace.list$",n,"<-",n)))
 }

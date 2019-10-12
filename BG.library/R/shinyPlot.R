@@ -35,21 +35,27 @@ shinyPlot<-function(libraryPath, path, fileName){
                      selectInput("shPlotType","Select Plot Type",
                                  choices = c("scatter","bar","box","heatmap","Saved Plot")),
                      
-                     
+                     #saved plots
                      conditionalPanel(#for plotLine_ly
-                       condition = "input.shPlotType != 'Saved Plot'",
+                       condition = "input.shPlotType == 'Saved Plot'",
+                       selectInput("plotName","Select saved plot by name",choices = names(plotList)),
+                       textOutput("description")
+                     ),
+                     #conditionalPanel(#for plotLine_ly
+                       #condition = "input.shPlotType != 'Saved Plot'",
                        h3("Date and Time Parameters"),
-                       checkboxInput("fromChange","Use data from most recent pump settings change to present",value = TRUE)
-                       ),
+                       checkboxInput("fromChange","Use data from most recent pump settings change to present",value = TRUE),
+                       #),
                      
                        conditionalPanel(#only use numberDays and start End dates if not fromChange
                          condition = "input.fromChange != 1 || input.shPlotType == 'Saved Plot'",
                          numericInput("numberDays","Number of Days from Latest Date",value = NA),
-                         conditionalPanel(#for plotLine_ly
-                           condition = "input.shPlotType != 'Saved Plot'",
+                        # conditionalPanel(#for plotLine_ly
+                         #  condition = "input.shPlotType != 'Saved Plot'",
                          dateRangeInput("daterange", "Date range",
                                         format = "mm/dd/yy",
-                                        separator = " - "))
+                                        separator = " - ")
+                         #)
                          ),
                      
                      
@@ -74,16 +80,20 @@ shinyPlot<-function(libraryPath, path, fileName){
                       ),#end conditional panel for plotLine_ly
                      
                      conditionalPanel(#for plotLine_ly and summaryPlot_ly
-                       condition = "input.shPlotType =='scatter' || input.shPlotType == 'bar' || input.shPlotType == 'box'",
+                       condition = "input.shPlotType =='scatter'",
                        
                        selectInput("plotSummary","Data type to summarize by min, mean, max lines (leave blank for daily sensor lines)",
                                    choices = c("","Sensor.Glucose..mg.dL.","BG.Reading..mg.dL."),
                                    selected = "Sensor.Glucose..mg.dL.")
                        ),
                      
+                     
                      #bar and box plots
                      conditionalPanel(#for summaryPlot_ly
                        condition = "input.shPlotType == 'bar' || input.shPlotType == 'box'",
+                       selectInput("plotSummary2","Data type to summarize by min, mean, max lines (leave blank for daily sensor lines)",
+                                   choices = c("",names(data)),
+                                   selected = "Sensor.Glucose..mg.dL."),
                        textInput("sumFunc","Summary Function to be applied per time step",value = "length"),
                        selectInput("stackedBar","Stacked Bar plot column name (blank for regular barplot)",
                                    choices = c("","insulin","BG","SG"),selected = ""),
@@ -160,12 +170,7 @@ shinyPlot<-function(libraryPath, path, fileName){
                      ),#end for both plotLiine_ly and summaryPlot_ly
 
                      
-                    #saved plots
-                      conditionalPanel(#for plotLine_ly
-                       condition = "input.shPlotType == 'Saved Plot'",
-                      selectInput("plotName","Select saved plot by name",choices = names(plotList)),
-                      textOutput("description")
-                       ),
+
                        
                      
                      #historytSeq
