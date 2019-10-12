@@ -55,5 +55,7 @@ summaryPlot_ly<-function(p, data,
                             uniqueDT,replaceNAs,ignoreNAs,
                             legendInset,description,descInset)
       p
+  }else{
+      return(p)
     }
 }#end function
