@@ -24,7 +24,7 @@ subsetData<-function(data,numberDays,startDate,endDate,filterCond,
   #regenerate new time/date columns based on timeStep and period
   data<-setTimeStep(data,startTime = startTimeOrig,endTime= endTimeOrig, timeStep, period)
 
-
+data<-data[order(data$dateTime),]
   
   return(data)
 }
