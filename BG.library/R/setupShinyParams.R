@@ -9,6 +9,12 @@ unPackList(lists = list(compiledInput = compiledInput),
 if (shPlotType=="scatter"){
   timeStep<-'hour'
   period<-1
+}else if (shPlotType %in% c("bar","box")){
+  barSubPlot<-FALSE
+  ayCarb<-NA
+  addBarSub<-FALSE
+  boxBar<-shPlotType
+  plotType<-"summaryPlot_ly"
 }
 startDate<-as.character(daterange[1])
 endDate<-as.character(daterange[2])

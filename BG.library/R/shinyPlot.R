@@ -35,36 +35,72 @@ shinyPlot<-function(libraryPath, path, fileName){
                      selectInput("shPlotType","Select Plot Type",
                                  choices = c("scatter","bar","box","heatmap","Saved Plot")),
                      
+                     
                      conditionalPanel(#for plotLine_ly
-                       condition = "input.shPlotType == 'scatter'",
-                       
+                       condition = "input.shPlotType != 'Saved Plot'",
                        h3("Date and Time Parameters"),
-                       checkboxInput("fromChange","Use data from most recent pump settings change to present",value = TRUE),
-                       
+                       checkboxInput("fromChange","Use data from most recent pump settings change to present",value = TRUE)
+                       ),
+                     
                        conditionalPanel(#only use numberDays and start End dates if not fromChange
-                         condition = "input.fromChange != 1",
+                         condition = "input.fromChange != 1 || input.shPlotType == 'Saved Plot'",
                          numericInput("numberDays","Number of Days from Latest Date",value = NA),
+                         conditionalPanel(#for plotLine_ly
+                           condition = "input.shPlotType != 'Saved Plot'",
                          dateRangeInput("daterange", "Date range",
                                         format = "mm/dd/yy",
-                                        separator = " - ")),
-                       
+                                        separator = " - "))
+                         ),
+                     
+                     
+                     conditionalPanel(#for plotLine_ly and summaryplot_ly
+                       condition =  "input.shPlotType =='scatter' || input.shPlotType == 'bar' || input.shPlotType == 'box'",
                        sliderInput("timeRange","Time Range",min = 0, max = 23, value = c(0,23)),
-                       #fluidRow(selectInput("timeStep","Time Step",choices = c("hour","day"),selected  = "hour"),
-                      #          numericInput("period","Time Step length (period)",value = 1)),
                        
-                       h3("Add data to plot"),
-                       h4("BG and SG data"),
-                       fluidRow(checkboxInput("addSensor","Add Sensor Datas lines to plot",value = TRUE),
-                                checkboxInput("scatterOnly","Points Only",value = FALSE)
+                       conditionalPanel(#for summaryPlot_ly
+                         condition = "input.shPlotType == 'box' || input.shPlotType == 'bar' ",
+                       fluidRow(selectInput("timeStep","Time Step",choices = c("hour","day"),selected  = "hour"),
+                                numericInput("period","Time Step length (period)",value = 1))
                        ),
+                      
+                       h3("Add data to plot"),
+                       h4("BG and SG data")
+                     ),
+                      conditionalPanel(#for plotLine_ly
+                        condition = "input.shPlotType == 'scatter'",
+                      checkboxInput("addSensor","Add Sensor Datas lines to plot",value = TRUE),
+                      checkboxInput("scatterOnly","Points Only",value = FALSE)
+                       
+                      ),#end conditional panel for plotLine_ly
+                     
+                     conditionalPanel(#for plotLine_ly and summaryPlot_ly
+                       condition = "input.shPlotType =='scatter' || input.shPlotType == 'bar' || input.shPlotType == 'box'",
+                       
                        selectInput("plotSummary","Data type to summarize by min, mean, max lines (leave blank for daily sensor lines)",
                                    choices = c("","Sensor.Glucose..mg.dL.","BG.Reading..mg.dL."),
-                                   selected = "Sensor.Glucose..mg.dL."),
+                                   selected = "Sensor.Glucose..mg.dL.")
+                       ),
+                     
+                     #bar and box plots
+                     conditionalPanel(#for summaryPlot_ly
+                       condition = "input.shPlotType == 'bar' || input.shPlotType == 'box'",
+                       textInput("sumFunc","Summary Function to be applied per time step",value = "length"),
+                       selectInput("stackedBar","Stacked Bar plot column name (blank for regular barplot)",
+                                   choices = c("","insulin","BG","SG"),selected = ""),
+                       checkboxInput("uniqueDT","Get only unique dateTime values",value = TRUE),
+                       checkboxInput("replaceNAs","Replace missing values with zeros",value = TRUE),
+                       checkboxInput("ignoreNAs","Remove rows with missing data",value = FALSE)
+                     ),
+                     
+                     conditionalPanel(#for plotLine_ly and summaryPlot_ly
+                       condition = "input.shPlotType =='scatter' || input.shPlotType == 'bar' || input.shPlotType == 'box'",
                        checkboxInput("addBG","Add BG values as points to plot",value = TRUE),
                        
+                       conditionalPanel(#for plotLine_ly
+                         condition = "input.shPlotType == 'scatter'",
                        checkboxInput("addFasting","Add line indicating mean fasting BG value", value = TRUE),
                        checkboxInput("addFastingAnnot","Add arrow and text to plot indicating mean fasting BG line",value = TRUE),
-                       
+                      
                        
                        
                         checkboxGroupInput("addPercentBG", "Add grouped BG or SG percentages to plot as text", 
@@ -80,19 +116,15 @@ shinyPlot<-function(libraryPath, path, fileName){
                        h4("Bolus and Carb Data"),
                        selectInput("addBolusType","Type of insulin delivery points to add",
                                    choices  = c("","Bolus.Volume.Delivered..U.","BWZ.Correction.Estimate..U.","BWZ.Food.Estimate..U.")),
-                       #checkboxInput("barSubPlot","Barplot subplot of mean carbs consumed per hour",value = FALSE),
-                       #barSubPlot should be set as variable TRUE if plotType is 'scatter' and addBarSub = TRUE
                        checkboxInput("addBarSub","Add subplot of mean carbs consumed per hour",value = FALSE),
                        conditionalPanel(#only  if addBarSub
                          condition = "input.addBarSub == TRUE",
                          sliderInput("percentBar","Percentage of plot area to dedicate to mean carb subplot (0-100)'",
-                                     min = 0, max = 100, value = 30)),
-                       
+                                     min = 0, max = 100, value = 30))
+                        ),
                        
                        
                        h4("Pump Settings"),
-                       #selectInput("addSetting","Add Pump Settings to plot",
-                       #             choices = c("","basal","corrFactor","carbRatio")),
                        
 
                                       checkboxGroupInput("addSetting", "Add Pump Settings", 
@@ -124,8 +156,10 @@ shinyPlot<-function(libraryPath, path, fileName){
                        numericInput("legendInset","Value to place legend below plot (must be negative)",max = 0, value = -0.2),
                        textInput("description","Optional plot description to output below plot area",value = ""),
                        numericInput("descInset","Value to place plot description below plot area (must be negative)",max = 0, value = -0.15)
-                      ),#end conditional panel for plotLine_ly
                       
+                     ),#end for both plotLiine_ly and summaryPlot_ly
+
+                     
                     #saved plots
                       conditionalPanel(#for plotLine_ly
                        condition = "input.shPlotType == 'Saved Plot'",
