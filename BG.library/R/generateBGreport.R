@@ -1,9 +1,10 @@
 generateBGreport<-function(libraryPath, path, fileName,
                            outPath = NA, outFileName= NA,
                              numberDays = NA, fromChange = TRUE,
+                           startDate = NA, endDate = NA,
                            data){
   #get dateRange
-  data<-fromChangeDateRange(data,numberDays,fromChange,libraryPath = libraryPath)
+  data<-fromChangeDateRange(data,numberDays,fromChange,libraryPath = libraryPath,startDate = startDate,endDate = endDate)
   
   reportTitle<-paste0("BG_report for Dates: ",min(data$Date2)," to ",max(data$Date2))
   
@@ -22,7 +23,9 @@ generateBGreport<-function(libraryPath, path, fileName,
       path = path,
       fileName = fileName,
       numberDays = numberDays,
-      fromChange = fromChange
+      fromChange = fromChange,
+      startDate = startDate,
+      endDate = endDate
     ),
     output_file = outFileName
   )

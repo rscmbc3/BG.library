@@ -145,6 +145,9 @@ historySeq(data = allData,libraryPath,  plotName = "lineSumSens_SGper_Sett_BG", 
 
 #BG report
 generateBGreport(libraryPath, path, fileName, data = allData)
+generateBGreport(libraryPath, path, fileName, data = allData,numberDays = NA,
+                 fromChange = FALSE,startDate = "2019-09-08", endDate="2019-09-25")
+
 
 #shiny app
 shinyPlot(libraryPath, path, fileName)

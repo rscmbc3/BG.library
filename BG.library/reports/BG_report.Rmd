@@ -9,6 +9,8 @@ params:
   fileName: fileName
   numberDays: numberDays
   fromChange: fromChange
+  startDate: startDate
+  endDate: endDate
 ---
 
 ```{r setup, include=FALSE}
@@ -23,6 +25,12 @@ path<-params$path
 fileName<-params$fileName
 numberDays<-params$numberDays
 fromChange<-params$fromChange
+startDate<-params$startDate
+endDate<-params$endDate
+
+changeParam.list = list(fromChange = fromChange,
+                        startDate = startDate,
+                        endDate = endDate)
 
 #load functions
 devtools::load_all(libraryPath,recompile = FALSE) 
@@ -39,38 +47,41 @@ unPackList(lists = list(dataImport.list = dataImport.list),
 
 
 #summarize data
-BGvalue_Summary<-summarizeData(allData, colName = "BG.Reading..mg.dL.", libraryPath = libraryPath)
-Sensorvalue_Summary<-summarizeData(allData, colName = "Sensor.Glucose..mg.dL.", libraryPath = libraryPath)
+BGvalue_Summary<-summarizeData(allData, colName = "BG.Reading..mg.dL.", libraryPath = libraryPath,
+                               fromChange = fromChange,startDate = startDate,endDate = endDate)
+Sensorvalue_Summary<-summarizeData(allData, colName = "Sensor.Glucose..mg.dL.", libraryPath = libraryPath,
+                               fromChange = fromChange,startDate = startDate,endDate = endDate)
 
-BGvalue_SummaryDaily<-summarizeData(allData, colName = "BG.Reading..mg.dL.",  timeStep = "day", libraryPath = libraryPath)
+BGvalue_SummaryDaily<-summarizeData(allData, colName = "BG.Reading..mg.dL.",  timeStep = "day", 
+                                    libraryPath = libraryPath,fromChange = fromChange,startDate = startDate,endDate = endDate)
 BGpercent_Summary<-addPercentBG_ly(allData, p = NA,addPercentBG = c("very high","high","good","low"),
                                    addPercentType = "BG.Reading..mg.dL.",outputType = "table",
-                                   libraryPath = libraryPath)
+                                   libraryPath = libraryPath,fromChange = fromChange,startDate = startDate,endDate = endDate)
 SGpercent_Summary<-addPercentBG_ly(allData, p = NA,addPercentBG = c("very high","high","good","low"),
                                    addPercentType = "Sensor.Glucose..mg.dL.",outputType = "table",
-                                   libraryPath = libraryPath)
+                                   libraryPath = libraryPath,fromChange = fromChange,startDate = startDate,endDate = endDate)
 BGHigh_Count<-summarizeData(allData, colName = "BG.Reading..mg.dL.", 
                             sumFuncs = "length",
-                            filterCond = "data[data$BG.Reading..mg.dL.>150 & !is.na(data$BG.Reading..mg.dL.),]", libraryPath = libraryPath)
+                            filterCond = "data[data$BG.Reading..mg.dL.>150 & !is.na(data$BG.Reading..mg.dL.),]", libraryPath = libraryPath,fromChange = fromChange,startDate = startDate,endDate = endDate)
 BGveryHigh_Count<-summarizeData(allData, colName = "BG.Reading..mg.dL.", 
                                 sumFuncs = "length",
-                                filterCond = "data[data$BG.Reading..mg.dL.>240 & !is.na(data$BG.Reading..mg.dL.),]", libraryPath = libraryPath)
+                                filterCond = "data[data$BG.Reading..mg.dL.>240 & !is.na(data$BG.Reading..mg.dL.),]", libraryPath = libraryPath,fromChange = fromChange,startDate = startDate,endDate = endDate)
 
 BGLow_Count<-summarizeData(allData, colName = "BG.Reading..mg.dL.", 
                            sumFuncs = "length",
-                           filterCond = "data[data$BG.Reading..mg.dL.<80 & !is.na(data$BG.Reading..mg.dL.),]", libraryPath = libraryPath)
+                           filterCond = "data[data$BG.Reading..mg.dL.<80 & !is.na(data$BG.Reading..mg.dL.),]", libraryPath = libraryPath,fromChange = fromChange,startDate = startDate,endDate = endDate)
 BGgood_Count<-summarizeData(allData, colName = "BG.Reading..mg.dL.", 
                             sumFuncs = "length",
                             filterCond = "data[data$BG.Reading..mg.dL.>=80 & data$BG.Reading..mg.dL.<=150 & !is.na(data$BG.Reading..mg.dL.),]",
-                            libraryPath = libraryPath)
+                            libraryPath = libraryPath,fromChange = fromChange,startDate = startDate,endDate = endDate)
 tempBasal_count<-summarizeData(allData, colName = "Temp.Basal.Amount", 
                                sumFuncs = "length",
                                filterCond = "data[data$Temp.Basal.Amount==0 & !is.na(data$Temp.Basal.Amount),]",
-                               libraryPath = libraryPath)
+                               libraryPath = libraryPath,fromChange = fromChange,startDate = startDate,endDate = endDate)
 suspendBasal_Count<-summarizeData(allData, colName = "Alarm", 
                                   sumFuncs = "length",
                                   filterCond = "data[regexpr('SUSPEND',data$Alarm)>0 & !is.na(data$Alarm),]", 
-                                  libraryPath = libraryPath)
+                                  libraryPath = libraryPath,fromChange = fromChange,startDate = startDate,endDate = endDate)
 
 
 #timeDayTables used for heatmaps
@@ -79,13 +90,13 @@ BGvalue_timeDaytable<-timeDayTable(allData, tcol = "time2", dcol = "Date2",
                                    sumFunc = "mean", naRemove = TRUE,
                                    includeTotals = TRUE,
                                   filterCond = "",
-                                   libraryPath = libraryPath)
+                                   libraryPath = libraryPath,fromChange = fromChange,startDate = startDate,endDate = endDate)
 SGvalue_timeDaytable<-timeDayTable(allData, tcol = "time2", dcol = "Date2", 
                                    valueVar = "Sensor.Glucose..mg.dL.", 
                                    sumFunc = "mean", naRemove = TRUE,
                                    includeTotals = TRUE,
                                    filterCond = "",
-                                   libraryPath = libraryPath)
+                                   libraryPath = libraryPath,fromChange = fromChange,startDate = startDate,endDate = endDate)
 
 
 ```
@@ -140,7 +151,8 @@ suspendBasal_Count
 BGvalue_timeDaytable
 #heatmap
 #heatmaps
-executeSavedPlot(data = allData, plotName = "meanBGheat_hist", libraryPath = libraryPath)
+executeSavedPlot(data = allData, plotName = "meanBGheat_hist", libraryPath = libraryPath,
+                 numberDays = numberDays,changeParam.list = changeParam.list)
 
 ```
 
@@ -149,7 +161,8 @@ executeSavedPlot(data = allData, plotName = "meanBGheat_hist", libraryPath = lib
 SGvalue_timeDaytable
 #heatmap
 #heatmaps
-executeSavedPlot(data = allData, plotName = "meanSGheat_hist", libraryPath = libraryPath)
+executeSavedPlot(data = allData, plotName = "meanSGheat_hist", libraryPath = libraryPath,
+                 numberDays = numberDays,changeParam.list = changeParam.list)
 
 ```
 
@@ -158,52 +171,75 @@ executeSavedPlot(data = allData, plotName = "meanSGheat_hist", libraryPath = lib
 ##Interactive Plots
 ###linePlots
 ```{r, eval=TRUE, echo=FALSE,warning=FALSE}
-executeSavedPlot(data = allData, plotName = "lineSumSens_SGper_Sett_BG", libraryPath = libraryPath)
-executeSavedPlot(data = allData, plotName = "lineSumSens_BGper_Sett_BG", libraryPath = libraryPath)
-executeSavedPlot(data = allData, plotName = "lineSumSens_BGper_subCarb_BG", libraryPath = libraryPath)
-executeSavedPlot(data = allData, plotName = "lineSumSens_BGper_subCarb_Sett_BG", libraryPath = libraryPath)
+executeSavedPlot(data = allData, plotName = "lineSumSens_SGper_Sett_BG", libraryPath = libraryPath,
+                 numberDays = numberDays,changeParam.list = changeParam.list)
+executeSavedPlot(data = allData, plotName = "lineSumSens_BGper_Sett_BG", libraryPath = libraryPath,
+                 numberDays = numberDays,changeParam.list = changeParam.list)
+executeSavedPlot(data = allData, plotName = "lineSumSens_BGper_subCarb_BG", libraryPath = libraryPath,
+                 numberDays = numberDays,changeParam.list = changeParam.list)
+executeSavedPlot(data = allData, plotName = "lineSumSens_BGper_subCarb_Sett_BG", libraryPath = libraryPath,
+                 numberDays = numberDays,changeParam.list = changeParam.list)
 
 ```
 
 ###barplots hourly
 ```{r, eval=TRUE, echo=FALSE,warning=FALSE}
-executeSavedPlot(data = allData, plotName = "sumBar_highBG150_Sett", libraryPath = libraryPath)
-executeSavedPlot(data = allData, plotName = "sumBar_lowBG80_Sett", libraryPath = libraryPath)
-executeSavedPlot(data = allData, plotName = "stackBarInsulinHour_Sett", libraryPath = libraryPath)
-executeSavedPlot(data = allData, plotName = "stackBarBGallHour_Sett", libraryPath = libraryPath)
+executeSavedPlot(data = allData, plotName = "sumBar_highBG150_Sett", libraryPath = libraryPath,
+                 numberDays = numberDays,changeParam.list = changeParam.list)
+executeSavedPlot(data = allData, plotName = "sumBar_lowBG80_Sett", libraryPath = libraryPath,
+                 numberDays = numberDays,changeParam.list = changeParam.list)
+executeSavedPlot(data = allData, plotName = "stackBarInsulinHour_Sett", libraryPath = libraryPath,
+                 numberDays = numberDays,changeParam.list = changeParam.list)
+executeSavedPlot(data = allData, plotName = "stackBarBGallHour_Sett", libraryPath = libraryPath,
+                 numberDays = numberDays,changeParam.list = changeParam.list)
 ```
 
 ###every 3 hours barplots
 ```{r, eval=TRUE, echo=FALSE,warning=FALSE}
-executeSavedPlot(data = allData, plotName = "stackBarBG3Hour_Sett", libraryPath = libraryPath)
-executeSavedPlot(data = allData, plotName = "stackBarInsulin3Hour_Sett", libraryPath = libraryPath)
+executeSavedPlot(data = allData, plotName = "stackBarBG3Hour_Sett", libraryPath = libraryPath,
+                 numberDays = numberDays,changeParam.list = changeParam.list)
+executeSavedPlot(data = allData, plotName = "stackBarInsulin3Hour_Sett", libraryPath = libraryPath,
+                 numberDays = numberDays,changeParam.list = changeParam.list)
 ```
 ###daily barplots
 ```{r, eval=TRUE, echo=FALSE,warning=FALSE}
-executeSavedPlot(data = allData, plotName = "stackBarInsulinDaily", libraryPath = libraryPath)
-executeSavedPlot(data = allData, plotName = "stackBarBGDaily", libraryPath = libraryPath)
-executeSavedPlot(data = allData, plotName = "stackBarSGDaily", libraryPath = libraryPath)
+executeSavedPlot(data = allData, plotName = "stackBarInsulinDaily", libraryPath = libraryPath,
+                 numberDays = numberDays,changeParam.list = changeParam.list)
+executeSavedPlot(data = allData, plotName = "stackBarBGDaily", libraryPath = libraryPath,
+                 numberDays = numberDays,changeParam.list = changeParam.list)
+executeSavedPlot(data = allData, plotName = "stackBarSGDaily", libraryPath = libraryPath,
+                 numberDays = numberDays,changeParam.list = changeParam.list)
 ```
 
 ###boxplots hourly
 ```{r, eval=TRUE, echo=FALSE,warning=FALSE}
-executeSavedPlot(data = allData, plotName = "boxSGhour_Sett", libraryPath = libraryPath)
-executeSavedPlot(data = allData, plotName = "boxBGhour_Sett", libraryPath = libraryPath)
-executeSavedPlot(data = allData, plotName = "boxCorrUhour_Sett", libraryPath = libraryPath)
-executeSavedPlot(data = allData, plotName = "boxFoodUhour_Sett", libraryPath = libraryPath)
+executeSavedPlot(data = allData, plotName = "boxSGhour_Sett", libraryPath = libraryPath,
+                 numberDays = numberDays,changeParam.list = changeParam.list)
+executeSavedPlot(data = allData, plotName = "boxBGhour_Sett", libraryPath = libraryPath,
+                 numberDays = numberDays,changeParam.list = changeParam.list)
+executeSavedPlot(data = allData, plotName = "boxCorrUhour_Sett", libraryPath = libraryPath,
+                 numberDays = numberDays,changeParam.list = changeParam.list)
+executeSavedPlot(data = allData, plotName = "boxFoodUhour_Sett", libraryPath = libraryPath,
+                 numberDays = numberDays,changeParam.list = changeParam.list)
 
 ```
 
 ###3hour boxplots
 ```{r, eval=TRUE, echo=FALSE,warning=FALSE}
-executeSavedPlot(data = allData, plotName = "boxSG3hour_Sett", libraryPath = libraryPath)
-executeSavedPlot(data = allData, plotName = "boxBG3hour_Sett", libraryPath = libraryPath)
-executeSavedPlot(data = allData, plotName = "boxCorrU3hour_Sett", libraryPath = libraryPath)
-executeSavedPlot(data = allData, plotName = "boxFoodU3hour_Sett", libraryPath = libraryPath)
+executeSavedPlot(data = allData, plotName = "boxSG3hour_Sett", libraryPath = libraryPath,
+                 numberDays = numberDays,changeParam.list = changeParam.list)
+executeSavedPlot(data = allData, plotName = "boxBG3hour_Sett", libraryPath = libraryPath,
+                 numberDays = numberDays,changeParam.list = changeParam.list)
+executeSavedPlot(data = allData, plotName = "boxCorrU3hour_Sett", libraryPath = libraryPath,
+                 numberDays = numberDays,changeParam.list = changeParam.list)
+executeSavedPlot(data = allData, plotName = "boxFoodU3hour_Sett", libraryPath = libraryPath,
+                 numberDays = numberDays,changeParam.list = changeParam.list)
 ```
 
 ###daily boxplots
 ```{r, eval=TRUE, echo=FALSE,warning=FALSE}
-executeSavedPlot(data = allData, plotName = "boxSGdaily", libraryPath = libraryPath)
-executeSavedPlot(data = allData, plotName = "boxBGdaily", libraryPath = libraryPath)
+executeSavedPlot(data = allData, plotName = "boxSGdaily", libraryPath = libraryPath,
+                 numberDays = numberDays,changeParam.list = changeParam.list)
+executeSavedPlot(data = allData, plotName = "boxBGdaily", libraryPath = libraryPath,
+                 numberDays = numberDays,changeParam.list = changeParam.list)
 ```
