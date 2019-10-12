@@ -8,11 +8,11 @@ summaryLinePlot_ly<-function(data, plotSummary, p){
   sumdata<-sumdata[c("time3",plotSummary)]
   sumdata<-as.data.frame(sumdata %>% group_by(time3) %>% summarise_all(funs(min, mean, max),na.rm = TRUE))
 
-  #round down time that rounds to next day (i.e. closer to 24hrs and 23hrs)
+  #round time to 0:00 that rounds to next day (i.e. closer to 24hrs and 23hrs)
   if (unique(sumdata$time3)[length(unique(sumdata$time3))]-unique(sumdata$time3)[1]==1){
     for (i in 1:nrow(sumdata)){
       if (sumdata$time3[i]==unique(sumdata$time3)[length(unique(sumdata$time3))]){
-        sumdata$time3[i]<-unique(sumdata$time3)[(length(unique(sumdata$time3))-1)]
+        sumdata$time3[i]<-unique(sumdata$time3)[1]
       }
     }
 }
