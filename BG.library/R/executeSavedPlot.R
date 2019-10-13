@@ -8,7 +8,7 @@ executeSavedPlot<-function(data, numberDays = NA, plotName,changeParam.list = NA
              parentObj = list(NA))
 
   #change parameters
-  if (!is.na(changeParam.list)){
+  if (!is.na(changeParam.list[1])){
     for (c in names(changeParam.list)){
       eval(parse(text = paste0("paramList$",c,"<-changeParam.list$",c)))
     }

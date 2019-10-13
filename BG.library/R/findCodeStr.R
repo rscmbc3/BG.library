@@ -95,9 +95,12 @@ findCodeStr<-function(path,str,strType){
           lines<-as.character(unlist(strsplit(findStr,",")))
           lines<-as.character(unlist(strsplit(lines,"\\(")))
           lines<-lines[!startsWith(lines,'\"')]
+          lines<-gsub("\\)","",lines)
+          #remove numeric arguments
+          lines<-suppressWarnings(lines[is.na(as.numeric(as.character(lines)))])
           #lines<-lines[which(regexpr('\\"',lines)<0)]
           lines[1]<-as.character(unlist(strsplit(trimws(lines[1]),"function\\(")))[2]
-          lines[length(lines)]<-as.character(unlist(strsplit(trimws(lines[length(lines)]),"\\)")))[1]
+          lines[length(lines)]<-as.character(unlist(strsplit(trimws(lines[length(lines)]),"\\{")))[1]
           lines<-as.character(sapply(lines, function(x) as.character(unlist(strsplit(x,"="))[1])))
           lines<-lines[which(sapply(lines, function(x) substr(x,1,1)!="#"))]
           lines<-sapply(lines, function(x) trimws(x))

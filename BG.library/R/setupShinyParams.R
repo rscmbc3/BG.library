@@ -16,11 +16,23 @@ if (shPlotType=="scatter"){
   boxBar<-shPlotType
   plotType<-"summaryPlot_ly"
   plotSummary<-plotSummary2
+}else if (shPlotType=="heatmap"){
+  brks<-paste0("c(",brks,")")
+  brks<-eval(parse(text = brks))
+  tcol <- "time2"
+  dcol <- "Date2"
+  includeTotals<-TRUE
+  naRemove<-ignoreNAs
+  plotType<-"heatMap_ly"
+  valueVar<-plotSummary2
 }
 startDate<-as.character(daterange[1])
 endDate<-as.character(daterange[2])
+
+if (shPlotType!='heatmap'){
 startTime<-ifelse(nchar(as.character(timeRange[1]))==1,paste0("0",timeRange[1],":00"),paste0(timeRange[1],":00"))
 endTime<-ifelse(nchar(as.character(timeRange[2]))==1,paste0("0",timeRange[2],":00"),paste0(timeRange[2],":00"))
+}
 
 if (!exists("addBarSub")){
   addBarSub<-FALSE

@@ -38,7 +38,7 @@ seqLength<-params$seqLength
 
 
 #load functions
-devtools::load_all(libraryPath,recompile = FALSE) 
+suppressWarnings(suppressMessages(devtools::load_all(libraryPath,recompile = FALSE)))
 
 #get pumpSettings
 pumpSettings.list<-makePumpSettings(libraryPath)

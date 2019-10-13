@@ -10,6 +10,7 @@ uniqueDateTime<-function(data, NAMES, replaceNAs, sumFunc = "mean",
   }
 
   dataReplaced<-data
+  data<-data[,names(data)!="time2"]
   #set up summary function string
   if (sumFunc!="length"){
     #sumString<-paste0("as.data.frame(data %>% group_by(Date2,hours) %>% summarise_all(funs(",
