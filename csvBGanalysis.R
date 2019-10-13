@@ -1,7 +1,7 @@
 #setPaths
-libraryPath<-"F:/BG.library_repos/BG.library/"
-path<-"F:/BG.library_repos/"
-fileName<-"CareLink-Export-1570749084077.csv"
+libraryPath<-"F:/BG.library_github/BG.library/"
+path<-"F:/BG.library_github/"
+fileName<-"exampleData.csv"
 
 #load functions
 devtools::load_all(libraryPath,recompile = FALSE) 

@@ -21,8 +21,24 @@ fixtables<-function(data,libraryPath){
   #remove index
   data<-data[,-c(1)]
   #convert date/times
-  data$Date<-format(as.POSIXct(as.character(data[,1]),tx = "EDT", origin = "1899-12-30"),"%Y-%m-%d")
+  data<-data[as.character(data[,1])!="",]
+  dataOrig<-data
+  data$Date<-format(as.POSIXct(as.character(data[,1]),tx = "EDT", origin = "1899-12-30", format = "%m/%d/%Y"),"%Y-%m-%d")
   data$Time<-format(as.POSIXlt(as.character(data[,2]),format="%H:%M"), format="%H:%M")
-  data$dateTime<-as.POSIXct(paste(data$Date, data$Time,"EDT"))
+  
+  tryIt<-try({
+data$dateTime<-as.POSIXct(paste(data$Date, data$Time,"EDT"))
+  }, silent =TRUE)
+
+  if (class(tryIt)[1]=="try-error"){
+    data$Date<-format(as.POSIXct(as.character(dataOrig[,1]),tx = "EDT", origin = "1899-12-30"),"%Y-%m-%d")
+    data$Time<-format(as.POSIXlt(as.character(dataOrig[,2]),format="%H:%M"), format="%H:%M")
+    data$dateTime<-as.POSIXct(paste(data$Date, data$Time,"EDT"))
+  }else{
+    data$Date<-format(as.POSIXct(as.character(dataOrig[,1]),tx = "EDT", origin = "1899-12-30", format = "%m/%d/%Y"),"%Y-%m-%d")
+    data$Time<-format(as.POSIXlt(as.character(dataOrig[,2]),format="%H:%M"), format="%H:%M")
+    data$dateTime<-as.POSIXct(paste(data$Date, data$Time,"EDT"))
+  }
+
   return(data)
 }
