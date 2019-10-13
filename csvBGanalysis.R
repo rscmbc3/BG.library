@@ -104,10 +104,6 @@ executeSavedPlot(data = allData, plotName = "boxBGdaily", libraryPath = libraryP
 executeSavedPlot(data = allData, plotName = "meanBGheat_hist", libraryPath = libraryPath)
 executeSavedPlot(data = allData, plotName = "meanSGheat_hist", libraryPath = libraryPath)
 
-
-
-
-
 #dateSeq Reports
 #saved plot
 historySeqOut(data = NA,libraryPath, path, fileName,reportTitle = "Compare Summary Sensor Line Plot Since Last Pump Setting Change" ,
@@ -151,9 +147,7 @@ generateBGreport(libraryPath, path, fileName, data = allData,numberDays = NA,
 
 #shiny app
 shinyPlot(libraryPath, path, fileName)
-historySeqOut(data = NA,libraryPath, path, fileName,reportTitle = "Bolus Type Points Summary Sensor Line Plot" ,
-              plotName = NA, paramList = shinyParms, plotType = "plotLine_ly",
-              seqType = "change", seqLength = 2) 
+
 
 #line plot
 plotLine_ly(allData,  scatterOnly = FALSE, pointSize = 10,
