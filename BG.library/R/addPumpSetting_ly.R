@@ -4,22 +4,76 @@
 #'@param addSetting character vector of settings that should be added to current plot
 #'@param settingOverlay TRUE/FALSE whether settings should overlay the data or 
 #'if FALSE plot settings as subplot below data
-#'@param basal data.frame of basal settings
-#'@param corrFactor data.frame of correction factors
-#'@param carbRatio data.frame of carb ratios
-#'@param ay.list list of yaxis specifications for each setting, 
-#'settings are given y axis of y3, y4, y5 and ay3, ay4, ay5 respectively
-#'@param legendInset numeric value specifying how far below the plot the legend should be placed
 #'@param startTime character string of beginning time for plot (typically startTime = "00:00)
 #'@param endTime character string of ending time for plot (typically endTime = "23:00)
+#'@param ay.list list of yaxis specifications for each setting, 
+#'settings are given y axis of y3, y4, y5 and ay3, ay4, ay5 respectively
 #'@param xticks numeric vector of tickmarks for the xaxis
 #'@param yaxisStr character string for layout of all y axes.
-#'@return `p` plot_ly interactive plot with BG values added if addBG
+#'@param legendInset numeric value specifying how far below the plot the legend should be placed
+#'@return `p` plot_ly interactive plot with settings plotted as lines
+#'@examples
+#'libraryPath<-"F:/BG.library_github/BG.library/"
+#'path<-"F:/BG.library_github/"
+#'fileName<-"exampleData.csv"
+#'#load functions
+#'devtools::load_all(libraryPath,recompile = FALSE) 
+#'dataImport.list<-dataImport(path,fileName,libraryPath)
+#'data<-dataImport.list$allData
+#'data<-subsetData(data,numberDays = NA,startDate = NA,endDate = NA,filterCond = "",
+#'                startTime = "00:00", endTime = "23:00",timeStep = "hour",period = 1, 
+#'                fromChange = TRUE,libraryPath = libraryPath)
+#'#output as 'plot_ly'
+#'p<-plot_ly()
+#'p<-addBGpoints_ly(data, p)
+#'#set parameters
+#'addSetting<-c("basal","corrFactor","carbRatio")
+#'settingOverlay<- FALSE
+#'legendInset<--0.2
+#'#format time in decimal hours
+#'xticks.list<-xTicks(data, startTime = "00:00",endTime = "23:00",
+#'                    timeStep = "hour",period = 1)
+#'unPackList(lists = list(xticks.list = xticks.list),
+#'           parentObj = list(NA)) 
+#'#make y axis str
+#'yaxisStr.list<-makeYaxes(addBolusType = "", addSetting,settingOverlay,
+#'                         percentSetting = 30,barSubPlot = FALSE,percentBar = NA,yTitle = "")
+#'
+#'unPackList(lists = list(yaxisStr.list = yaxisStr.list),
+#'           parentObj = list(NA)) 
+#'unPackList(lists = list(ay.list = ay.list),
+#'           parentObj = list(NA))
+#'ay.list<-yaxisStr.list$ay.list
+#'#get xAxis str
+#'xaxisStr<-makeXaxis(addSetting, settingOverlay,xDomain)
+#'
+#'#make title str
+#'titleStr<-paste0(min(data$Date2)," -to- ",max(data$Date2))
+#'
+#'##make layoutstr
+#'layoutStr<-makeLayout(titleStr,xDomain,xaxisStr,yaxisStr,addGoodRange = FALSE,
+#'                      description = "",descInset =NA)
+#'p<-plot_ly()
+#'#add layout
+#'eval(parse(text = layoutStr))
+#'p<-addBGpoints_ly(data, p)
+#'addPumpSetting_ly(p,addSetting, settingOverlay,startTime,endTime,
+#'                  ay.list,xticks,yaxisStr,legendInset)
 
-addPumpSetting_ly<-function(p, addSetting,settingOverlay, basal,corrFactor,carbRatio,ay.list,
-                            legendInset,startTime,endTime,xticks,yaxisStr){
+
+addPumpSetting_ly<-function(p, addSetting = c("basal","corrFactor","carbRatio"),
+                            settingOverlay = FALSE, 
+                            startTime = "00:00",endTime = "23:00",
+                            ay.list,xticks,yaxisStr,
+                            legendInset = -0.2){
+  
   #if adding settings to plot
   if(addSetting[1]!=""){
+    #get pumpSettings
+    pumpSettings.list<-makePumpSettings(libraryPath)
+    unPackList(lists = list(pumpSettings.list = pumpSettings.list),
+               parentObj = list(NA)) 
+    
     setColors<-c("green","blue","red")
     
     #unpack ay.list

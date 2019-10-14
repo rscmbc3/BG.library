@@ -54,10 +54,10 @@ Sensorvalue_Summary<-summarizeData(allData, colName = "Sensor.Glucose..mg.dL.", 
 
 BGvalue_SummaryDaily<-summarizeData(allData, colName = "BG.Reading..mg.dL.",  timeStep = "day", 
                                     libraryPath = libraryPath,fromChange = fromChange,startDate = startDate,endDate = endDate)
-BGpercent_Summary<-addPercentBG_ly(allData, p = NA,addPercentBG = c("very high","high","good","low"),
+BGpercent_Summary<-addPercentBG_ly(data = allData, p = NA,addPercentBG = c("very high","high","good","low"),
                                    addPercentType = "BG.Reading..mg.dL.",outputType = "table",
                                    libraryPath = libraryPath,fromChange = fromChange,startDate = startDate,endDate = endDate)
-SGpercent_Summary<-addPercentBG_ly(allData, p = NA,addPercentBG = c("very high","high","good","low"),
+SGpercent_Summary<-addPercentBG_ly(data = allData, p = NA,addPercentBG = c("very high","high","good","low"),
                                    addPercentType = "Sensor.Glucose..mg.dL.",outputType = "table",
                                    libraryPath = libraryPath,fromChange = fromChange,startDate = startDate,endDate = endDate)
 BGHigh_Count<-summarizeData(allData, colName = "BG.Reading..mg.dL.", 

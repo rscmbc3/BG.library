@@ -1,13 +1,25 @@
 #'@title addBGpoints_ly
 #'@description Adds BG values as scatter trace to plot_ly interactive plot \\cr \\cr
-#'@param data data.frame with BG values in BG.Reading..mg.dL.
 #'@param p current plot_ly plot
+#'@param data data.frame with BG values in BG.Reading..mg.dL.
 #'@param addBG TRUE/FALSE whether BG values should be added to current plot
 #'@param pointSize scatter point size will be reduced by pointSize/1.5 for BG values
-#'@return `p` plot_ly interactive plot with BG values added if addBG
+#'@return `p` plot_ly interactive plot with BG values added if `addBG`
+#'@examples
+#'libraryPath<-"F:/BG.library_github/BG.library/"
+#'path<-"F:/BG.library_github/"
+#'fileName<-"exampleData.csv"
+#'#load functions
+#'devtools::load_all(libraryPath,recompile = FALSE) 
+#'dataImport.list<-dataImport(path,fileName,libraryPath)
+#'data<-dataImport.list$allData
+#'data<-subsetData(data,numberDays = NA,startDate = NA,endDate = NA,filterCond = "",
+#'                startTime = "00:00", endTime = "23:00",timeStep = "hour",period = 1, 
+#'                fromChange = TRUE,libraryPath = libraryPath)
+#'p<-plot_ly()
+#'addBGpoints_ly(p, data)
 
-
-addBGpoints_ly<-function(data, p, yAxis = 'y', addBG, pointSize,startTime,endTime){
+addBGpoints_ly<-function(p,data, yAxis = 'y', addBG = TRUE, pointSize = 10,startTime = "00:00",endTime = "23:00"){
   if (addBG){#add bG values
     NAMES<-c("dateTime","Date2","time2","hours","hour","BG.Reading..mg.dL.")
     data<-uniqueDateTime(data, NAMES, replaceNAs = FALSE,startTime = startTime,endTime = endTime, timeStep = "hour", period = 1)

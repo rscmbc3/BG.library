@@ -1,8 +1,58 @@
-addPercentBG_ly<-function(data, p,addPercentBG,addPercentType,outputType = "plot_ly",
-                          numberDays = NA, filterCond = "",
+#'@title addPercentBG_ly
+#'@description Outputs a data.frame of grouped (low < 80, 80<=good<=150, 150<high<=240, very high >240) 
+#'percentages of BG or SG data or adds percentages as text to plotly interactive plot. \\cr \\cr
+#'@param p current plot_ly plot
+#'@param data data.frame with BG values in BG.Reading..mg.dL. and SG values in Sensor.Glucose..mg.dL.
+#'@param addPercentBG character vector of groups to include (c("low","good","high","very high"))
+#'@param addPercentType character string of column name with values to group (i.e. "BG.Reading..mg.dL.")
+#'@param fromChange TRUE/FALSE indicates whether data should be subset with the ealiest date
+#'as the most recent pump settings change.  This setting overrides all other date subsetting 
+#'parameters, and must be set to `FALSE` to apply other parameter settings (i.e. `numberDays`,
+#'`startDate`, and `endDate`)
+#'@param numberDays numeric value indicating number of days of data to include.  This parameter will 
+#'override `startDate` and `endDate` unless it is set to NA.  The `fromChange` parameter will override 
+#'all other parameters that subset the data by date.
+#'@param startDate Earliest date included in data.  This setting will only be applied 
+#'if `numberDays = NA` and `fromChange = FALSE`
+#'@param endDate Latest date included in data.  This setting will only be applied 
+#'if `numberDays = NA` and `fromChange = FALSE`
+#'@param startTime character string of beginning time for plot (typically startTime = "00:00)
+#'@param endTime character string of ending time for plot (typically endTime = "23:00)
+#'@param timeStep character string indicating the time step to aggregate data, possible values
+#'include c("hour","day")
+#'@param period numeric value indicating number of `timeSteps` to aggregate into single step
+#'for example : `timeStep = 'hour'`  and `period = 3` outputs plots with tick marks every 3 hours.
+#'@param filterCond character string of R syntax to be applied to filter the data, 
+#'example `data[data$BG.Reading..mg.dL.>150 & !is.na(data$BG.Reading..mg.dL.),]`
+#'@param outputType character string indicating type of output, options are "plot_ly", or "table"
+#'@param libraryPath character string path to BG.library code 
+#'@return `p` plot_ly interactive plot with text indicating percentages in right-hand corner or
+#'`percentOut` a data.frame of percentages by group if `outputTupe=="table"`
+#'@examples
+#'libraryPath<-"F:/BG.library_github/BG.library/"
+#'path<-"F:/BG.library_github/"
+#'fileName<-"exampleData.csv"
+#'#load functions
+#'devtools::load_all(libraryPath,recompile = FALSE) 
+#'dataImport.list<-dataImport(path,fileName,libraryPath)
+#'data<-dataImport.list$allData
+#'data<-subsetData(data,numberDays = NA,startDate = NA,endDate = NA,filterCond = "",
+#'                startTime = "00:00", endTime = "23:00",timeStep = "hour",period = 1, 
+#'                fromChange = TRUE,libraryPath = libraryPath)
+#'#output as 'plot_ly'
+#'p<-plot_ly()
+#'p<-addBGpoints_ly(data, p)
+#'addPercentBG_ly(p,data,libraryPath = libraryPath)
+#'
+#'#output as 'table'
+#'addPercentBG_ly(p = NA,data,outputType = "table",libraryPath = libraryPath)
+
+addPercentBG_ly<-function(p,data,addPercentBG = c("low","good","high","very high"),
+                          addPercentType = "BG.Reading..mg.dL.",
+                          fromChange = TRUE,numberDays = NA, 
                           startDate = NA,endDate = NA,
                           startTime = "00:00", endTime = "23:00",timeStep = "hour",period = 1,
-                          fromChange = TRUE,libraryPath){
+                          filterCond = "",outputType = "plot_ly",libraryPath){
   if (addPercentBG[1]!=""){
     if (outputType != "plot_ly"){
     #subset data by date and filterCond

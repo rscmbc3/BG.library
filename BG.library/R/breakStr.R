@@ -1,3 +1,15 @@
+#'@title breakStr
+#'@description Breaks long character strings at `nBreak` number of characters 
+#'with the character string indicated by `strbreak` \\cr \\cr
+#'@param longStr long character string
+#'@param nBreak number of characters in between breaks
+#'@param strBreak character string to place at break (i.e. `"\n"` to enter line break)
+#'@return `newstr` character string with breaks added
+#'@examples
+#'longStr<-"This is a very, very, very long character string that is too long for my output format.  This string needs to be broken into parts."
+#'newstr<-breakStr(longStr,50,'\n')
+#'cat(newstr)
+
 breakStr<-function(longStr,nBreak,strBreak){ 
   if (nchar(longStr)>nBreak){
     spaces<-lapply(strsplit(longStr, ''), function(longStr) which(longStr == ' '))[[1]]

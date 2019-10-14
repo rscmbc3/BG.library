@@ -11,7 +11,7 @@ pumpSettings.list<-makePumpSettings(libraryPath)
 unPackList(lists = list(pumpSettings.list = pumpSettings.list),
            parentObj = list(NA)) 
 
-#metronic csv data import
+#csv data import
 dataImport.list<-dataImport(path,fileName,libraryPath)
 unPackList(lists = list(dataImport.list = dataImport.list),
            parentObj = list(NA)) 
@@ -19,10 +19,10 @@ unPackList(lists = list(dataImport.list = dataImport.list),
 #summarize data
 BGvalue_Summary<-summarizeData(allData, colName = "BG.Reading..mg.dL.", libraryPath = libraryPath)
 BGvalue_SummaryDaily<-summarizeData(allData, colName = "BG.Reading..mg.dL.",  timeStep = "day", libraryPath = libraryPath)
-BGpercent_Summary<-addPercentBG_ly(allData, p = NA,addPercentBG = c("very high","high","good","low"),
+BGpercent_Summary<-addPercentBG_ly(data = allData, p = NA,addPercentBG = c("very high","high","good","low"),
                                    addPercentType = "BG.Reading..mg.dL.",outputType = "table",
                                    libraryPath = libraryPath)
-SGpercent_Summary<-addPercentBG_ly(allData, p = NA,addPercentBG = c("very high","high","good","low"),
+SGpercent_Summary<-addPercentBG_ly(data = allData, p = NA,addPercentBG = c("very high","high","good","low"),
                                    addPercentType = "Sensor.Glucose..mg.dL.",outputType = "table",
                                    libraryPath = libraryPath)
 BGHigh_Count<-summarizeData(allData, colName = "BG.Reading..mg.dL.", 
@@ -155,9 +155,9 @@ plotLine_ly(allData,  scatterOnly = FALSE, pointSize = 10,
                       startTime = "00:00", endTime = "23:00",
                       colorPalleteDaily = "rainbow", 
                       addSensor = TRUE, addBG = TRUE, settingOverlay = FALSE,
-            #addBolusType = "Bolus.Volume.Delivered..U.",
+            addBolusType = "Bolus.Volume.Delivered..U.",
             #addBolusType = c("Bolus.Volume.Delivered..U.","BWZ.Correction.Estimate..U.","BWZ.Food.Estimate..U."),
-            addBolusType = "",   
+            #addBolusType = "",   
             barSubPlot = FALSE,
             addBarSub = FALSE,libraryPath = libraryPath,
             plotSummary = "Sensor.Glucose..mg.dL.",
@@ -177,7 +177,7 @@ summaryPlot_ly(p = NA, data = allData, barSubPlot = FALSE,ayCarb = NA,
 
 #simple with setting subplot
 summaryPlot_ly(p = NA, data = allData, barSubPlot = FALSE,ayCarb = NA,
-              addBarSub = FALSE,basal,
+              addBarSub = FALSE,
               numberDays = 5, filterCond = "",
               startDate = NA, endDate = NA,
               startTime = "00:00", endTime = "23:00",
@@ -185,7 +185,7 @@ summaryPlot_ly(p = NA, data = allData, barSubPlot = FALSE,ayCarb = NA,
               uniqueDT = TRUE,replaceNAs = FALSE,
               addBG = TRUE, 
               addSetting = c("basal","corrFactor","carbRatio"),settingOverlay = FALSE,percentSetting = 30,
-              legendInset = -0.2)
+              legendInset = -0.2, libraryPath = libraryPath)
 
 #simple barplot period 3 hours
 summaryPlot_ly(p = NA, data = allData, barSubPlot = FALSE,ayCarb = NA,

@@ -88,18 +88,18 @@ plotLine_ly<-function(data,
     }
    
     #add bG values
-    p<-addBGpoints_ly(data, p,yAxis = 'y', addBG, pointSize,startTime,endTime)
+    p<-addBGpoints_ly(p,data,yAxis = 'y', addBG, pointSize,startTime,endTime)
     
     #addBolusPOints
-    p<-addBolusPoints_ly(data, p, addBolusType,pointSize,startTime,endTime)
+    p<-addBolusPoints_ly(p,data, addBolusType,pointSize,startTime,endTime)
     
     #add pump Settings
-    p<-addPumpSetting_ly(p,addSetting, settingOverlay, basal,corrFactor,carbRatio,ay.list,
-                         legendInset,startTime,endTime,xticks,yaxisStr)
+    p<-addPumpSetting_ly(p,addSetting, settingOverlay,startTime,endTime,
+                         ay.list,xticks,yaxisStr,legendInset)
     
     
     #addPercentBG as text 
-    p<-addPercentBG_ly(data,p,addPercentBG,addPercentType,fromChange = fromChange,libraryPath = libraryPath,
+    p<-addPercentBG_ly(p,data,addPercentBG,addPercentType,fromChange = fromChange,libraryPath = libraryPath,
                        startTime = startTime, endTime = endTime)
     
     #add addBarSub of carb intake

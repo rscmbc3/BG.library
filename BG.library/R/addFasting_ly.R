@@ -1,4 +1,29 @@
-addFasting_ly<-function(p, data, addFasting, addFastingAnnot){
+#'@title addFasting_ly
+#'@description Adds mean fasting line that extends from earliest fasting time to latest fasting 
+#'time to plot_ly interactive plot with or without a text annotation (`addFastingAnnot`) 
+#'printing the mean fasting value. \\cr \\cr
+#'@param p current plot_ly plot
+#'@param data data.frame with BG values in BG.Reading..mg.dL.
+#'@param addFasting TRUE/FALSE whether mean fasting line should be added to current plot
+#'@param addFastingAnnot TRUE/FALSE whether mean fasting text annotation should be added to current plot
+#'@return `p` plot_ly interactive plot with mean fasting values added if `addFasting`
+#'@examples
+#'libraryPath<-"F:/BG.library_github/BG.library/"
+#'path<-"F:/BG.library_github/"
+#'fileName<-"exampleData.csv"
+#'#load functions
+#'devtools::load_all(libraryPath,recompile = FALSE) 
+#'dataImport.list<-dataImport(path,fileName,libraryPath)
+#'data<-dataImport.list$allData
+#'data<-subsetData(data,numberDays = NA,startDate = NA,endDate = NA,filterCond = "",
+#'                startTime = "00:00", endTime = "23:00",timeStep = "hour",period = 1, 
+#'                fromChange = TRUE,libraryPath = libraryPath)
+#'p<-plot_ly()
+#'p<-addBGpoints_ly(data, p)
+#'addFasting_ly(p, data)
+
+
+addFasting_ly<-function(p, data, addFasting = TRUE, addFastingAnnot = TRUE){
 
   
   if(addFasting){

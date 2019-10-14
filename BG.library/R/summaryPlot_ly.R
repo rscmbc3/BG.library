@@ -30,7 +30,7 @@ summaryPlot_ly<-function(p, data,
     unPackList(lists = list(pumpSettings.list = pumpSettings.list),
                parentObj = list(NA)) 
     
-    p <- barSubPlot_ly(data, p, addBarSub,timeStep, period)
+    p <- barSubPlot_ly(p, data, addBarSub,timeStep, period)
     return(p)
     
   }else if (timeStep=="hour"){#barplot is main plot timestep hour

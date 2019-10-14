@@ -4,18 +4,52 @@
 \alias{convertClass}
 \title{convertClass}
 \usage{
-convertClass(cls, t, col)
+convertClass(cls, col, sensorData, pumpData)
 }
 \arguments{
 \item{cls}{character string for the desired class conversion}
 
-\item{t}{character string for the data.frame with the column to convert}
-
 \item{col}{charcter string for the column to convert}
+
+\item{sensorData}{data.frame of sensor BG values}
+
+\item{pumpData}{data.frame of pumpData}
 }
 \value{
 \code{convert} vector of converted values with class equal to \code{cls}
 }
 \description{
-Converts column classes \cr \cr
+Converts column classes to match  \cr \cr
+}
+\examples{
+libraryPath<-"F:/BG.library_github/BG.library/"
+path<-"F:/BG.library_github/"
+fileName<-"exampleData.csv"
+#load functions
+devtools::load_all(libraryPath,recompile = FALSE) 
+#readBG
+data<-read.csv(paste0(path,fileName), header = FALSE)
+
+#get pump table
+pumpStartRow<-which(data[,1]=="Index")[1]
+pumpEndRow<-which(data[,1]=="-------" & as.numeric(rownames(data))>pumpStartRow)-1
+pumpData<-data[pumpStartRow:pumpEndRow,]
+
+#get sensor table
+sensorStartRow<-which(data[,1]=="Index")[2]
+sensorEndRow<-nrow(data)
+sensorData<-data[sensorStartRow:sensorEndRow,]
+
+#fix tables
+pumpData<-fixtables(pumpData,libraryPath)
+sensorData<-fixtables(sensorData,libraryPath)
+
+#conform colClasses
+classTable<-cbind(names(pumpData), sapply(pumpData, class))
+for (c in 1:(nrow(classTable)-1)){
+ cls<-as.character(classTable[[c,2]])
+ col<-as.character(classTable[[c,1]])
+ sensorData[[c]]<-convertClass(cls,col,sensorData,pumpData)
+}
+print(cbind(classTable, sapply(sensorData, class)))
 }

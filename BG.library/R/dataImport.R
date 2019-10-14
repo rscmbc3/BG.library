@@ -5,7 +5,13 @@
 #'@param path character path to directory in which import file is located.
 #'@param fileName charcter string csv file name
 #'@return `dataImport.list` list containing 2 data.frames (allData and joinData)
-
+#'@examples
+#'libraryPath<-"F:/BG.library_github/BG.library/"
+#'path<-"F:/BG.library_github/"
+#'fileName<-"exampleData.csv"
+#'#load functions
+#'devtools::load_all(libraryPath,recompile = FALSE) 
+#'dataImport.list<-dataImport(path,fileName,libraryPath)
 
 dataImport<-function(path,fileName,libraryPath){
   #readBG

@@ -4,7 +4,7 @@
 \alias{fixtables}
 \title{fixtables}
 \usage{
-fixtables(data)
+fixtables(data, libraryPath)
 }
 \arguments{
 \item{data}{object from \code{readLines()} import to convert to readable data.frame.}

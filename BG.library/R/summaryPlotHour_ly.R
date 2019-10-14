@@ -26,7 +26,7 @@ summaryPlotHour_ly<-function(data,barSubPlot,boxBar,
     data$hours<- data$hour + data$min/60
     
     #save data for addPumpSetting_ly and addBGpoints_ly
-    basalOrig<-basal
+    #basalOrig<-basal
     dataOrig<-data
 
 
@@ -192,11 +192,11 @@ summaryPlotHour_ly<-function(data,barSubPlot,boxBar,
       
     }
     #add pump Settings
-    p<-addPumpSetting_ly(p,addSetting, settingOverlay, basalOrig,corrFactor,carbRatio,ay.list,
-                         legendInset,startTime,endTime,xticks,yaxisStr)
+    p<-addPumpSetting_ly(p,addSetting, settingOverlay,startTime,endTime,
+                         ay.list,xticks,yaxisStr,legendInset)
     
     #add bG values
-    p<-addBGpoints_ly(data = dataOrig, p,yAxis = 'y7', addBG, pointSize)
+    p<-addBGpoints_ly(p,data = dataOrig, yAxis = 'y7', addBG, pointSize)
     return(p)
     
   }else{#no data for filter

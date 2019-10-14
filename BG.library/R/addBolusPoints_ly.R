@@ -1,14 +1,28 @@
 #'@title addBolusPoints_ly
 #'@description Adds Bolus values as scatter trace to plot_ly interactive plot \\cr \\cr
-#'@param data data.frame with BG values in BG.Reading..mg.dL.
 #'@param p current plot_ly plot
+#'@param data data.frame with BG values in BG.Reading..mg.dL.
 #'@param addBolusType character string vector of Bolus columns to add as scatter points 
 #'addBolusType = c("Bolus.Volume.Delivered..U.","BWZ.Correction.Estimate..U.","BWZ.Food.Estimate..U.")
 #'@param pointSize scatter point size
 #'@return `p` plot_ly interactive plot with BG values added if addBG
+#'@examples
+#'libraryPath<-"F:/BG.library_github/BG.library/"
+#'path<-"F:/BG.library_github/"
+#'fileName<-"exampleData.csv"
+#'#load functions
+#'devtools::load_all(libraryPath,recompile = FALSE) 
+#'dataImport.list<-dataImport(path,fileName,libraryPath)
+#'data<-dataImport.list$allData
+#'data<-subsetData(data,numberDays = NA,startDate = NA,endDate = NA,filterCond = "",
+#'                startTime = "00:00", endTime = "23:00",timeStep = "hour",period = 1, 
+#'                fromChange = TRUE,libraryPath = libraryPath)
+#'p<-plot_ly()
+#'addBolusPoints_ly(p,data addBolusType = c("Bolus.Volume.Delivered..U.",
+#'                                             "BWZ.Correction.Estimate..U.","BWZ.Food.Estimate..U."))
 
-
-addBolusPoints_ly<-function(data, p, addBolusType, pointSize,startTime,endTime){
+addBolusPoints_ly<-function(p,data, addBolusType = "Bolus.Volume.Delivered..U.", 
+                            pointSize = 10,startTime = "00:00",endTime = "23:00"){
 if (addBolusType[1]!=""){#if add bolus type
   #set colors and shapes
   cls<-brewer.pal(length(addBolusType),"Set2")
