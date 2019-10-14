@@ -4,7 +4,7 @@ Title: Library of functions to analyze BG and sensor data.
 Version: 1.0
 Date: 2019-09-10
 Author: Lillian Gorman Sanisaca
-Maintainer: Lillian Gorman Sanisaca <lgormansanisaca@usgs.gov>
+Maintainer: Lillian Gorman Sanisaca <rscmb_c3@yahoo.com>
 Description: Library of functions to analyze BG and sensor data.  Input files MUST be formatted EXACTLY as output from metronic minimed carelink.
 Roxygen: list(markdown=TRUE)
 VignetteBuilder: knitr
