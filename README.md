@@ -46,5 +46,5 @@ devtools::load_all(libraryPath,recompile = FALSE)
 ?breakStr #replace 'breakStr' with any function name in library
 ```
 
-## Example BG Report with Interactive Plots
-[Example BG Report](https://github.com/rscmbc3/BG.library/blob/master/BG.library/reports/BG_report.html)
+## Example Plots
+<img src="BG.library/inst/figures/linePlot.png"  height="450px" />
