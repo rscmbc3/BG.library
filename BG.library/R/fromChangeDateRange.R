@@ -14,23 +14,29 @@ fromChangeDateRange<-function(data,numberDays,fromChange,startDate = NA, endDate
       }
     }#end set date range 
     
-}else{
-  basal<-makePumpSettings(libraryPath)$basal
-  lastChange<-names(basal)[length(basal)]
-  lastChange<-gsub("X","",lastChange)
-  lastChange<-gsub("\\.","-",lastChange)
-  lastChange<-as.Date(lastChange,format = "%m-%d-%Y",origin = "1970-01-01")
-  lastChange<-as.Date(lastChange, format = "%Y-%m-%d" )
-  prevChange<-names(basal)[length(basal)-1]
-  prevChange<-gsub("X","",prevChange)
-  prevChange<-gsub("\\.","-",prevChange)
-  prevChange<-as.Date(prevChange,format = "%m-%d-%Y",origin = "1970-01-01")
-  prevChange<-as.Date(prevChange, format = "%Y-%m-%d" )
-  if (nrow(data[data$Date2>=lastChange,])!=0){
-    data<-data[data$Date2>=lastChange,]
   }else{
-    data<-data[data$Date2>=prevChange,]
-  }
+    basal<-makePumpSettings(libraryPath)$basal
+    
+    #get changes as dates
+    allChanges<-character(0)
+    class(allChanges)<-"Date"
+    for (d in 2:length(basal)){
+      change<-names(basal)[d]
+      change<-gsub("X","",change)
+      change<-gsub("\\.","-",change)
+      change<-as.Date(change,format = "%m-%d-%Y",origin = "1970-01-01")
+      change<-as.Date(change, format = "%Y-%m-%d" )
+      allChanges<-c(allChanges,change)
+    }
+    
+    #get max dates in data
+    maxDate<-max(data$Date2)
+    lastChange<-allChanges[allChanges<=maxDate]
+    lastChange<-lastChange[length(lastChange)]
+    
+    #subset data
+    data<-data[data$Date2>=lastChange,]
+
 }
-  return(data)
+return(data)
 }
