@@ -29,8 +29,7 @@ shinyPlot<-function(libraryPath, path, fileName){
       sidebarLayout(
         sidebarPanel(width=6,
                      #plot actionButtons
-                     fluidRow(actionButton("goPlot","Generate Plot"),
-                              actionButton("goHistory","Generate History Report"),
+                     fluidRow(actionButton("goHistory","Generate History Report"),
                               actionButton("goReport","Generate BG Report")),
                      
                      h4("Plot Specifications                     "),
@@ -40,7 +39,7 @@ shinyPlot<-function(libraryPath, path, fileName){
                                  choices = c("scatter","bar","box","heatmap","Saved Plot")),  
                      
                      
-                       uiOutput("outputUI")
+                     uiOutput("outputUI")
                      
                      
         ),#end sidebar
@@ -56,57 +55,66 @@ shinyPlot<-function(libraryPath, path, fileName){
   server=shinyServer(function(input, output,session) {
     #render UIs
     observe({
-    if (input$shPlotType=="scatter"){
-      output$outputUI<-renderUI({
-        scatterUI()
-      })
-    }else if (input$shPlotType=="box" | input$shPlotType=="bar"){
-      output$outputUI<-renderUI({
-        boxBarUI(data)
-      })
-    }else if (input$shPlotType=="heatmap"){
-      output$outputUI<-renderUI({
-        heatmapUI(data)
-      })
-    }else{#saved plot
-      output$outputUI<-renderUI({
-        savedUI(plotList)
-      })
-  }
-      })
-  
-    #saved plot description  
-  output$description <- renderText({
-      eval(parse(text = paste0("plotList$",input$plotName,"$description")))
-    })  
-  
-  #interactive plot
-    output$plotOne  <- renderPlotly({
-      p<-eventReactive(input$goPlot, {
+      if (input$shPlotType=="scatter"){
+        output$outputUI<-renderUI({
+          scatterUI()
+        })
+      }else if (input$shPlotType=="box" | input$shPlotType=="bar"){
+        output$outputUI<-renderUI({
+          boxBarUI(data)
+        })
+      }else if (input$shPlotType=="heatmap"){
+        output$outputUI<-renderUI({
+          heatmapUI(data)
+        })
+      }else{#saved plot
+        output$outputUI<-renderUI({
+          savedUI(plotList)
+        })
+      }
+    })
+    
+    observe({
+      #saved plot description  
+      output$description <- renderText({
+        eval(parse(text = paste0("plotList$",input$plotName,"$description")))
+      })  
+    })
+    
+    
+
+    #interactive plot
+    observe({
+          output$plotOne  <- renderPlotly({
         goShinyPlot(input, output, session,
                     libraryPath, path, fileName,
                     data)
-      })()#end render plot
-    })#end renderplot
-    
-    #history sequence output
-    observe({
-      p<-eventReactive(input$goHistory,{
-        shinyReport(input, output, session,
-                        libraryPath, path, fileName,
-                        data, reportType = "history")
-      })()#end go history plots
-    })
-    
-    #BG report output
-    observe({
-      p<-eventReactive(input$goReport,{
-        shinyReport(input, output, session,
-                        libraryPath, path, fileName,
-                        data,reportType = "BG")
-      })()#end go history plots
-    })
+      })#end renderplot
+    }) 
 
+    #generate reports
+    hs<-eventReactive(input$goHistory,{
+      shinyReport(input, output, session,
+                  libraryPath, path, fileName,
+                  data, reportType = "history")
+    })      
+    
+    bg<-eventReactive(input$goReport,{
+      shinyReport(input, output, session,
+                  libraryPath, path, fileName,
+                  data,reportType = "BG")
+    })
+    
+    observe({   
+      hs()
+      bg()
+      
+    })
+    
+    
+    
+    
+    
     
   })#end shiny server
   )#end shiny app
