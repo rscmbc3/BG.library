@@ -6,36 +6,42 @@ This is a library of functions to analyze my personal Blood Glucose data with ht
 I strongly advise against making medical decisions based on analysis using these functions to analyze your BG data.
 
 Results are not guaranteed.
-#NO MEDICAL DECISIONS SHOULD BE MADE ON THE BASIS OF THESE RESULTS!
+## NO MEDICAL DECISIONS SHOULD BE MADE ON THE BASIS OF THESE RESULTS!
 
-##Required R libraries
--devtools
--data.table
--lubridate
--RColorBrewer
--dplyr
--gplots
--plotly  
--knitr
--rmarkdown
--reshape2
--shinyWidgets
--shiny
+## Required R libraries
+- devtools
+- data.table
+- lubridate
+- RColorBrewer
+- dplyr
+- gplots
+- plotly  
+- knitr
+- rmarkdown
+- reshape2
+- shinyWidgets
+- shiny
 
-##Input data and function Execution
+## Input data and function Execution
 Input data must be formated as exampleData.csv.
 Examples of function executions can be found in the csvAnalysis.R file.
+
 Shiny app triggered using
 
+```
 libraryPath<-"./BG.library/"
 path<-getwd()
 fileName<-"exampleData.csv"
 devtools::load_all(libraryPath,recompile = FALSE) 
 shinyPlot(libraryPath, path, fileName)
+```
 
-##Help files
+
+## Help files
 Function Help files are available using
+
+```
 libraryPath<-"./BG.library/"
 devtools::load_all(libraryPath,recompile = FALSE) 
 ?breakStr #replace 'breakStr with any function name in library
-
+```
