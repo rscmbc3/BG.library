@@ -43,5 +43,5 @@ Function Help files are available using
 ```
 libraryPath<-"./BG.library/"
 devtools::load_all(libraryPath,recompile = FALSE) 
-?breakStr #replace 'breakStr with any function name in library
+?breakStr #replace 'breakStr' with any function name in library
 ```
