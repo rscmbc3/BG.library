@@ -25,6 +25,8 @@ if (shPlotType=="scatter"){
   naRemove<-ignoreNAs
   plotType<-"heatMap_ly"
   valueVar<-plotSummary2
+  timeStep<-"hour"
+  period<-1
 }
 startDate<-as.character(daterange[1])
 endDate<-as.character(daterange[2])

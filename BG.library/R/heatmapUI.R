@@ -13,8 +13,8 @@ heatmapUI<-function(data){
                        separator = " - ")
       ),
       
-      fluidRow(selectInput("timeStep","Time Step",choices = c("hour","day"),selected  = "hour"),
-               numericInput("period","Time Step length (period)",value = 1)),
+     # fluidRow(selectInput("timeStep","Time Step",choices = c("hour","day"),selected  = "hour"),
+    #           numericInput("period","Time Step length (period)",value = 1)),
       
       h3("Add data to plot"),
       selectInput("plotSummary2","Data to summarize",
