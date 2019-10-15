@@ -48,6 +48,7 @@ devtools::load_all(libraryPath,recompile = FALSE)
 
 ## Example Plots
 Example plots are static in the README, but will be interactive in the program.
+
 <img src="BG.library/inst/figures/linePlot.png"  height="550px" />
 <img src="BG.library/inst/figures/barPlot.png"  height="550px" />
 <img src="BG.library/inst/figures/boxPlot.png"  height="550px" />
