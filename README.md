@@ -48,3 +48,6 @@ devtools::load_all(libraryPath,recompile = FALSE)
 
 ## Example Plots
 <img src="BG.library/inst/figures/linePlot.png"  height="450px" />
+<img src="BG.library/inst/figures/barPlot.png"  height="450px" />
+<img src="BG.library/inst/figures/boxPlot.png"  height="450px" />
+<img src="BG.library/inst/figures/heatMap.png"  height="450px" />
