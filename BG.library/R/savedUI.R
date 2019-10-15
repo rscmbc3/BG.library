@@ -1,4 +1,4 @@
-savedUI<-function(){
+savedUI<-function(plotList){
   ui=shinyUI(
     fluidPage(
       

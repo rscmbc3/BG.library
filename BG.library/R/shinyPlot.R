@@ -1,4 +1,4 @@
-shinyPlot2<-function(libraryPath, path, fileName){
+shinyPlot<-function(libraryPath, path, fileName){
   #load functions
   devtools::load_all(libraryPath,recompile = FALSE) 
   
@@ -70,7 +70,7 @@ shinyPlot2<-function(libraryPath, path, fileName){
       })
     }else{#saved plot
       output$outputUI<-renderUI({
-        savedUI()
+        savedUI(plotList)
       })
   }
       })
