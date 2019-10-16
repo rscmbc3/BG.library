@@ -3,7 +3,7 @@ summarizeData<-function(data, colName, sumFuncs = "min, mean, max, sd",
                         startTime = "00:00", endTime = "23:00",timeStep = "hour", period = 1, 
                         startDate = NA, endDate = NA,fromChange=TRUE,libraryPath){
   #get dateRange
-  data<-fromChangeDateRange(data,numberDays,fromChange,libraryPath = libraryPath,
+  data<-fromChangeDateRange(data,fromChange,numberDays,libraryPath = libraryPath,
                             startDate = startDate,endDate = endDate)
   
   

@@ -8,7 +8,7 @@ timeDayTable<-function(data, tcol, dcol, valueVar,
                        timeStep = "hour", period = 1,fromChange = TRUE,libraryPath){
   
   #get dateRange
-  data<-fromChangeDateRange(data,numberDays,fromChange,startDate = startDate, endDate = endDate,libraryPath = libraryPath)
+  data<-fromChangeDateRange(data,fromChange,numberDays,startDate = startDate, endDate = endDate,libraryPath = libraryPath)
   
   if (filterCond!=""){
     data<-eval(parse(text = filterCond))

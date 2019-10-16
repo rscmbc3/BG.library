@@ -2,6 +2,21 @@
 #'@description Reformat input tables to create readable data.frame objects. Format dateTime columns as.POSIXct.  \\cr \\cr
 #'@param data object from `readLines()` import to convert to readable data.frame.
 #'@return `data` data.frame with correct headers and dateTime class columns.
+#'@examples
+#'libraryPath<-"F:/BG.library_github/BG.library/"
+#'path<-"F:/BG.library_github/"
+#'fileName<-"exampleData.csv"
+#'#readBG
+#'data<-read.csv(paste0(path,fileName), header = FALSE)
+#'
+#'#get pump table
+#'pumpStartRow<-which(data[,1]=="Index")[1]
+#'pumpEndRow<-which(data[,1]=="-------" & as.numeric(rownames(data))>pumpStartRow)-1
+#'pumpData<-data[pumpStartRow:pumpEndRow,]
+#'
+#'#fix tables
+#'pumpData<-fixtables(pumpData,libraryPath)
+
 
 fixtables<-function(data,libraryPath){
   #replace column names

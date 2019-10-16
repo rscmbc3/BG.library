@@ -1,15 +1,19 @@
 #'@title findCodeStr
 #'@description find all instances where a given routine is executed, determine all arguments 
-#'            for a given routine, find all routines that use a given control setting or functional argument, 
+#'            for a given routine, find all routines that use a given parameter or functional argument, 
 #'            or determine all locations within the system a given string occurs \\cr \\cr
-#'@param path character string path to RSPARROW_master directory.  Internally reset to 
-#'       'RSPARROW_master/R/' subdirectory
+#'@param path character string path to directory to search (i.e. './BG.library/')
 #'@param str character string to find in function
 #'@param strType type of string search, 'routine' indicates that all instances of a routine 
 #'       (str) being executed will be found, 'args' indicates that all function arguments for the routine 
-#'       (str) are found, 'setting' indicates that all functions that use the setting (str) as an 
+#'       (str) are found, 'param' indicates that all functions that use the param (str) as an 
 #'       argument are found, and 'all' indicates that all instances of the str should be found
-
+#'@return `allReps` data.frame of all lines within all files that contain the search string.
+#'@examples
+#'libraryPath<-"F:/BG.library_github/BG.library/"
+#'findCodeStr(libraryPath,"breakStr","routine")
+#'findCodeStr(libraryPath,"plotLine_ly","args")
+#'findCodeStr(libraryPath,"p","param")
 
 
 findCodeStr<-function(path,str,strType){
@@ -34,7 +38,7 @@ findCodeStr<-function(path,str,strType){
       }
       
       
-    }else if (strType=="setting"){
+    }else if (strType=="param"){
       routine<-gsub("\\.R","",basename(f))
         #find start of function call
         startStr<-which(regexpr(paste0(routine,"<-function"),gsub(" ","",x))>0)

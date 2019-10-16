@@ -32,3 +32,5 @@ for (n in names(plotList)){
   evalStr<-paste0("plotList$",n,"$paramList<-plotList$",n,"$paramList[names(plotList$",n,"$paramList)!='carbRatio']")
   eval(parse(text = evalStr))
 }
+
+plotList$meanBGheat_hist$paramList<-plotList$meanBGheat_hist$paramList[names(plotList$meanBGheat_hist$paramList)!="includeTotals"]

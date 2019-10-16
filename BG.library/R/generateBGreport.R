@@ -1,10 +1,40 @@
+#'@title generateBGreport
+#'@description Generate BG_report in html format for specific date range.  BG_report
+#'includes commonly used tables and interactive plots.\\cr \\cr
+#'@param libraryPath character string path to BG.library code 
+#'@param path character path to directory in which import file is located.
+#'@param fileName charcter string csv file name
+#'@param outPath character string indicating the directory in which to save the 
+#'BG_report.  If not specified report will be saved to "./BG.library/reports/BG_report.html
+#'@param outFileName character string to apply to BG_report file name.  If not specified
+#'report will be saved to "./BG.library/reports/BG_report.html
+#'@param fromChange TRUE/FALSE indicates whether data should be subset with the ealiest date
+#'as the most recent pump settings change.  This setting overrides all other date subsetting 
+#'parameters, and must be set to `FALSE` to apply other parameter settings (i.e. `numberDays`,
+#'`startDate`, and `endDate`)
+#'@param numberDays numeric value indicating number of days of data to include.  This parameter will 
+#'override `startDate` and `endDate` unless it is set to NA.  The `fromChange` parameter will override 
+#'all other parameters that subset the data by date.
+#'@param startDate Earliest date included in data.  This setting will only be applied 
+#'if `numberDays = NA` and `fromChange = FALSE`
+#'@param endDate Latest date included in data.  This setting will only be applied 
+#'if `numberDays = NA` and `fromChange = FALSE`
+#'@param data data.frame to be used to generate tables and plots
+#'@examples
+#'libraryPath<-"F:/BG.library_github/BG.library/"
+#'path<-"F:/BG.library_github/"
+#'fileName<-"exampleData.csv"
+#'dataImport.list<-dataImport(path,fileName,libraryPath)
+#'data<-dataImport.list$allData
+#'generateBGreport(libraryPath, path, fileName, data = data)
+
 generateBGreport<-function(libraryPath, path, fileName,
                            outPath = NA, outFileName= NA,
-                             numberDays = NA, fromChange = TRUE,
+                           fromChange = TRUE,  numberDays = NA, 
                            startDate = NA, endDate = NA,
                            data){
   #get dateRange
-  data<-fromChangeDateRange(data,numberDays,fromChange,libraryPath = libraryPath,startDate = startDate,endDate = endDate)
+  data<-fromChangeDateRange(data,fromChange,numberDays,libraryPath = libraryPath,startDate = startDate,endDate = endDate)
   
   reportTitle<-paste0("BG_report for Dates: ",min(data$Date2)," to ",max(data$Date2))
   

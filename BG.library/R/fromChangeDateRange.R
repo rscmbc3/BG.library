@@ -1,4 +1,35 @@
-fromChangeDateRange<-function(data,numberDays,fromChange,startDate = NA, endDate = NA, libraryPath){
+#'@title fromChangeDateRange
+#'@description subset data according to date parameters. `fromChange = TRUE` overrides
+#'all other date selection parameters and subsets data from the most recent pump change.  
+#'`!is.na(numberDays)` will overrride `startDate` and `endDate` parameters and subset data
+#'from max(data$Date2) to the date that is `numberDays` away from max(data$Date2).
+#'`startDate` and `endDate` are only applied if `fromChange` and `numberDays` are not.  Data
+#'is subsetted with `min(data$Date2>=startDate)` and `max(data$Date2)<=endDate` \\cr \\cr
+#'@param data data.frame to be subsetted.
+#'@param fromChange TRUE/FALSE indicates whether data should be subset with the ealiest date
+#'as the most recent pump settings change.  This setting overrides all other date subsetting 
+#'parameters, and must be set to `FALSE` to apply other parameter settings (i.e. `numberDays`,
+#'`startDate`, and `endDate`)
+#'@param numberDays numeric value indicating number of days of data to include.  This parameter will 
+#'override `startDate` and `endDate` unless it is set to NA.  The `fromChange` parameter will override 
+#'all other parameters that subset the data by date.
+#'@param startDate Earliest date included in data.  This setting will only be applied 
+#'if `numberDays = NA` and `fromChange = FALSE`
+#'@param endDate Latest date included in data.  This setting will only be applied 
+#'if `numberDays = NA` and `fromChange = FALSE`
+#'@param libraryPath character string path to BG.library code 
+#'@return `data` data.frame subsetted by date
+#'@examples
+#'libraryPath<-"F:/BG.library_github/BG.library/"
+#'path<-"F:/BG.library_github/"
+#'fileName<-"exampleData.csv"
+#'dataImport.list<-dataImport(path,fileName,libraryPath)
+#'data<-dataImport.list$allData
+#'data<-fromChangeDateRange(data,fromChange = TRUE,numberDays = NA,
+#'                          startDate = NA, endDate = NA, libraryPath)
+#'range(data$Date2)
+
+fromChangeDateRange<-function(data,fromChange,numberDays,startDate = NA, endDate = NA, libraryPath){
   if (!fromChange){
     #set date range, numberDays overrules start/endDates
     if (!is.na(numberDays)){

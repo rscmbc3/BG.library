@@ -3,7 +3,7 @@ subsetData<-function(data,numberDays,startDate,endDate,filterCond,
                      fromChange = TRUE,libraryPath){
   
   
-  data<-fromChangeDateRange(data,numberDays,fromChange,startDate, endDate, libraryPath)
+  data<-fromChangeDateRange(data,fromChange,numberDays,startDate, endDate, libraryPath)
     
   
   #apply filter condition
