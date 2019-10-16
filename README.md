@@ -8,19 +8,21 @@ I strongly advise against making medical decisions based on analysis using these
 Results are not guaranteed.
 ## NO MEDICAL DECISIONS SHOULD BE MADE ON THE BASIS OF THESE RESULTS!
 
-## Required R libraries
-- devtools
-- data.table
-- lubridate
-- RColorBrewer
-- dplyr
-- gplots
-- plotly  
-- knitr
-- rmarkdown
-- reshape2
-- shinyWidgets
-- shiny
+## R version and libraries
+The BG.library was written using R 3.5.0 and using the following required libraries.
+
+- devtools v2.1.0
+- data.table v1.12.2
+- lubridate v1.7.4
+- RColorBrewer v1.1-2
+- dplyr v0.8.3
+- gplots v3.0.1.1
+- plotly v4.9.0  
+- knitr v1.23
+- rmarkdown v1.13
+- reshape2 v1.4.3
+- shinyWidgets v0.4.9
+- shiny v1.4.0
 
 ## Input data and function Execution
 Input data must be formatted as exampleData.csv.
