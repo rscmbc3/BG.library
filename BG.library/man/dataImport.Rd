@@ -23,7 +23,5 @@ joinData is a roll join of pump and sensor data on datetime.\cr \cr
 libraryPath<-"F:/BG.library_github/BG.library/"
 path<-"F:/BG.library_github/"
 fileName<-"exampleData.csv"
-#load functions
-devtools::load_all(libraryPath,recompile = FALSE) 
 dataImport.list<-dataImport(path,fileName,libraryPath)
 }

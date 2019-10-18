@@ -7,18 +7,26 @@
 findCodeStr(path, str, strType)
 }
 \arguments{
-\item{path}{character string path to RSPARROW_master directory.  Internally reset to
-'RSPARROW_master/R/' subdirectory}
+\item{path}{character string path to directory to search (i.e. './BG.library/')}
 
 \item{str}{character string to find in function}
 
 \item{strType}{type of string search, 'routine' indicates that all instances of a routine
 (str) being executed will be found, 'args' indicates that all function arguments for the routine
-(str) are found, 'setting' indicates that all functions that use the setting (str) as an
+(str) are found, 'param' indicates that all functions that use the param (str) as an
 argument are found, and 'all' indicates that all instances of the str should be found}
+}
+\value{
+\code{allReps} data.frame of all lines within all files that contain the search string.
 }
 \description{
 find all instances where a given routine is executed, determine all arguments
-for a given routine, find all routines that use a given control setting or functional argument,
+for a given routine, find all routines that use a given parameter or functional argument,
 or determine all locations within the system a given string occurs \cr \cr
+}
+\examples{
+libraryPath<-"F:/BG.library_github/BG.library/"
+findCodeStr(libraryPath,"breakStr","routine")
+findCodeStr(libraryPath,"plotLine_ly","args")
+findCodeStr(libraryPath,"p","param")
 }

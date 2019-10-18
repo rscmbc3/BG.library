@@ -25,8 +25,6 @@ Converts column classes to match  \cr \cr
 libraryPath<-"F:/BG.library_github/BG.library/"
 path<-"F:/BG.library_github/"
 fileName<-"exampleData.csv"
-#load functions
-devtools::load_all(libraryPath,recompile = FALSE) 
 #readBG
 data<-read.csv(paste0(path,fileName), header = FALSE)
 

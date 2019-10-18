@@ -1,5 +1,30 @@
-historySeq<-function(data,libraryPath, plotName, paramList, plotType,
-                     seqType, seqLength){
+#'@title historySeq
+#'@description Execute series of historical plots through time sequence \\cr \\cr
+#'@param data data.frame to be plotted
+#'@param plotName character string name of saved plot to be executed.   If `plotName = NA` plot to execute is
+#'not a saved plot.
+#'@param paramList list of plot parameters needed to execute plot.  If executing a saved
+#'plot set to `NA`
+#'@param plotType character string indicating type of plot to execute (i.e. 'plotLine_ly', 
+#''summaryPlot_ly' or 'heatmMap_ly')
+#'@param seqType character string indicating the type of historical sequence to output 
+#'('change' indicating plots at dates where pump settings where changed or 'days' for plots
+#'every `period` number of days)
+#'@param seqLength number of plots to output
+#'@param period number of days per plot if `seqType = 'days'`
+#'@param libraryPath character string path to BG.library code 
+#'@examples
+#'libraryPath<-"F:/BG.library_github/BG.library/"
+#'path<-"F:/BG.library_github/"
+#'fileName<-"exampleData.csv"
+#'dataImport.list<-dataImport(path,fileName,libraryPath)
+#'data<-dataImport.list$allData
+#'historySeq(data = data,  plotName = "lineSumSens_SGper_Sett_BG", paramList = NA, plotType = NA,
+#'           seqType = "change", seqLength = 3,libraryPath)
+
+
+historySeq<-function(data, plotName, paramList, plotType,
+                     seqType, seqLength, period = NA, libraryPath){
 
   
   if (seqType=="change"){

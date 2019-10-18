@@ -9,6 +9,12 @@
 #'@param fileName charcter string csv file name
 #'@param data data.frame to be used to generate plots
 #'@examples 
+#'libraryPath<-"F:/BG.library_github/BG.library/"
+#'path<-"F:/BG.library_github/"
+#'fileName<-"exampleData.csv"
+#'#load functions
+#'dataImport.list<-dataImport(path,fileName,libraryPath)
+#'data<-dataImport.list$allData
 #'shinyApp(  ui=shinyUI(
 #'fluidPage(
 #'  titlePanel(

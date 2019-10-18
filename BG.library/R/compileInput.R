@@ -8,8 +8,6 @@
 #'libraryPath<-"F:/BG.library_github/BG.library/"
 #'path<-"F:/BG.library_github/"
 #'fileName<-"exampleData.csv"
-#'#load functions
-#'devtools::load_all(libraryPath,recompile = FALSE) 
 #'dataImport.list<-dataImport(path,fileName,libraryPath)
 #'data<-dataImport.list$allData
 #'shinyApp(  ui=shinyUI(
