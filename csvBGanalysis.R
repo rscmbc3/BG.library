@@ -15,6 +15,14 @@ unPackList(lists = list(pumpSettings.list = pumpSettings.list),
 dataImport.list<-dataImport(path,fileName,libraryPath)
 unPackList(lists = list(dataImport.list = dataImport.list),
            parentObj = list(NA)) 
+#BG report
+generateBGreport(libraryPath, path, fileName, data = allData)
+generateBGreport(libraryPath, path, fileName, data = allData,numberDays = NA,
+                 fromChange = FALSE,startDate = "2019-09-08", endDate="2019-09-25")
+
+
+#shiny app
+shinyPlot(libraryPath, path, fileName)
 
 #summarize data
 BGvalue_Summary<-summarizeData(allData, colName = "BG.Reading..mg.dL.", libraryPath = libraryPath)
@@ -139,14 +147,7 @@ historySeqOut(data = NA,libraryPath, path, fileName,reportTitle = "Bolus Type Po
 historySeq(data = allData,libraryPath,  plotName = "lineSumSens_SGper_Sett_BG", paramList = NA, plotType = NA,
            seqType = "change", seqLength = 2)
 
-#BG report
-generateBGreport(libraryPath, path, fileName, data = allData)
-generateBGreport(libraryPath, path, fileName, data = allData,numberDays = NA,
-                 fromChange = FALSE,startDate = "2019-09-08", endDate="2019-09-25")
 
-
-#shiny app
-shinyPlot(libraryPath, path, fileName)
 
 
 #line plot
