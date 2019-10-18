@@ -12,6 +12,7 @@ params:
   plotType: plotType
   seqType: seqType
   seqLength: seqLength
+  period: period
 ---
 <style>
     body .main-container {
@@ -35,7 +36,7 @@ parmList<-params$parmList
 plotType<-params$plotType
 seqType<-params$seqType
 seqLength<-params$seqLength
-
+period<-params$period
 
 #load functions
 suppressWarnings(suppressMessages(devtools::load_all(libraryPath,recompile = FALSE)))

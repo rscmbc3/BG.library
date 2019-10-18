@@ -39,7 +39,8 @@ shinyPlot<-function(libraryPath, path, fileName){
                                  choices = c("scatter","bar","box","heatmap","Saved Plot")),  
                      
                      
-                     uiOutput("outputUI")
+                     uiOutput("outputUI"),
+                     uiOutput("historyUI")
                      
                      
         ),#end sidebar
@@ -72,6 +73,13 @@ shinyPlot<-function(libraryPath, path, fileName){
           savedUI(plotList)
         })
       }
+      
+    })
+    
+    observe({
+      output$historyUI<-renderUI({
+        historyUI()
+      })
     })
     
     observe({

@@ -49,6 +49,7 @@ Collate:
   'heatmapUI.R'
   'historySeq.R'
   'historySeqOut.R'
+  'historyUI.R'
   'makeLayout.R'
   'makePumpSettings.R'
   'makeXaxis.R'

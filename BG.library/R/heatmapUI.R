@@ -41,21 +41,8 @@ heatmapUI<-function(data){
       
       numericInput("legendInset","Value to place legend below plot (must be negative)",max = 0, value = -0.2),
       textInput("description","Optional plot description to output below plot area",value = ""),
-      numericInput("descInset","Value to place plot description below plot area (must be negative)",max = 0, value = -0.15),
+      numericInput("descInset","Value to place plot description below plot area (must be negative)",max = 0, value = -0.15)
       
-      #historytSeq
-      h3("Historical Sequence Plot Parameters"),
-      checkboxInput("outPutHistorySeq","Output a sequence of historical plots as html",value = TRUE),
-      conditionalPanel(
-        condition = "input.outPutHistorySeq==1",
-        textInput("reportTitle","Title for output html document"),
-        textInput("outPath","Path to directory in which to output html document"),
-        h6("Blank will output file to ~BG.library/reports"),
-        textInput("outFileName","Name of output file"),
-        selectInput("seqType","Type of historical sequence to output",choices = c("change","days"),
-                    selected = "change"),
-        numericInput("seqLength", "Number of repetitions of historical sequence plots", value = 2)
-      )
       
     ))
   return(ui)

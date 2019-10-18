@@ -27,10 +27,11 @@ shinyReport<-function(input, output, session,
   }
   
   if (reportType=="history"){
+    period<-input$periodHist
   historySeqOut(data = NA,libraryPath,path,fileName,reportTitle, 
                 outPath, outFileName,
                 plotName, paramList = paramList, plotType,
-                seqType, seqLength, period = NA)
+                seqType, seqLength, period = period)
   
   }else{#BG report
     generateBGreport(libraryPath, path, fileName, data = data,numberDays = numberDays,

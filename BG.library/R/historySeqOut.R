@@ -22,7 +22,8 @@ if (is.na(outPath) | is.na(outFileName) | outPath=="" | outFileName == ""){
       paramList = paramList,
       plotType = plotType,
       seqType = seqType,
-      seqLength = seqLength
+      seqLength = seqLength,
+      period = period
     ),
     output_file = outFileName
   )
