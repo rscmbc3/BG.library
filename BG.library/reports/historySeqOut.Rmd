@@ -1,5 +1,5 @@
 ---
-title: ''
+title: 'Compare Summary Sensor Line Plot Since Last Pump Setting Change'
 author: 'Lillian Gorman Sanisaca'
 date: "`r paste0('Report Generated : ',format(Sys.time(), '%m-%d-%Y'))`"
 output: html_document
@@ -68,7 +68,7 @@ data<-allData
   }
   dateSeq<-unique(dateSeq)
   dateSeq<-dateSeq[order(dateSeq, decreasing = TRUE)]
-  
+  dateSeq<-dateSeq[dateSeq<=max(data$Date2)]
   }else{#if seqType = days
 dateSeq<-seq.Date(from = max(data$Date2),to = min(data$Date2),by=paste0('-',period,' day'))
 
