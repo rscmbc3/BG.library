@@ -29,7 +29,8 @@ shinyPlot<-function(libraryPath, path, fileName){
       sidebarLayout(
         sidebarPanel(width=6,
                      #plot actionButtons
-                     fluidRow(actionButton("goHistory","Generate History Report"),
+                     fluidRow(actionButton("goPlot","Generate Plot"),
+                       actionButton("goHistory","Generate History Report"),
                               actionButton("goReport","Generate BG Report")),
                      
                      h4("Plot Specifications                     "),
@@ -91,15 +92,23 @@ shinyPlot<-function(libraryPath, path, fileName){
     
     
 
-    #interactive plot
+
+    #plot
+    p<-eventReactive(input$goPlot,{
+      goShinyPlot(input, output, session,
+                  libraryPath, path, fileName,
+                  data)
+    })   
+        #interactive plot
     observe({
           output$plotOne  <- renderPlotly({
-        goShinyPlot(input, output, session,
-                    libraryPath, path, fileName,
-                    data)
+        #goShinyPlot(input, output, session,
+        #            libraryPath, path, fileName,
+        #            data)
+            p()
       })#end renderplot
     }) 
-
+    
     #generate reports
     hs<-eventReactive(input$goHistory,{
       shinyReport(input, output, session,
