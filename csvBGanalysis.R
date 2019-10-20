@@ -114,22 +114,22 @@ executeSavedPlot(data = allData, plotName = "meanSGheat_hist", libraryPath = lib
 
 #dateSeq Reports
 #saved plot
-historySeqOut(data = NA,libraryPath, path, fileName,reportTitle = "Compare Summary Sensor Line Plot Since Last Pump Setting Change" ,
+historySeqOut(data = NA,libraryPath = libraryPath, path = path, fileName = fileName,reportTitle = "Compare Summary Sensor Line Plot Since Last Pump Setting Change" ,
               plotName = "lineSumSens_SGper_Sett_BG", paramList = NA, plotType = NA,
                         seqType = "change", seqLength = 2)
-historySeqOut(data = NA,libraryPath, path, fileName,reportTitle = "Compare Heat Maps of mean BG values Since Last Pump Setting Change" ,
+historySeqOut(data = NA,libraryPath = libraryPath, path = path, fileName = fileName,reportTitle = "Compare Heat Maps of mean BG values Since Last Pump Setting Change" ,
               plotName = "meanBGheat_hist", paramList = NA, plotType = NA,
               seqType = "change", seqLength = 2) 
-historySeqOut(data = NA,libraryPath, path, fileName,reportTitle = "Compare Heat Maps of mean BG values Since Last Pump Setting Change" ,
+historySeqOut(data = NA,libraryPath = libraryPath, path = path, fileName = fileName,reportTitle = "Compare Heat Maps of mean BG values Since Last Pump Setting Change" ,
               plotName = "meanSGheat_hist", paramList = NA, plotType = NA,
               seqType = "change", seqLength = 2) 
-historySeqOut(data = NA,libraryPath, path, fileName,reportTitle = "Compare Summary Sensor Line Plot Since Last Pump Setting Change" ,
+historySeqOut(data = NA,libraryPath = libraryPath, path = path, fileName = fileName,reportTitle = "Compare Summary Sensor Line Plot Since Last Pump Setting Change" ,
               plotName = "lineSumSens_SGper_Sett_BG", paramList = NA, plotType = NA,
               seqType = "change", seqLength = 2, outPath ="F:/",outFileName = "testOut") 
-historySeqOut(data = NA,libraryPath, path, fileName,reportTitle = "Compare All Pump Setting Changes Summary Sensor Line Plot" ,
+historySeqOut(data = NA,libraryPath = libraryPath, path = path, fileName = fileName,reportTitle = "Compare All Pump Setting Changes Summary Sensor Line Plot" ,
               plotName = "lineSumSens_SGper_Sett_BG", paramList = NA, plotType = NA,
               seqType = "change", seqLength = "all")
-historySeqOut(data = allData,libraryPath, path, fileName,reportTitle = "Compare Summary Sensor Line Plot Weekly" ,
+historySeqOut(data = allData,libraryPath = libraryPath, path = path, fileName = fileName,reportTitle = "Compare Summary Sensor Line Plot Weekly" ,
               plotName = "lineSumSens_SGper_Sett_BG", paramList = NA, plotType = NA,
               seqType = "days", seqLength = 3, period = 7) 
 #new plot parameters

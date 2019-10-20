@@ -1,3 +1,40 @@
+#'@title historyUI
+#'@description generate Shiny UI for historical sequence plots. \\cr \\cr
+#'@param data data.frame to use for shiny plots
+#'@return `ui` shiny UI for historical sequence plots.
+#'@examples
+#'shinyApp(  ui=shinyUI(
+#'  fluidPage(
+#'    titlePanel(
+#'      h1("Rshiny Interactive BG Plots")),
+#'    
+#'    sidebarLayout(
+#'      sidebarPanel(width=6,
+#'                   uiOutput("historyUI")
+#'      ),#end sidebar
+#'      
+#'      mainPanel(width = 6,
+#'                verbatimTextOutput("txtOut")
+#'      )#end main panel
+#'    )#end sidebar layout
+#'  )#end fluid page
+#'),#end shiny ui
+#'
+#'server=shinyServer(function(input, output,session) {
+#'  #render UIs
+#'  observe({
+#'    output$historyUI<-renderUI({
+#'      historyUI()
+#'    })
+#'  })
+#'  
+#'  output$txtOut <- renderPrint({
+#'    paste0("These are settings for historical sequence plots")
+#'  }) 
+#'  
+#'})#end shiny server
+#')#end shiny app
+
 historyUI<-function(){
   ui=shinyUI(
     fluidPage(
