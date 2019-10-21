@@ -7,12 +7,12 @@
 makePumpSettings(libraryPath)
 }
 \arguments{
-\item{time}{character string vector of time formatted in \code{"\%H:\%M"}}
-
-\item{rate}{pump setting rate (i.e. basal rate, carb ratio, or correction factor)}
-
-\item{rateName}{charcter string name of pump setting}
+\item{libraryPath}{character string path to BG.library code}
 }
 \description{
-Function to create a continuous time series from pump settings vectors.  \cr \cr
+Function to create a continuous time series from pump settings csvs  \cr \cr
+}
+\examples{
+libraryPath<-"F:/BG.library_github/BG.library/"
+pumpSettings.list<-makePumpSettings(libraryPath)
 }

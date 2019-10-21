@@ -34,5 +34,5 @@ data<-subsetData(data,numberDays = NA,startDate = NA,endDate = NA,filterCond = "
                fromChange = TRUE,libraryPath = libraryPath)
 p<-plot_ly()
 p<-addBGpoints_ly(data, p)
-addFasting_ly(p, data)
+addBGpoints_ly(p, data)
 }

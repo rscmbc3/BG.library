@@ -70,7 +70,7 @@ data<-subsetData(data,numberDays = NA,startDate = NA,endDate = NA,filterCond = "
                fromChange = TRUE,libraryPath = libraryPath)
 #output as 'plot_ly'
 p<-plot_ly()
-p<-addBGpoints_ly(data, p)
+p<-addBGpoints_ly(p, data)
 addPercentBG_ly(p,data,libraryPath = libraryPath)
 
 #output as 'table'

@@ -11,7 +11,8 @@ addPumpSetting_ly(p, addSetting = c("basal", "corrFactor", "carbRatio"),
 \arguments{
 \item{p}{current plot_ly plot}
 
-\item{addSetting}{character vector of settings that should be added to current plot}
+\item{addSetting}{character vector of settings that should be added to current plot. Options
+include 'basal', 'carbRatio', 'corrFactor', or ''}
 
 \item{settingOverlay}{TRUE/FALSE whether settings should overlay the data or
 if FALSE plot settings as subplot below data}
@@ -45,8 +46,6 @@ data<-subsetData(data,numberDays = NA,startDate = NA,endDate = NA,filterCond = "
                startTime = "00:00", endTime = "23:00",timeStep = "hour",period = 1, 
                fromChange = TRUE,libraryPath = libraryPath)
 #output as 'plot_ly'
-p<-plot_ly()
-p<-addBGpoints_ly(data, p)
 #set parameters
 addSetting<-c("basal","corrFactor","carbRatio")
 settingOverlay<- FALSE
@@ -66,7 +65,7 @@ unPackList(lists = list(ay.list = ay.list),
           parentObj = list(NA))
 ay.list<-yaxisStr.list$ay.list
 #get xAxis str
-xaxisStr<-makeXaxis(addSetting, settingOverlay,xDomain)
+xaxisStr<-makeXaxis(xDomain)
 
 #make title str
 titleStr<-paste0(min(data$Date2)," -to- ",max(data$Date2))
@@ -77,7 +76,7 @@ layoutStr<-makeLayout(titleStr,xDomain,xaxisStr,yaxisStr,addGoodRange = FALSE,
 p<-plot_ly()
 #add layout
 eval(parse(text = layoutStr))
-p<-addBGpoints_ly(data, p)
+p<-addBGpoints_ly(p, data)
 addPumpSetting_ly(p,addSetting, settingOverlay,startTime,endTime,
                  ay.list,xticks,yaxisStr,legendInset)
 }
