@@ -150,7 +150,7 @@ summaryPlotDay_ly<-function(data,barSubPlot,boxBar,
     ay.list<-yaxisStr.list$ay.list
     
     #get xAxis str
-    xaxisStr<-makeXaxis(addSetting, settingOverlay,xDomain)
+    xaxisStr<-makeXaxis(xDomain)
     
     #make title str
     titleStr<-paste0(min(data$Date2)," -to- ",max(data$Date2))

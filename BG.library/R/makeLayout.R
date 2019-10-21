@@ -1,9 +1,58 @@
 #'@title makeLayout
-#'@description creates the character string to execute for plot_ly layout \\cr \\cr
+#'@description creates the character string to execute for plot_ly layout customized according to 
+#'data selection with multiple axes and scales. \\cr \\cr
+#'@param titleStr character string plot title
 #'@param xDomain character string to exectute setting the domain of xaxis (format, "domain = c(0,1),")
-#'@param xaxisStr character string to execute to set specifications for xaxis
-#'@param yaxisStr character string to execute to set specifications for y axes
+#'@param xaxisStr character string to execute to set specifications for xaxis, output
+#'from `makeXaxis()`
+#'@param yaxisStr character string to execute to set specifications for y axes, output
+#'from `makeYaxes()`
+#'@param addGoodRange TRUE/FALSE indicating whether shaded polygon for good BG range is plotted
+#'@param stackedBar character string indicating type of stacked bar plot, if `stackedBar = ''`
+#'no stacked bar plot will be output
+#'@param description character string plot description to be output as part of plot
+#'@param descInset numeric value to place description below plot
 #'@return `layoutStr` character string to execute for plot_ly layout
+#'@examples
+#'libraryPath<-"F:/BG.library_github/BG.library/"
+#'path<-"F:/BG.library_github/"
+#'fileName<-"exampleData.csv"
+#'dataImport.list<-dataImport(path,fileName,libraryPath)
+#'data<-dataImport.list$allData
+#'data<-subsetData(data,numberDays = NA,startDate = NA,endDate = NA,filterCond = "",
+#'                 startTime = "00:00", endTime = "23:00",timeStep = "hour",period = 1, 
+#'                 fromChange = TRUE,libraryPath = libraryPath)
+#'#set paramters
+#'addSetting<-""
+#'settingOverlay<- FALSE
+#'legendInset<--0.2
+#'
+#'#format time in decimal hours
+#'xticks.list<-xTicks(data, startTime = "00:00",endTime = "23:00",
+#'                    timeStep = "hour",period = 1)
+#'unPackList(lists = list(xticks.list = xticks.list),
+#'           parentObj = list(NA)) 
+#'#make y axis str
+#'yaxisStr.list<-makeYaxes(addBolusType = "", addSetting,settingOverlay,
+#'                         percentSetting =NA,barSubPlot = FALSE,percentBar = NA,yTitle = "")
+#'unPackList(lists = list(yaxisStr.list = yaxisStr.list),
+#'           parentObj = list(NA)) 
+#'unPackList(lists = list(ay.list = ay.list),
+#'           parentObj = list(NA))
+#'ay.list<-yaxisStr.list$ay.list
+#'#get xAxis str
+#'xaxisStr<-makeXaxis(xDomain)
+#'
+#'#make title str
+#'titleStr<-paste0(min(data$Date2)," -to- ",max(data$Date2))
+#'
+#'##make layoutstr
+#'layoutStr<-makeLayout(titleStr,xDomain,xaxisStr,yaxisStr,addGoodRange = FALSE,
+#'                      description = "",descInset =NA)
+#'p<-plot_ly()
+#'#add layout
+#'eval(parse(text = layoutStr))
+#'addBGpoints_ly(p, data)
 
 makeLayout<-function(titleStr,xDomain,xaxisStr,yaxisStr,addGoodRange, stackedBar = "",
                      description, descInset){

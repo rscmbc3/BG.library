@@ -1,7 +1,8 @@
 #'@title addPumpSetting_ly
 #'@description Adds pump settings as line trace to plot_ly interactive plot, either overlaying or subplot \\cr \\cr
 #'@param p current plot_ly plot
-#'@param addSetting character vector of settings that should be added to current plot
+#'@param addSetting character vector of settings that should be added to current plot. Options
+#'include 'basal', 'carbRatio', 'corrFactor', or ''
 #'@param settingOverlay TRUE/FALSE whether settings should overlay the data or 
 #'if FALSE plot settings as subplot below data
 #'@param startTime character string of beginning time for plot (typically startTime = "00:00)
@@ -22,8 +23,6 @@
 #'                startTime = "00:00", endTime = "23:00",timeStep = "hour",period = 1, 
 #'                fromChange = TRUE,libraryPath = libraryPath)
 #'#output as 'plot_ly'
-#'p<-plot_ly()
-#'p<-addBGpoints_ly(data, p)
 #'#set parameters
 #'addSetting<-c("basal","corrFactor","carbRatio")
 #'settingOverlay<- FALSE
@@ -43,7 +42,7 @@
 #'           parentObj = list(NA))
 #'ay.list<-yaxisStr.list$ay.list
 #'#get xAxis str
-#'xaxisStr<-makeXaxis(addSetting, settingOverlay,xDomain)
+#'xaxisStr<-makeXaxis(xDomain)
 #'
 #'#make title str
 #'titleStr<-paste0(min(data$Date2)," -to- ",max(data$Date2))
@@ -54,7 +53,7 @@
 #'p<-plot_ly()
 #'#add layout
 #'eval(parse(text = layoutStr))
-#'p<-addBGpoints_ly(data, p)
+#'p<-addBGpoints_ly(p, data)
 #'addPumpSetting_ly(p,addSetting, settingOverlay,startTime,endTime,
 #'                  ay.list,xticks,yaxisStr,legendInset)
 

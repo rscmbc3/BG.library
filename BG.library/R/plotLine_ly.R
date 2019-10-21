@@ -37,7 +37,7 @@ plotLine_ly<-function(data,
     #get yaxis code string
     yaxisStr.list<-makeYaxes(addBolusType, addSetting,settingOverlay,
                              percentSetting,addBarSub,percentBar,yTitle = "")
-    #print(names(yaxisStr.list))
+
     unPackList(lists = list(yaxisStr.list = yaxisStr.list),
                parentObj = list(NA)) 
     unPackList(lists = list(ay.list = ay.list),
@@ -46,7 +46,7 @@ plotLine_ly<-function(data,
     
 
     #get xAxis str
-    xaxisStr<-makeXaxis(addSetting, settingOverlay,xDomain)
+    xaxisStr<-makeXaxis(xDomain)
     
     #make title str
     titleStr<-paste0(min(data$Date2)," -to- ",max(data$Date2))

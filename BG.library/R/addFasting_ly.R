@@ -18,7 +18,7 @@
 #'                fromChange = TRUE,libraryPath = libraryPath)
 #'p<-plot_ly()
 #'p<-addBGpoints_ly(data, p)
-#'addFasting_ly(p, data)
+#'addBGpoints_ly(p, data)
 
 
 addFasting_ly<-function(p, data, addFasting = TRUE, addFastingAnnot = TRUE){

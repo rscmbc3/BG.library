@@ -37,7 +37,7 @@
 #'           parentObj = list(NA))
 #'ay.list<-yaxisStr.list$ay.list
 #'#get xAxis str
-#'xaxisStr<-makeXaxis(addSetting, settingOverlay,xDomain)
+#'xaxisStr<-makeXaxis(xDomain)
 #'
 #'#make title str
 #'titleStr<-paste0(min(data$Date2)," -to- ",max(data$Date2))
@@ -48,7 +48,7 @@
 #'p<-plot_ly()
 #'#add layout
 #'eval(parse(text = layoutStr))
-#'p<-addBGpoints_ly(data, p)
+#'p<-addBGpoints_ly(p, data)
 #'barSubPlot_ly(p, data, addBarSub,timeStep = "hour", period = 1)
 
 
