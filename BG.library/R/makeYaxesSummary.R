@@ -1,20 +1,96 @@
 #'@title makeYaxesSummary
-#'@description Set up y axes for barplot as main plot \\cr \\cr
+#'@description Set up y axes for summaryPlot_ly as main plot \\cr \\cr
 #'@param addSetting character vector of settings to plot c("basal,"corrFactor","carbRatio")
 #'@param settingOverlay TRUE/FALSE whether or not settings overlay main plot
 #'@param percentSetting numeric value (0-100) for percentage of total plot to dedicate to setting subplot
-#'@param barSubPlot TRUE/FALSE whether barsubplot is to be included
+#'@param addBarSub TRUE/FALSE whether barsubplot is to be included
+#'@param addBG TRUE/FALSE whether BG values should be added to current plot
 #'@param initYrange numeric vector for range of initial y axis on the left
+#'@param yTitle character string for left yaxis title
 #'@return `yaxisStr.list` named.list(yaxisStr,ay.list, xDomain)
+#'@examples
+#'libraryPath<-"F:/BG.library_github/BG.library/"
+#'path<-"F:/BG.library_github/"
+#'fileName<-"exampleData.csv"
+#'dataImport.list<-dataImport(path,fileName,libraryPath)
+#'data<-dataImport.list$allData
+#'data<-subsetData(data,numberDays = NA,startDate = NA,endDate = NA,filterCond = "",
+#'                 startTime = "00:00", endTime = "23:00",timeStep = "hour",period = 1, 
+#'                 fromChange = TRUE,libraryPath = libraryPath)
+#'
+#'#set parameters
+#'boxBar<-"bar"
+#'sumFunc<-"mean"
+#'plotSummary<-"BG.Reading..mg.dL."
+#'addSetting<-c("basal","carbRatio")
+#'settingOverlay<-FALSE
+#'percentSetting<-30
+#'addBarSub<-FALSE
+#'addBG<-FALSE
+#'
+#'#subset settings
+#'pumpSettings.list<-subsetSetting(data,libraryPath)
+#'unPackList(lists = list(pumpSettings.list = pumpSettings.list),
+#'           parentObj = list(NA)) 
+#'
+#'#set up data for summaryPlot_ly
+#'dataOrig<-data
+#'data$temp<-eval(parse(text = paste0("data$",plotSummary)))
+#'data<-data[c("hour","temp")]
+#'dataFormat<-data
+#'
+#'#set y axis parameters
+#'initYrange<-c(0,450)
+#'yTitle<-ifelse(sumFunc!="length",paste0(sumFunc,"_",plotSummary),paste0("number_",plotSummary))
+#'
+#'#format time in decimal hours for xaxis tick marks
+#'xticks.list<-xTicks(data = dataOrig, startTime = "00:00", endTime = "23:00",timeStep = "hour",period = 1)
+#'unPackList(lists = list(xticks.list = xticks.list),
+#'           parentObj = list(NA)) 
+#'
+#'#get yaxis code string
+#'yaxisStr.list<-makeYaxesSummary(addSetting, settingOverlay, percentSetting,addBarSub,addBG,
+#'                                initYrange,yTitle)
+#'
+#'unPackList(lists = list(yaxisStr.list = yaxisStr.list),
+#'           parentObj = list(NA)) 
+#'unPackList(lists = list(ay.list = ay.list),
+#'           parentObj = list(NA))
+#'ay.list<-yaxisStr.list$ay.list
+#'
+#'#get xAxis str
+#'xaxisStr<-makeXaxis(xDomain)
+#'
+#'#make title str
+#'titleStr<-paste0(min(data$Date2)," -to- ",max(data$Date2))
+#'
+#'##make layoutstr
+#'layoutStr<-makeLayout(titleStr,xDomain,xaxisStr,yaxisStr,addGoodRange = FALSE,stackedBar = "",
+#'                      description = "",descInset = NA)
+#'#initialize plot
+#'p<-plot_ly()
+#'#add layout
+#'eval(parse(text = layoutStr))
+#'#get formatted data
+#'data<-dataFormat
+#'
+#'#summarize data
+#'sumString<-paste0("as.data.frame(data %>% group_by(hour) %>% summarise_all(funs(",
+#'                  sumFunc,"),na.rm = TRUE))")
+#'data<-eval(parse(text = sumString))
+#'
+#'#add bars to plot
+#'p %>% add_trace(data = data, x = ~hour, y = ~temp,type = 'bar', 
+#'                name = paste0(sumFunc,"_",plotSummary)) 
 
 
-makeYaxesSummary<-function(addSetting, settingOverlay, percentSetting,barSubPlot,addBG,
+makeYaxesSummary<-function(addSetting, settingOverlay, percentSetting,addBarSub,addBG,
                        initYrange,yTitle){
   
   #set yDomain
-  percentBar = ""
-  addBolusType = ""
-  domain.list<-makeYdomain(percentSetting,percentBar,addSetting,settingOverlay,barSubPlot)
+  percentBar = "" #no bar subplot on summary plots
+  addBolusType = "" #no bolus points added to summary plots
+  domain.list<-makeYdomain(percentSetting,percentBar,addSetting,settingOverlay,addBarSub)
   unPackList(lists = list(domain.list = domain.list),
              parentObj = list(NA)) 
   
@@ -38,7 +114,7 @@ makeYaxesSummary<-function(addSetting, settingOverlay, percentSetting,barSubPlot
   
   
   #create y axes for pump settings
-  settingAxis.list<-makeYaxesSetting(addSetting, settingOverlay, addBolusType,barSubPlot,
+  settingAxis.list<-makeYaxesSetting(addSetting, settingOverlay, addBolusType,addBarSub,
                                      allPosition, position,numberAxes,yDomain2,yDomain3,yaxisStr)
   if (addSetting[1]!=""){
   unPackList(lists = list(settingAxis.list = settingAxis.list),
@@ -47,7 +123,7 @@ makeYaxesSummary<-function(addSetting, settingOverlay, percentSetting,barSubPlot
              parentObj = list(NA)) 
   }
   
-  if(addBG){
+  if(addBG){ #set up y axis if adding bg points to summary plot
     ayBG<-list(
       tickfont = list(color = I("black")),
       color = I("black"),

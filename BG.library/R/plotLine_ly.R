@@ -1,19 +1,79 @@
+#'@title plotLine_ly
+#'@description Creates interactive plotly scatter and line plots \\cr \\cr
+#'@param data data.frame with BG values in BG.Reading..mg.dL. and SG values in Sensor.Glucose..mg.dL.
+#'@param scatterOnly TRUE/FALSE indicating whether only points with no lines are to be plotted
+#'@param addBG TRUE/FALSE whether BG values should be added to current plot
+#'@param addPercentBG character vector of groups to include (c("low","good","high","very high"))
+#'@param addPercentType character string of column name with values to group (i.e. "BG.Reading..mg.dL.")
+#'@param addBolusType character string vector of Bolus columns to add as scatter points 
+#'addBolusType = c("Bolus.Volume.Delivered..U.","BWZ.Correction.Estimate..U.","BWZ.Food.Estimate..U.")
+#'@param plotSummary glucose values to summarise outputing min, mean, and max lines to plot
+#'common options are 'BG.Reading..mg.dL.' or 'Sensor.Glucose..mg.dL.'
+#'@param addSetting character vector of settings that should be added to current plot. Options
+#'include 'basal', 'carbRatio', 'corrFactor', or ''
+#'@param settingOverlay TRUE/FALSE whether settings should overlay the data or 
+#'if FALSE plot settings as subplot below data
+#'@param percentSetting numeric percentage of plotting area to dedicate to setting subplot (0-100)
+#'@param barSubPlot TRUE/FALSE indicating whether bar plot is a subplot (TRUE) or main plot (FALSE)
+#'@param addBarSub  TRUE/FALSE indicating whether subplot of mean carb intake per hour is included
+#'@param percentBar numeric percentage of plotting area to dedicate to carb intake bar subplot (0-100)
+#'@param addGoodRange TRUE/FALSE indicating whether shaded polygon for good BG range is plotted
+#'@param addFasting TRUE/FALSE whether mean fasting line should be added to current plot
+#'@param addFastingAnnot TRUE/FALSE whether mean fasting text annotation should be added to current plot
+#'@param fromChange TRUE/FALSE indicates whether data should be subset with the ealiest date
+#'as the most recent pump settings change.  This setting overrides all other date subsetting 
+#'parameters, and must be set to `FALSE` to apply other parameter settings (i.e. `numberDays`,
+#'`startDate`, and `endDate`)
+#'@param numberDays numeric value indicating number of days of data to include.  This parameter will 
+#'override `startDate` and `endDate` unless it is set to NA.  The `fromChange` parameter will override 
+#'all other parameters that subset the data by date.
+#'@param startDate Earliest date included in data.  This setting will only be applied 
+#'if `numberDays = NA` and `fromChange = FALSE`
+#'@param endDate Latest date included in data.  This setting will only be applied 
+#'if `numberDays = NA` and `fromChange = FALSE`
+#'@param startTime character string of beginning time for plot (typically startTime = "00:00)
+#'@param endTime character string of ending time for plot (typically endTime = "23:00)
+#'@param timeStep character string indicating the time step to aggregate data, possible values
+#'include c("hour","day")
+#'@param period numeric value indicating number of `timeSteps` to aggregate into single step
+#'for example : `timeStep = 'hour'`  and `period = 3` outputs plots with tick marks every 3 hours.
+#'@param filterCond character string of R syntax to be applied to filter the data, 
+#'example `data[data$BG.Reading..mg.dL.>150 & !is.na(data$BG.Reading..mg.dL.),]`
+#'@param colorPalleteDaily character string color pallete for daily sensor lines
+#'@param pointSize scatter point size will be reduced by pointSize/1.5 for BG values
+#'@param legendInset numeric value specifying how far below the plot the legend should be placed
+#'@param description character string plot description to be output as part of plot
+#'@param descInset numeric value to place description below plot
+#'@param libraryPath character string path to BG.library code 
+#'@examples
+#'libraryPath<-"F:/BG.library_github/BG.library/"
+#'path<-"F:/BG.library_github/"
+#'fileName<-"exampleData.csv"
+#'dataImport.list<-dataImport(path,fileName,libraryPath)
+#'data<-dataImport.list$allData
+#'data<-subsetData(data,numberDays = NA,startDate = NA,endDate = NA,filterCond = "",
+#'                 startTime = "00:00", endTime = "23:00",timeStep = "hour",period = 1, 
+#'                 fromChange = TRUE,libraryPath = libraryPath)
+#'#line plot
+#'plotLine_ly(data,addBolusType = "Bolus.Volume.Delivered..U.",
+#'            addBarSub = FALSE,numberDays = 5,
+#'            libraryPath = libraryPath)
 
 plotLine_ly<-function(data,
-                      scatterOnly = FALSE,pointSize = 10,
-                      numberDays = NA, startDate = NA, endDate = NA,
-                      startTime = "00:00", endTime = "23:00",
-                      timeStep = "hour",period = 1,fromChange = TRUE,libraryPath,
-                      colorPalleteDaily = "rainbow", 
-                      addSensor = TRUE, addBG = TRUE, 
+                      scatterOnly = FALSE,addBG = TRUE, 
                       addPercentBG = c("low","good","high","very high"),
+                      addPercentType = "BG.Reading..mg.dL.",
                       addBolusType = "Bolus.Volume.Delivered..U.",
                       plotSummary = "Sensor.Glucose..mg.dL.",
                       addSetting ="",settingOverlay = FALSE,percentSetting = 30,
-                      barSubPlot = TRUE,addBarSub, percentBar = 30,addPercentType = "BG.Reading..mg.dL.",
-                      filterCond = "",addGoodRange = TRUE,
-                      addFasting = TRUE,addFastingAnnot = TRUE,
-                      legendInset = -0.2,description = "",descInset = -0.15){
+                      barSubPlot = TRUE,addBarSub, percentBar = 30,
+                      addGoodRange = TRUE,addFasting = TRUE,addFastingAnnot = TRUE,
+                      fromChange = TRUE, numberDays = NA, startDate = NA, endDate = NA,
+                      startTime = "00:00", endTime = "23:00",
+                      timeStep = "hour",period = 1,filterCond = "",
+                      colorPalleteDaily = "rainbow", pointSize = 10,
+                      legendInset = -0.2,description = "",descInset = -0.15,
+                      libraryPath){
   
 
   #subset data by date and filterCond
@@ -61,7 +121,7 @@ plotLine_ly<-function(data,
     eval(parse(text = layoutStr))
     
 
-    if (plotSummary!="Sensor.Glucose..mg.dL." & addSensor & !scatterOnly){#daily sensor data
+    if (plotSummary!="Sensor.Glucose..mg.dL." & !scatterOnly){#daily sensor data
         if (is.na(numberDays)){
         numberDays<-as.numeric(max(data$Date2)-min(data$Date2))
       }

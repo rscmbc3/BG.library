@@ -34,7 +34,7 @@
 #'           parentObj = list(NA)) 
 #'#make y axis str
 #'yaxisStr.list<-makeYaxes(addBolusType = "", addSetting,settingOverlay,
-#'                         percentSetting = 30,barSubPlot = FALSE,percentBar = NA,yTitle = "")
+#'                         percentSetting = 30,addBarSub = FALSE,percentBar = NA,yTitle = "")
 #'
 #'unPackList(lists = list(yaxisStr.list = yaxisStr.list),
 #'           parentObj = list(NA)) 

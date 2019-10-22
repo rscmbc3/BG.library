@@ -34,7 +34,7 @@ summaryPlot_ly<-function(p, data,
     return(p)
     
   }else if (timeStep=="hour"){#barplot is main plot timestep hour
-    p <- summaryPlotHour_ly(data,barSubPlot,boxBar,
+    p <- summaryPlotHour_ly(data,addBarSub,boxBar,
                         numberDays, filterCond,
                         startDate, endDate,
                         startTime, endTime,
@@ -46,7 +46,7 @@ summaryPlot_ly<-function(p, data,
                         legendInset,description,descInset)
       p
   }else if (timeStep=="day"){#barplot is main plot timestep day
-    p <- summaryPlotDay_ly(data,barSubPlot,boxBar,
+    p <- summaryPlotDay_ly(data,addBarSub,boxBar,
                             numberDays, filterCond,
                             startDate, endDate,
                             startTime, endTime,

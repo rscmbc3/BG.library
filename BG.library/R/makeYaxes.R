@@ -8,7 +8,7 @@
 #'@param settingOverlay TRUE/FALSE whether settings should overlay the data or 
 #'if FALSE plot settings as subplot below data
 #'@param percentSetting numeric percentage of plotting area to dedicate to setting subplot (0-100)
-#'@param barSubPlot TRUE/FALSE indicating whether subplot of mean carb intake per hour is included
+#'@param addBarSub TRUE/FALSE indicating whether subplot of mean carb intake per hour is included
 #'@param percentBar numeric percentage of plotting area to dedicate to carb intake bar subplot (0-100)
 #'@param yTitle character string for left yaxis title
 #'@return `yaxisStr.list` `named.list(yaxisStr,ay.list, xDomain)` to execute as part of plot_ly layout 
@@ -34,7 +34,7 @@
 #'           parentObj = list(NA)) 
 #'#make y axis str
 #'yaxisStr.list<-makeYaxes(addBolusType = "", addSetting,settingOverlay,
-#'                         percentSetting =NA,barSubPlot = FALSE,percentBar = NA,yTitle = "")
+#'                         percentSetting =NA,addBarSub = FALSE,percentBar = NA,yTitle = "")
 #'
 #'unPackList(lists = list(yaxisStr.list = yaxisStr.list),
 #'           parentObj = list(NA)) 
@@ -59,10 +59,10 @@
 
 
 
-makeYaxes<-function(addBolusType, addSetting, settingOverlay, percentSetting,barSubPlot,percentBar,yTitle){
+makeYaxes<-function(addBolusType, addSetting, settingOverlay, percentSetting,addBarSub,percentBar,yTitle){
 
   #set yDomain
-  domain.list<-makeYdomain(percentSetting,percentBar,addSetting,settingOverlay,barSubPlot)
+  domain.list<-makeYdomain(percentSetting,percentBar,addSetting,settingOverlay,addBarSub)
   unPackList(lists = list(domain.list = domain.list),
              parentObj = list(NA)) 
 
@@ -108,7 +108,7 @@ if (addBolusType[1]!=""){
 }#end addBolus for y axis 
 
 #create y axes for pump settings
-settingAxis.list<-makeYaxesSetting(addSetting, settingOverlay, addBolusType,barSubPlot,
+settingAxis.list<-makeYaxesSetting(addSetting, settingOverlay, addBolusType,addBarSub,
                                    allPosition, position,numberAxes,yDomain2,yDomain3,yaxisStr)
 if (addSetting[1]!=""){
 unPackList(lists = list(settingAxis.list = settingAxis.list),
@@ -117,7 +117,7 @@ unPackList(lists = list(ay.list = ay.list),
            parentObj = list(NA)) 
 }
 
-if (barSubPlot){#if add bar
+if (addBarSub){#if add bar
   numberAxes<-numberAxes+1
   position<-position - 0.1*(numberAxes-1)
   allPosition<-c(allPosition, position)

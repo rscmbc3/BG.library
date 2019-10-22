@@ -29,7 +29,7 @@ createSavedPlot(libraryPath, plotName,plotType,description, paramList)
 
 for (n in names(plotList)){
  #evalStr<-paste0("plotList$",n,"$paramList$corrFactor<-NA")
-  evalStr<-paste0("plotList$",n,"$paramList<-plotList$",n,"$paramList[names(plotList$",n,"$paramList)!='carbRatio']")
+  evalStr<-paste0("plotList$",n,"$paramList<-plotList$",n,"$paramList[names(plotList$",n,"$paramList)!='addSensor']")
   eval(parse(text = evalStr))
 }
 

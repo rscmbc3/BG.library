@@ -1,4 +1,4 @@
-summaryPlotHour_ly<-function(data,barSubPlot,boxBar,
+summaryPlotHour_ly<-function(data,addBarSub,boxBar,
                          numberDays, filterCond = "",
                          startDate = NA, endDate = NA,
                          startTime = "00:00", endTime = "23:00",
@@ -121,7 +121,7 @@ summaryPlotHour_ly<-function(data,barSubPlot,boxBar,
 
     
     #get yaxis code string
-    yaxisStr.list<-makeYaxesSummary(addSetting, settingOverlay, percentSetting,barSubPlot,addBG,
+    yaxisStr.list<-makeYaxesSummary(addSetting, settingOverlay, percentSetting,addBarSub,addBG,
                                 initYrange,yTitle)
     unPackList(lists = list(yaxisStr.list = yaxisStr.list),
                parentObj = list(NA)) 

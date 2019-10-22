@@ -4,11 +4,14 @@
 #'@param percentBar numeric value (0-100) for percentage of total plot to dedicate to bar subplot
 #'@param addSetting character vector of settings to plot c("basal,"corrFactor","carbRatio")
 #'@param settingOverlay TRUE/FALSE whether or not settings overlay main plot
-#'@param barSubPlot TRUE/FALSE whether barsubplot is to be included
+#'@param addBarSub TRUE/FALSE whether barsubplot is to be included
 #'@return `domain.list` named.list(percentSetting, percentBar, yDomain1, yDomain2, yDomain3)
+#'@examples
+#'#set yDomain
+#'domain.list<-makeYdomain(percentSetting = 30,percentBar = NA,addSetting = c("basal","carbRatio"),
+#'                         settingOverlay = TRUE,addBarSub = FALSE)
 
-
-makeYdomain<-function(percentSetting,percentBar,addSetting,settingOverlay,barSubPlot){
+makeYdomain<-function(percentSetting,percentBar,addSetting,settingOverlay,addBarSub){
   #format percentSubplots
   if (!is.na(percentSetting)){
    percentSetting<-ifelse(percentSetting<=12,20,percentSetting) 
@@ -21,15 +24,15 @@ makeYdomain<-function(percentSetting,percentBar,addSetting,settingOverlay,barSub
   
   
   #set yDomain
-  if ((addSetting[1]=="" | (settingOverlay & addSetting[1]!="")) & !barSubPlot){#no subplot
+  if ((addSetting[1]=="" | (settingOverlay & addSetting[1]!="")) & !addBarSub){#no subplot
     yDomain1<-c(0,1)
     yDomain2<-c(0,1)
     yDomain3<-c(0,0)
-  }else if ((addSetting[1]=="" | settingOverlay==TRUE) & barSubPlot){#just bar subplot
+  }else if ((addSetting[1]=="" | settingOverlay==TRUE) & addBarSub){#just bar subplot
     yDomain1<-c(percentBar,1)
     yDomain2<-c(0,percentBar-0.12)
     yDomain3<-c(0,0)
-  }else if ((addSetting[1]!="" | settingOverlay==FALSE) & barSubPlot){#bar and setting subplots
+  }else if ((addSetting[1]!="" | settingOverlay==FALSE) & addBarSub){#bar and setting subplots
     yDomain1<-c(percentSetting+percentBar,1)
     yDomain2<-c(percentSetting-0.12,percentSetting+percentBar-0.12) 
     yDomain3<-c(0,percentSetting-0.12) 

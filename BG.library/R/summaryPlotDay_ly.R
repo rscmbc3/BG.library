@@ -1,4 +1,4 @@
-summaryPlotDay_ly<-function(data,barSubPlot,boxBar,
+summaryPlotDay_ly<-function(data,addBarSub,boxBar,
                          numberDays, filterCond = "",
                          startDate = NA, endDate = NA,
                          startTime = "00:00", endTime = "23:00",
@@ -141,7 +141,7 @@ summaryPlotDay_ly<-function(data,barSubPlot,boxBar,
                parentObj = list(NA)) 
     
     #get yaxis code string
-    yaxisStr.list<-makeYaxesSummary(addSetting = "", settingOverlay = FALSE, percentSetting = NA,barSubPlot = FALSE,addBG = FALSE,
+    yaxisStr.list<-makeYaxesSummary(addSetting = "", settingOverlay = FALSE, percentSetting = NA,addBarSub = FALSE,addBG = FALSE,
                                 initYrange,yTitle)
     unPackList(lists = list(yaxisStr.list = yaxisStr.list),
                parentObj = list(NA)) 

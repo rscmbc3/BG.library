@@ -17,7 +17,6 @@ scatterUI<-function(){
   h3("Add data to plot"),
   h4("BG and SG data"),
   
-  checkboxInput("addSensor","Add Sensor Datas lines to plot",value = TRUE),
   checkboxInput("scatterOnly","Points Only",value = FALSE),
   
   selectInput("plotSummary","Data type to summarize by min, mean, max lines (leave blank for daily sensor lines)",
@@ -71,7 +70,7 @@ scatterUI<-function(){
   numericInput("pointSize","Point Size",value = 10, min = 1),
   
   conditionalPanel(#only use numberDays and start End dates if not fromChange
-    condition = "input.plotSummary!='Sensor.Glucose..mg.dL.' & input.addSensor==1",
+    condition = "input.plotSummary!='Sensor.Glucose..mg.dL.' & input.scatterOnly!=1",
     textInput("colorPalleteDaily","Select color pallete for daily sensor lines",value = "rainbow")
   ),
   
