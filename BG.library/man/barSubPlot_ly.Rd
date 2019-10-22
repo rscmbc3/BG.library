@@ -45,7 +45,7 @@ unPackList(lists = list(xticks.list = xticks.list),
         parentObj = list(NA)) 
 #make y axis str
 yaxisStr.list<-makeYaxes(addBolusType = "", addSetting,settingOverlay,
-                        percentSetting =NA,barSubPlot = TRUE,percentBar = 30,yTitle = "")
+                        percentSetting =NA,addBarSub,percentBar = 30,yTitle = "")
 unPackList(lists = list(yaxisStr.list = yaxisStr.list),
           parentObj = list(NA)) 
 unPackList(lists = list(ay.list = ay.list),

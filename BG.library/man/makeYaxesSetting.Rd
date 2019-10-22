@@ -4,7 +4,7 @@
 \alias{makeYaxesSetting}
 \title{makeYaxesSetting}
 \usage{
-makeYaxesSetting(addSetting, settingOverlay, addBolusType, barSubPlot,
+makeYaxesSetting(addSetting, settingOverlay, addBolusType, addBarSub,
   allPosition, position, numberAxes, yDomain2, yDomain3, yaxisStr)
 }
 \arguments{
@@ -14,7 +14,7 @@ makeYaxesSetting(addSetting, settingOverlay, addBolusType, barSubPlot,
 
 \item{addBolusType}{character vector of types of bolus insulin delivered (addBolusType = "" for none)}
 
-\item{barSubPlot}{TRUE/FALSE whether barsubplot is to be included}
+\item{addBarSub}{TRUE/FALSE whether barsubplot is to be included}
 
 \item{allPosition}{numeric vector of positions of all y axes}
 
@@ -33,4 +33,39 @@ makeYaxesSetting(addSetting, settingOverlay, addBolusType, barSubPlot,
 }
 \description{
 Create layout lists for yaxes associated with pump settings \cr \cr
+}
+\examples{
+#set paramters
+addSetting<-c("basal","carbRatio")
+settingOverlay<- TRUE
+legendInset<--0.2
+percentSetting<-30
+percentBar<-NA
+addBarSub<-FALSE
+addBolusType<-""
+yTitle<-""
+
+#set yDomain
+domain.list<-makeYdomain(percentSetting,percentBar,addSetting,settingOverlay,addBarSub)
+unPackList(lists = list(domain.list = domain.list),
+          parentObj = list(NA)) 
+
+#get number axes
+if (addSetting[1]!=""){
+ numberAxes<-length(addSetting[addSetting!=""])
+}else{
+ numberAxes<-1
+}
+
+#set position
+position<-1
+allPosition<-position
+
+#itialize plotly plot y axis
+yaxisStr<-paste0("yaxis = list(range = c(0,450), ticks = 'outside', zeroline = FALSE,showline = TRUE,
+                              title = '",yTitle, "',
+                              domain = c(",paste(yDomain1,collapse = ","),"))")
+#create y axes for pump settings
+settingAxis.list<-makeYaxesSetting(addSetting, settingOverlay, addBolusType,addBarSub,
+                                  allPosition, position,numberAxes,yDomain2,yDomain3,yaxisStr)
 }

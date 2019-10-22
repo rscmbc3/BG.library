@@ -5,7 +5,7 @@
 \title{makeYdomain}
 \usage{
 makeYdomain(percentSetting, percentBar, addSetting, settingOverlay,
-  barSubPlot)
+  addBarSub)
 }
 \arguments{
 \item{percentSetting}{numeric value (0-100) for percentage of total plot to dedicate to setting subplot}
@@ -16,11 +16,16 @@ makeYdomain(percentSetting, percentBar, addSetting, settingOverlay,
 
 \item{settingOverlay}{TRUE/FALSE whether or not settings overlay main plot}
 
-\item{barSubPlot}{TRUE/FALSE whether barsubplot is to be included}
+\item{addBarSub}{TRUE/FALSE whether barsubplot is to be included}
 }
 \value{
 \code{domain.list} named.list(percentSetting, percentBar, yDomain1, yDomain2, yDomain3)
 }
 \description{
 Set up y domains 1,2, and 3 for subplots \cr \cr
+}
+\examples{
+#set yDomain
+domain.list<-makeYdomain(percentSetting = 30,percentBar = NA,addSetting = c("basal","carbRatio"),
+                        settingOverlay = TRUE,addBarSub = FALSE)
 }

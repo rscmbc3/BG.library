@@ -5,7 +5,7 @@
 \title{makeYaxes}
 \usage{
 makeYaxes(addBolusType, addSetting, settingOverlay, percentSetting,
-  barSubPlot, percentBar, yTitle)
+  addBarSub, percentBar, yTitle)
 }
 \arguments{
 \item{addBolusType}{character string vector of Bolus columns to add as scatter points
@@ -19,7 +19,7 @@ if FALSE plot settings as subplot below data}
 
 \item{percentSetting}{numeric percentage of plotting area to dedicate to setting subplot (0-100)}
 
-\item{barSubPlot}{TRUE/FALSE indicating whether subplot of mean carb intake per hour is included}
+\item{addBarSub}{TRUE/FALSE indicating whether subplot of mean carb intake per hour is included}
 
 \item{percentBar}{numeric percentage of plotting area to dedicate to carb intake bar subplot (0-100)}
 
@@ -54,7 +54,7 @@ unPackList(lists = list(xticks.list = xticks.list),
           parentObj = list(NA)) 
 #make y axis str
 yaxisStr.list<-makeYaxes(addBolusType = "", addSetting,settingOverlay,
-                        percentSetting =NA,barSubPlot = FALSE,percentBar = NA,yTitle = "")
+                        percentSetting =NA,addBarSub = FALSE,percentBar = NA,yTitle = "")
 
 unPackList(lists = list(yaxisStr.list = yaxisStr.list),
           parentObj = list(NA)) 
