@@ -22,6 +22,11 @@ fileName<-"exampleData.csv"
 #load functions
 dataImport.list<-dataImport(path,fileName,libraryPath)
 data<-dataImport.list$allData
+#file path to plotList
+plotListFile<-paste0(libraryPath,"/data/plotList")
+#load plotList
+load(file = plotListFile)
+
 shinyApp(ui=shinyUI(
  fluidPage(
    titlePanel(
@@ -58,7 +63,7 @@ server=shinyServer(function(input, output,session) {
      })
    }else{#saved plot
      output$outputUI<-renderUI({
-       savedUI()
+       savedUI(plotList)
      })
    }
  })

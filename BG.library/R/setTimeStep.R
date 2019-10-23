@@ -1,4 +1,25 @@
-setTimeStep<-function(data,startTime,endTime, timeStep, period){
+#'@title setTimeStep
+#'@description Reformat dateTime columns creating new columns with custom `timeStep`
+#'and `period`  \\cr \\cr
+#'@param data data.frame with dateTime, time2, Date2 columns
+#'@param startTime character string of beginning time for plot (typically startTime = "00:00)
+#'@param endTime character string of ending time for plot (typically endTime = "23:00)
+#'@param timeStep character string indicating the time step to aggregate data, possible values
+#'include c("hour","day")
+#'@param period numeric value indicating number of `timeSteps` to aggregate into single step
+#'for example : `timeStep = 'hour'`  and `period = 3` outputs plots with tick marks every 3 hours.
+#'@return `data` data.frame with new aggregated timeSteps
+#'@examples
+#'libraryPath<-"F:/BG.library_github/BG.library/"
+#'path<-"F:/BG.library_github/"
+#'fileName<-"exampleData.csv"
+#'dataImport.list<-dataImport(path,fileName,libraryPath)
+#'data<-dataImport.list$allData
+#'unique(data$hour)
+#'data<-setTimeStep(data,timeStep = "hour", period = 3)
+#'unique(data$hour)
+
+setTimeStep<-function(data,startTime = "00:00",endTime = "23:00", timeStep, period){
   #regenerate time2, hour, minute based on timeStep and period
   if (timeStep=="hour" & period!=1){
     seqTime<-seq.POSIXt(as.POSIXct("00:00",format="%H:%M"),as.POSIXct("23:00",format="%H:%M"),by = paste0(period," hour"))
@@ -13,7 +34,7 @@ setTimeStep<-function(data,startTime,endTime, timeStep, period){
     xticksRange<- xticksRange$hour + xticksRange$min/60
     seqTime<-seqTime[xticksRange>=startTime & xticksRange<=endTime]
     
-    
+    #create new time2 column
     data$timeNew<-as.POSIXct(data$time2,format="%H:%M")
     data$timeNew2<-as.numeric(rep(NA,nrow(data)))
     for (s in 2:length(seqTime)){

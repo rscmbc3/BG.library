@@ -8,8 +8,8 @@
 
 
 summaryPlot_ly<-function(p, data,
-                         barSubPlot = FALSE,ayCarb,
-                     addBarSub,
+                         ayCarb,
+                     addBarSub = FALSE,
                      boxBar = "bar",
                      numberDays, filterCond = "",
                      startDate = NA, endDate = NA,
@@ -23,7 +23,7 @@ summaryPlot_ly<-function(p, data,
 
 
   
-  if (barSubPlot){#barplot is not main plot and add subplot
+  if (addBarSub){#barplot is not main plot and add subplot
     
     #subset settings
     pumpSettings.list<-subsetSetting(data,libraryPath)

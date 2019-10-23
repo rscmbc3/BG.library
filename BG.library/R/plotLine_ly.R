@@ -14,7 +14,6 @@
 #'@param settingOverlay TRUE/FALSE whether settings should overlay the data or 
 #'if FALSE plot settings as subplot below data
 #'@param percentSetting numeric percentage of plotting area to dedicate to setting subplot (0-100)
-#'@param barSubPlot TRUE/FALSE indicating whether bar plot is a subplot (TRUE) or main plot (FALSE)
 #'@param addBarSub  TRUE/FALSE indicating whether subplot of mean carb intake per hour is included
 #'@param percentBar numeric percentage of plotting area to dedicate to carb intake bar subplot (0-100)
 #'@param addGoodRange TRUE/FALSE indicating whether shaded polygon for good BG range is plotted
@@ -51,13 +50,9 @@
 #'fileName<-"exampleData.csv"
 #'dataImport.list<-dataImport(path,fileName,libraryPath)
 #'data<-dataImport.list$allData
-#'data<-subsetData(data,numberDays = NA,startDate = NA,endDate = NA,filterCond = "",
-#'                 startTime = "00:00", endTime = "23:00",timeStep = "hour",period = 1, 
-#'                 fromChange = TRUE,libraryPath = libraryPath)
 #'#line plot
 #'plotLine_ly(data,addBolusType = "Bolus.Volume.Delivered..U.",
-#'            addBarSub = FALSE,numberDays = 5,
-#'            libraryPath = libraryPath)
+#'            numberDays = 5,libraryPath = libraryPath)
 
 plotLine_ly<-function(data,
                       scatterOnly = FALSE,addBG = TRUE, 
@@ -66,7 +61,7 @@ plotLine_ly<-function(data,
                       addBolusType = "Bolus.Volume.Delivered..U.",
                       plotSummary = "Sensor.Glucose..mg.dL.",
                       addSetting ="",settingOverlay = FALSE,percentSetting = 30,
-                      barSubPlot = TRUE,addBarSub, percentBar = 30,
+                      addBarSub = TRUE, percentBar = 30,
                       addGoodRange = TRUE,addFasting = TRUE,addFastingAnnot = TRUE,
                       fromChange = TRUE, numberDays = NA, startDate = NA, endDate = NA,
                       startTime = "00:00", endTime = "23:00",
@@ -164,7 +159,7 @@ plotLine_ly<-function(data,
     
     #add addBarSub of carb intake
     p<-summaryPlot_ly(p, data,
-                      barSubPlot,ay.list$ayCarb,
+                      ay.list$ayCarb,
                      addBarSub,
                      numberDays, filterCond,
                      startDate, endDate,

@@ -4,11 +4,11 @@
 \alias{summaryPlot_ly}
 \title{summaryPlot_ly}
 \usage{
-summaryPlot_ly(p, data, barSubPlot = FALSE, ayCarb, addBarSub,
-  boxBar = "bar", numberDays, filterCond = "", startDate = NA,
-  endDate = NA, startTime = "00:00", endTime = "23:00",
-  timeStep = "hour", period = 1, fromChange = TRUE, libraryPath,
-  plotSummary, sumFunc = "length", stackedBar = "", uniqueDT = TRUE,
+summaryPlot_ly(p, data, ayCarb, addBarSub = FALSE, boxBar = "bar",
+  numberDays, filterCond = "", startDate = NA, endDate = NA,
+  startTime = "00:00", endTime = "23:00", timeStep = "hour",
+  period = 1, fromChange = TRUE, libraryPath, plotSummary,
+  sumFunc = "length", stackedBar = "", uniqueDT = TRUE,
   replaceNAs = TRUE, ignoreNAs = FALSE, addBG = TRUE,
   pointSize = 10, addSetting = "", settingOverlay = FALSE,
   percentSetting = 30, legendInset = -0.2, description = "",
@@ -19,9 +19,9 @@ summaryPlot_ly(p, data, barSubPlot = FALSE, ayCarb, addBarSub,
 
 \item{data}{data.frame with BG values in BG.Reading..mg.dL.}
 
-\item{barSubPlot}{TRUE/FALSE whether subplot should be added to main plot}
-
 \item{ayCarb}{list of y axis specifications for carb barplot}
+
+\item{barSubPlot}{TRUE/FALSE whether subplot should be added to main plot}
 }
 \value{
 \code{p} plot_ly interactive plot

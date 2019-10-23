@@ -10,7 +10,6 @@ if (shPlotType=="scatter"){
   timeStep<-'hour'
   period<-1
 }else if (shPlotType %in% c("bar","box")){
-  barSubPlot<-FALSE
   ayCarb<-NA
   addBarSub<-FALSE
   boxBar<-shPlotType
@@ -39,16 +38,13 @@ endTime<-ifelse(nchar(as.character(timeRange[2]))==1,paste0("0",timeRange[2],":0
 if (!exists("addBarSub")){
   addBarSub<-FALSE
 }
-if (!exists("barSubPlot")){
-  barSubPlot<-FALSE
-}
+
 if (!exists("addSetting")){
   addSetting<-""
 }
 
 if (shPlotType=="scatter"){
   plotType<-"plotLine_ly"
-  barSubPlot<-TRUE
 }
 if (shPlotType!="Saved Plot"){
     allArgs<-findCodeStr(libraryPath,plotType,"args")$arguments

@@ -9,8 +9,8 @@ plotLine_ly(data, scatterOnly = FALSE, addBG = TRUE,
   addPercentType = "BG.Reading..mg.dL.",
   addBolusType = "Bolus.Volume.Delivered..U.",
   plotSummary = "Sensor.Glucose..mg.dL.", addSetting = "",
-  settingOverlay = FALSE, percentSetting = 30, barSubPlot = TRUE,
-  addBarSub, percentBar = 30, addGoodRange = TRUE, addFasting = TRUE,
+  settingOverlay = FALSE, percentSetting = 30, addBarSub = TRUE,
+  percentBar = 30, addGoodRange = TRUE, addFasting = TRUE,
   addFastingAnnot = TRUE, fromChange = TRUE, numberDays = NA,
   startDate = NA, endDate = NA, startTime = "00:00",
   endTime = "23:00", timeStep = "hour", period = 1,
@@ -42,8 +42,6 @@ include 'basal', 'carbRatio', 'corrFactor', or ''}
 if FALSE plot settings as subplot below data}
 
 \item{percentSetting}{numeric percentage of plotting area to dedicate to setting subplot (0-100)}
-
-\item{barSubPlot}{TRUE/FALSE indicating whether bar plot is a subplot (TRUE) or main plot (FALSE)}
 
 \item{addBarSub}{TRUE/FALSE indicating whether subplot of mean carb intake per hour is included}
 
@@ -104,11 +102,7 @@ path<-"F:/BG.library_github/"
 fileName<-"exampleData.csv"
 dataImport.list<-dataImport(path,fileName,libraryPath)
 data<-dataImport.list$allData
-data<-subsetData(data,numberDays = NA,startDate = NA,endDate = NA,filterCond = "",
-                startTime = "00:00", endTime = "23:00",timeStep = "hour",period = 1, 
-                fromChange = TRUE,libraryPath = libraryPath)
 #line plot
 plotLine_ly(data,addBolusType = "Bolus.Volume.Delivered..U.",
-           addBarSub = FALSE,numberDays = 5,
-           libraryPath = libraryPath)
+           numberDays = 5,libraryPath = libraryPath)
 }
