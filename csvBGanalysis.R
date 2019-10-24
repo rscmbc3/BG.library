@@ -144,8 +144,11 @@ historySeqOut(data = NA,libraryPath, path, fileName,reportTitle = "Bolus Type Po
               plotName = NA, paramList = parmList1, plotType = "plotLine_ly",
               seqType = "change", seqLength = 2) 
 #history sequence in Rstudio
-historySeq(data = allData,libraryPath,  plotName = "lineSumSens_SGper_Sett_BG", paramList = NA, plotType = NA,
-           seqType = "change", seqLength = 2)
+historySeq(data = allData,plotName = "lineSumSens_SGper_Sett_BG", paramList = NA, plotType = NA,
+           seqType = "change", seqLength = 2, libraryPath = libraryPath)
+historySeq(data = allData,plotName = "lineSumSens_SGper_Sett_BG", paramList = NA, plotType = NA,
+           seqType = "day", seqLength = 2,period = 7, libraryPath = libraryPath)
+
 
 
 

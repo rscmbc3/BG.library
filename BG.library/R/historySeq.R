@@ -41,6 +41,7 @@ historySeq<-function(data, plotName, paramList, plotType,
   dateStr<-as.Date(dateStr,format = "%m-%d-%Y",origin = "1970-01-01")
     dateSeq<-c(dateSeq,dateStr)
   }
+  dateSeq<-c(as.Date(max(data$Date), format = "%Y-%m-%d"),dateSeq) 
   dateSeq<-unique(dateSeq)
   dateSeq<-dateSeq[order(dateSeq, decreasing = TRUE)]
   dateSeq<-dateSeq[dateSeq<=max(data$Date2)]
