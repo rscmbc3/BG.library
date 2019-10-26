@@ -2,8 +2,7 @@
 #'@description Generate BG_report in html format for specific date range.  BG_report
 #'includes commonly used tables and interactive plots.\\cr \\cr
 #'@param libraryPath character string path to BG.library code 
-#'@param path character path to directory in which import file is located.
-#'@param fileName charcter string csv file name
+#'@param filePath character path to csv import file
 #'@param outPath character string indicating the directory in which to save the 
 #'BG_report.  If not specified report will be saved to "./BG.library/reports/BG_report.html
 #'@param outFileName character string to apply to BG_report file name.  If not specified
@@ -22,13 +21,12 @@
 #'@param data data.frame to be used to generate tables and plots
 #'@examples
 #'libraryPath<-"F:/BG.library_github/BG.library/"
-#'path<-"F:/BG.library_github/"
-#'fileName<-"exampleData.csv"
-#'dataImport.list<-dataImport(path,fileName,libraryPath)
+#'filePath<-"F:/BG.library_github/exampleData.csv"
+#'dataImport.list<-dataImport(filePath,libraryPath)
 #'data<-dataImport.list$allData
-#'generateBGreport(libraryPath, path, fileName, data = data)
+#'generateBGreport(libraryPath, filePath, data = data)
 
-generateBGreport<-function(libraryPath, path, fileName,
+generateBGreport<-function(libraryPath, filePath,
                            outPath = NA, outFileName= NA,
                            fromChange = TRUE,  numberDays = NA, 
                            startDate = NA, endDate = NA,
@@ -50,8 +48,7 @@ generateBGreport<-function(libraryPath, path, fileName,
   rmarkdown::render(
     reportPath, params = list(
       libraryPath = libraryPath,
-      path = path,
-      fileName = fileName,
+      filePath = filePath,
       numberDays = numberDays,
       fromChange = fromChange,
       startDate = startDate,

@@ -4,7 +4,7 @@
 \alias{goShinyPlot}
 \title{goShinyPlot}
 \usage{
-goShinyPlot(input, output, session, libraryPath, path, fileName, data)
+goShinyPlot(input, output, session, libraryPath, filePath, data)
 }
 \arguments{
 \item{input}{shiny user inputs as list}
@@ -15,9 +15,7 @@ goShinyPlot(input, output, session, libraryPath, path, fileName, data)
 
 \item{libraryPath}{character string path to BG.library code}
 
-\item{path}{character path to directory in which import file is located.}
-
-\item{fileName}{charcter string csv file name}
+\item{filePath}{character path to csv import file}
 
 \item{data}{data.frame to be used to generate plots}
 }
@@ -27,10 +25,9 @@ plot in shiny application\cr \cr
 }
 \examples{
 libraryPath<-"F:/BG.library_github/BG.library/"
-path<-"F:/BG.library_github/"
-fileName<-"exampleData.csv"
+filePath<-"F:/BG.library_github/exampleData.csv"
 #load functions
-dataImport.list<-dataImport(path,fileName,libraryPath)
+dataImport.list<-dataImport(filePath,libraryPath)
 data<-dataImport.list$allData
 shinyApp(  ui=shinyUI(
 fluidPage(
@@ -78,7 +75,7 @@ server=shinyServer(function(input, output,session) {
  observe({
    output$plotOne  <- renderPlotly({
      goShinyPlot(input, output, session,
-                 libraryPath, path, fileName,
+                 libraryPath, filePath,
                  data)
    })#end renderplot
  }) 

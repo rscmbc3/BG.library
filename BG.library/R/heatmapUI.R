@@ -4,10 +4,9 @@
 #'@return `ui` shiny UI for 'box' and 'bar' plots.
 #'@examples
 #'libraryPath<-"F:/BG.library_github/BG.library/"
-#'path<-"F:/BG.library_github/"
-#'fileName<-"exampleData.csv"
+#'filePath<-"F:/BG.library_github/exampleData.csv"
 #'#load functions
-#'dataImport.list<-dataImport(path,fileName,libraryPath)
+#'dataImport.list<-dataImport(filePath,libraryPath)
 #'data<-dataImport.list$allData
 #'#file path to plotList
 #'plotListFile<-paste0(libraryPath,"/data/plotList")

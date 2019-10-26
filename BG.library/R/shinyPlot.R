@@ -1,4 +1,4 @@
-shinyPlot<-function(libraryPath, path, fileName){
+shinyPlot<-function(libraryPath, filePath){
   #load functions
   devtools::load_all(libraryPath,recompile = FALSE) 
   
@@ -8,7 +8,7 @@ shinyPlot<-function(libraryPath, path, fileName){
              parentObj = list(NA)) 
   
   #metronic csv data import
-  dataImport.list<-dataImport(path,fileName,libraryPath)
+  dataImport.list<-dataImport(filePath,libraryPath)
   unPackList(lists = list(dataImport.list = dataImport.list),
              parentObj = list(NA)) 
   data<-allData
@@ -27,7 +27,7 @@ shinyPlot<-function(libraryPath, path, fileName){
         h1("Rshiny Interactive BG Plots")),
       
       sidebarLayout(
-        sidebarPanel(width=6,
+        sidebarPanel(width=4,
                      #plot actionButtons
                      fluidRow(actionButton("goPlot","Generate Plot"),
                        actionButton("goHistory","Generate History Report"),
@@ -46,7 +46,7 @@ shinyPlot<-function(libraryPath, path, fileName){
                      
         ),#end sidebar
         
-        mainPanel(width = 6,
+        mainPanel(width = 8,
                   plotlyOutput("plotOne", width=900,height=900)
         )#end main panel
       )#end sidebar layout
@@ -96,14 +96,14 @@ shinyPlot<-function(libraryPath, path, fileName){
     #plot
     p<-eventReactive(input$goPlot,{
       goShinyPlot(input, output, session,
-                  libraryPath, path, fileName,
+                  libraryPath, filePath,
                   data)
     })   
         #interactive plot
     observe({
           output$plotOne  <- renderPlotly({
         #goShinyPlot(input, output, session,
-        #            libraryPath, path, fileName,
+        #            libraryPath, filePath,
         #            data)
             p()
       })#end renderplot
@@ -112,13 +112,13 @@ shinyPlot<-function(libraryPath, path, fileName){
     #generate reports
     hs<-eventReactive(input$goHistory,{
       shinyReport(input, output, session,
-                  libraryPath, path, fileName,
+                  libraryPath, filePath,
                   data, reportType = "history")
     })      
     
     bg<-eventReactive(input$goReport,{
       shinyReport(input, output, session,
-                  libraryPath, path, fileName,
+                  libraryPath, filePath,
                   data,reportType = "BG")
     })
     

@@ -11,9 +11,8 @@
 #'@return `data` data.frame with new aggregated timeSteps
 #'@examples
 #'libraryPath<-"F:/BG.library_github/BG.library/"
-#'path<-"F:/BG.library_github/"
-#'fileName<-"exampleData.csv"
-#'dataImport.list<-dataImport(path,fileName,libraryPath)
+#'filePath<-"F:/BG.library_github/exampleData.csv"
+#'dataImport.list<-dataImport(filePath,libraryPath)
 #'data<-dataImport.list$allData
 #'unique(data$hour)
 #'data<-setTimeStep(data,timeStep = "hour", period = 3)

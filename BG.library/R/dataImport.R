@@ -2,18 +2,16 @@
 #'@description import csv file and create allData and joinData objects.  
 #'allData is pump and sensor data rbinded
 #'joinData is a roll join of pump and sensor data on datetime.\\cr \\cr
-#'@param path character path to directory in which import file is located.
-#'@param fileName charcter string csv file name
+#'@param filePath character path to csv import file
 #'@return `dataImport.list` list containing 2 data.frames (allData and joinData)
 #'@examples
 #'libraryPath<-"F:/BG.library_github/BG.library/"
-#'path<-"F:/BG.library_github/"
-#'fileName<-"exampleData.csv"
-#'dataImport.list<-dataImport(path,fileName,libraryPath)
+#'filePath<-"F:/BG.library_github/exampleData.csv"
+#'dataImport.list<-dataImport(filePath,libraryPath)
 
-dataImport<-function(path,fileName,libraryPath){
+dataImport<-function(filePath,libraryPath){
   #readBG
-  data<-read.csv(paste0(path,fileName), header = FALSE)
+  data<-read.csv(filePath, header = FALSE)
   
   #get pump table
   pumpStartRow<-which(data[,1]=="Index")[1]

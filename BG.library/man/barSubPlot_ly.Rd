@@ -26,9 +26,8 @@ Adds mean per hour carb intake subplot to plotly interactive plot. \cr \cr
 }
 \examples{
 libraryPath<-"F:/BG.library_github/BG.library/"
-path<-"F:/BG.library_github/"
-fileName<-"exampleData.csv"
-dataImport.list<-dataImport(path,fileName,libraryPath)
+filePath<-"F:/BG.library_github/exampleData.csv"
+dataImport.list<-dataImport(filePath,libraryPath)
 data<-dataImport.list$allData
 data<-subsetData(data,numberDays = NA,startDate = NA,endDate = NA,filterCond = "",
                startTime = "00:00", endTime = "23:00",timeStep = "hour",period = 1, 

@@ -19,20 +19,18 @@
 #'@param outFileName character string file name if `outFileName<-NA`
 #'temporary html document will be stored in ./BG.library/reports/historySeqOut.html
 #'@param libraryPath character string path to BG.library code 
-#'@param path character path to directory in which import file is located.
-#'@param fileName charcter string csv file name
+#'@param filePath character path to csv import file
 #'@examples
 #'libraryPath<-"F:/BG.library_github/BG.library/"
-#'path<-"F:/BG.library_github/"
-#'fileName<-"exampleData.csv"
+#'filePath<-"F:/BG.library_github/exampleData.csv"
 #'historySeqOut(plotName = "lineSumSens_SGper_Sett_BG",
 #'              reportTitle = "Compare Summary Sensor Line Plot Since Last Pump Setting Change" ,
-#'              libraryPath = libraryPath, path = path, fileName = fileName)
+#'              libraryPath = libraryPath, filePath = filePath)
 
 historySeqOut<-function(data = NA,plotName = NA, paramList = NA, plotType = NA,
                         seqType = "change", seqLength = 2, period = NA,
                         reportTitle = "",outPath = NA, outFileName= NA,
-                        libraryPath,path,fileName) {
+                        libraryPath,filePath) {
   
   
   replaceTitle(libraryPath, reportTitle,reportName = "historySeqOut")
@@ -47,8 +45,7 @@ if (is.na(outPath) | is.na(outFileName) | outPath=="" | outFileName == ""){
   rmarkdown::render(
     reportPath, params = list(
       libraryPath = libraryPath,
-      path = path,
-      fileName = fileName,
+      filePath = filePath,
       plotName = plotName,
       paramList = paramList,
       plotType = plotType,

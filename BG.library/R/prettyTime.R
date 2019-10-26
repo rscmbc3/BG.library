@@ -4,9 +4,8 @@
 #'@return data.frame with new formatted date and time columns
 #'@examples
 #'libraryPath<-"F:/BG.library_github/BG.library/"
-#'path<-"F:/BG.library_github/"
-#'fileName<-"exampleData.csv"
-#'dataImport.list<-dataImport(path,fileName,libraryPath)
+#'filePath<-"F:/BG.library_github/exampleData.csv"
+#'dataImport.list<-dataImport(filePath,libraryPath)
 #'data<-dataImport.list$allData
 #'data<-prettyTime(data,"dateTime")
 

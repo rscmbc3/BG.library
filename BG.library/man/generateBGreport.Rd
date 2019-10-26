@@ -4,16 +4,14 @@
 \alias{generateBGreport}
 \title{generateBGreport}
 \usage{
-generateBGreport(libraryPath, path, fileName, outPath = NA,
-  outFileName = NA, fromChange = TRUE, numberDays = NA,
-  startDate = NA, endDate = NA, data)
+generateBGreport(libraryPath, filePath, outPath = NA, outFileName = NA,
+  fromChange = TRUE, numberDays = NA, startDate = NA, endDate = NA,
+  data)
 }
 \arguments{
 \item{libraryPath}{character string path to BG.library code}
 
-\item{path}{character path to directory in which import file is located.}
-
-\item{fileName}{charcter string csv file name}
+\item{filePath}{character path to csv import file}
 
 \item{outPath}{character string indicating the directory in which to save the
 BG_report.  If not specified report will be saved to "./BG.library/reports/BG_report.html}
@@ -44,9 +42,8 @@ includes commonly used tables and interactive plots.\cr \cr
 }
 \examples{
 libraryPath<-"F:/BG.library_github/BG.library/"
-path<-"F:/BG.library_github/"
-fileName<-"exampleData.csv"
-dataImport.list<-dataImport(path,fileName,libraryPath)
+filePath<-"F:/BG.library_github/exampleData.csv"
+dataImport.list<-dataImport(filePath,libraryPath)
 data<-dataImport.list$allData
-generateBGreport(libraryPath, path, fileName, data = data)
+generateBGreport(libraryPath, filePath, data = data)
 }

@@ -7,7 +7,7 @@
 historySeqOut(data = NA, plotName = NA, paramList = NA,
   plotType = NA, seqType = "change", seqLength = 2, period = NA,
   reportTitle = "", outPath = NA, outFileName = NA, libraryPath,
-  path, fileName)
+  filePath)
 }
 \arguments{
 \item{data}{data.frame to be plotted}
@@ -39,9 +39,7 @@ temporary html document will be stored in ./BG.library/reports/historySeqOut.htm
 
 \item{libraryPath}{character string path to BG.library code}
 
-\item{path}{character path to directory in which import file is located.}
-
-\item{fileName}{charcter string csv file name}
+\item{filePath}{character path to csv import file}
 }
 \description{
 Execute series of historical plots through time sequence and output html
@@ -49,9 +47,8 @@ document with interactive plots\cr \cr
 }
 \examples{
 libraryPath<-"F:/BG.library_github/BG.library/"
-path<-"F:/BG.library_github/"
-fileName<-"exampleData.csv"
+filePath<-"F:/BG.library_github/exampleData.csv"
 historySeqOut(plotName = "lineSumSens_SGper_Sett_BG",
              reportTitle = "Compare Summary Sensor Line Plot Since Last Pump Setting Change" ,
-             libraryPath = libraryPath, path = path, fileName = fileName)
+             libraryPath = libraryPath, filePath = filePath)
 }

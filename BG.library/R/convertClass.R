@@ -7,10 +7,9 @@
 #'@return `convert` vector of converted values with class equal to `cls`
 #'@examples
 #'libraryPath<-"F:/BG.library_github/BG.library/"
-#'path<-"F:/BG.library_github/"
-#'fileName<-"exampleData.csv"
+#'filePath<-"F:/BG.library_github/exampleData.csv"
 #'#readBG
-#'data<-read.csv(paste0(path,fileName), header = FALSE)
+#'data<-read.csv(filePath, header = FALSE)
 #'
 #'#get pump table
 #'pumpStartRow<-which(data[,1]=="Index")[1]

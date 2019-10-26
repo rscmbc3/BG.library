@@ -15,9 +15,8 @@
 #'@param libraryPath character string path to BG.library code 
 #'@examples
 #'libraryPath<-"F:/BG.library_github/BG.library/"
-#'path<-"F:/BG.library_github/"
-#'fileName<-"exampleData.csv"
-#'dataImport.list<-dataImport(path,fileName,libraryPath)
+#'filePath<-"F:/BG.library_github/exampleData.csv"
+#'dataImport.list<-dataImport(filePath,libraryPath)
 #'data<-dataImport.list$allData
 #'historySeq(data = data,  plotName = "lineSumSens_SGper_Sett_BG", paramList = NA, plotType = NA,
 #'           seqType = "change", seqLength = 3,libraryPath)

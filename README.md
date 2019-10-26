@@ -32,10 +32,9 @@ Shiny app triggered using
 
 ```
 libraryPath<-"./BG.library/"
-path<-getwd()
-fileName<-"exampleData.csv"
+filePath<-paste0(getwd(),"exampleData.csv")
 devtools::load_all(libraryPath,recompile = FALSE) 
-shinyPlot(libraryPath, path, fileName)
+shinyPlot(libraryPath, filePath)
 ```
 
 

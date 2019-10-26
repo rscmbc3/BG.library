@@ -14,11 +14,10 @@
 #'@return `p` plot_ly interactive plot with BG values added if addBG
 #'@examples
 #'libraryPath<-"F:/BG.library_github/BG.library/"
-#'path<-"F:/BG.library_github/"
-#'fileName<-"exampleData.csv"
+#'filePath<-"F:/BG.library_github/exampleData.csv"
 #'#load functions
 #'devtools::load_all(libraryPath,recompile = FALSE) 
-#'dataImport.list<-dataImport(path,fileName,libraryPath)
+#'dataImport.list<-dataImport(filePath,libraryPath)
 #'data<-dataImport.list$allData
 #'heatMap_ly(data = data,valueVar = "BG.Reading..mg.dL.",
 #'           sumFunc = "mean",

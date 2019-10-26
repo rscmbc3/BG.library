@@ -4,12 +4,10 @@
 \alias{dataImport}
 \title{dataImport}
 \usage{
-dataImport(path, fileName, libraryPath)
+dataImport(filePath, libraryPath)
 }
 \arguments{
-\item{path}{character path to directory in which import file is located.}
-
-\item{fileName}{charcter string csv file name}
+\item{filePath}{character path to csv import file}
 }
 \value{
 \code{dataImport.list} list containing 2 data.frames (allData and joinData)
@@ -21,7 +19,6 @@ joinData is a roll join of pump and sensor data on datetime.\cr \cr
 }
 \examples{
 libraryPath<-"F:/BG.library_github/BG.library/"
-path<-"F:/BG.library_github/"
-fileName<-"exampleData.csv"
-dataImport.list<-dataImport(path,fileName,libraryPath)
+filePath<-"F:/BG.library_github/exampleData.csv"
+dataImport.list<-dataImport(filePath,libraryPath)
 }

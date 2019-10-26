@@ -17,9 +17,8 @@ generate Shiny UI for 'box' and 'bar plots. \cr \cr
 }
 \examples{
 libraryPath<-"F:/BG.library_github/BG.library/"
-path<-"F:/BG.library_github/"
-fileName<-"exampleData.csv"
-dataImport.list<-dataImport(path,fileName,libraryPath)
+filePath<-"F:/BG.library_github/exampleData.csv"
+dataImport.list<-dataImport(filePath,libraryPath)
 data<-dataImport.list$allData
 #file path to plotList
 plotListFile<-paste0(libraryPath,"/data/plotList")

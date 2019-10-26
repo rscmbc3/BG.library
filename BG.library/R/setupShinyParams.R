@@ -1,5 +1,5 @@
 setupShinyParams<-function(input, output, session,
-                           libraryPath, path, fileName,
+                           libraryPath, filePath,
                            data){
 compiledInput<-compileInput(input, output, session)
 unPackList(lists = list(compiledInput = compiledInput),

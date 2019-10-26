@@ -98,9 +98,8 @@ Creates interactive plotly scatter and line plots \cr \cr
 }
 \examples{
 libraryPath<-"F:/BG.library_github/BG.library/"
-path<-"F:/BG.library_github/"
-fileName<-"exampleData.csv"
-dataImport.list<-dataImport(path,fileName,libraryPath)
+filePath<-"F:/BG.library_github/exampleData.csv"
+dataImport.list<-dataImport(filePath,libraryPath)
 data<-dataImport.list$allData
 #line plot
 plotLine_ly(data,addBolusType = "Bolus.Volume.Delivered..U.",

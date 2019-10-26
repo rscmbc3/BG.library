@@ -1,7 +1,6 @@
 #setPaths
 libraryPath<-"F:/BG.library_github/BG.library/"
-path<-"F:/BG.library_github/"
-fileName<-"exampleData.csv"
+filePath<-"F:/BG.library_github/exampleData.csv"
 
 #load functions
 devtools::load_all(libraryPath,recompile = FALSE) 
@@ -12,17 +11,17 @@ unPackList(lists = list(pumpSettings.list = pumpSettings.list),
            parentObj = list(NA)) 
 
 #csv data import
-dataImport.list<-dataImport(path,fileName,libraryPath)
+dataImport.list<-dataImport(filePath,libraryPath)
 unPackList(lists = list(dataImport.list = dataImport.list),
            parentObj = list(NA)) 
 #BG report
-generateBGreport(libraryPath, path, fileName, data = allData)
-generateBGreport(libraryPath, path, fileName, data = allData,numberDays = NA,
+generateBGreport(libraryPath, filePath, data = allData)
+generateBGreport(libraryPath, filePath, data = allData,numberDays = NA,
                  fromChange = FALSE,startDate = "2019-09-08", endDate="2019-09-25")
 
 
 #shiny app
-shinyPlot(libraryPath, path, fileName)
+shinyPlot(libraryPath, filePath)
 
 #summarize data
 BGvalue_Summary<-summarizeData(allData, colName = "BG.Reading..mg.dL.", libraryPath = libraryPath)
@@ -114,22 +113,28 @@ executeSavedPlot(data = allData, plotName = "meanSGheat_hist", libraryPath = lib
 
 #dateSeq Reports
 #saved plot
-historySeqOut(data = NA,libraryPath = libraryPath, path = path, fileName = fileName,reportTitle = "Compare Summary Sensor Line Plot Since Last Pump Setting Change" ,
+historySeqOut(data = NA,libraryPath = libraryPath, filePath = filePath,reportTitle = "Compare Summary Sensor Line Plot Since Last Pump Setting Change" ,
               plotName = "lineSumSens_SGper_Sett_BG", paramList = NA, plotType = NA,
                         seqType = "change", seqLength = 2)
-historySeqOut(data = NA,libraryPath = libraryPath, path = path, fileName = fileName,reportTitle = "Compare Heat Maps of mean BG values Since Last Pump Setting Change" ,
+historySeqOut(data = NA,libraryPath = libraryPath, filePath = filePath,reportTitle = "Compare SG box Plot Since Last Pump Setting Change" ,
+              plotName = "boxSGhour_Sett", paramList = NA, plotType = NA,
+              seqType = "change", seqLength = 2)
+historySeqOut(data = NA,libraryPath = libraryPath, filePath = filePath,reportTitle = "Compare BG daily box Plot Since Last Pump Setting Change" ,
+              plotName = "boxBGdaily", paramList = NA, plotType = NA,
+              seqType = "change", seqLength = 2)
+historySeqOut(data = NA,libraryPath = libraryPath, filePath = filePath,reportTitle = "Compare Heat Maps of mean BG values Since Last Pump Setting Change" ,
               plotName = "meanBGheat_hist", paramList = NA, plotType = NA,
               seqType = "change", seqLength = 2) 
-historySeqOut(data = NA,libraryPath = libraryPath, path = path, fileName = fileName,reportTitle = "Compare Heat Maps of mean BG values Since Last Pump Setting Change" ,
+historySeqOut(data = NA,libraryPath = libraryPath, filePath = filePath,reportTitle = "Compare Heat Maps of mean BG values Since Last Pump Setting Change" ,
               plotName = "meanSGheat_hist", paramList = NA, plotType = NA,
               seqType = "change", seqLength = 2) 
-historySeqOut(data = NA,libraryPath = libraryPath, path = path, fileName = fileName,reportTitle = "Compare Summary Sensor Line Plot Since Last Pump Setting Change" ,
+historySeqOut(data = NA,libraryPath = libraryPath, filePath = filePath,reportTitle = "Compare Summary Sensor Line Plot Since Last Pump Setting Change" ,
               plotName = "lineSumSens_SGper_Sett_BG", paramList = NA, plotType = NA,
               seqType = "change", seqLength = 2, outPath ="F:/",outFileName = "testOut") 
-historySeqOut(data = NA,libraryPath = libraryPath, path = path, fileName = fileName,reportTitle = "Compare All Pump Setting Changes Summary Sensor Line Plot" ,
+historySeqOut(data = NA,libraryPath = libraryPath, filePath = filePath,reportTitle = "Compare All Pump Setting Changes Summary Sensor Line Plot" ,
               plotName = "lineSumSens_SGper_Sett_BG", paramList = NA, plotType = NA,
               seqType = "change", seqLength = "all")
-historySeqOut(data = allData,libraryPath = libraryPath, path = path, fileName = fileName,reportTitle = "Compare Summary Sensor Line Plot Weekly" ,
+historySeqOut(data = allData,libraryPath = libraryPath, filePath = filePath,reportTitle = "Compare Summary Sensor Line Plot Weekly" ,
               plotName = "lineSumSens_SGper_Sett_BG", paramList = NA, plotType = NA,
               seqType = "days", seqLength = 3, period = 7) 
 #new plot parameters
@@ -140,7 +145,7 @@ parmList1<-list(scatterOnly = FALSE, pointSize = 10,
                addBarSub = FALSE,
                plotSummary = "Sensor.Glucose..mg.dL.",
                libraryPath = libraryPath)
-historySeqOut(data = NA,libraryPath, path, fileName,reportTitle = "Bolus Type Points Summary Sensor Line Plot" ,
+historySeqOut(data = NA,libraryPath, filePath,reportTitle = "Bolus Type Points Summary Sensor Line Plot" ,
               plotName = NA, paramList = parmList1, plotType = "plotLine_ly",
               seqType = "change", seqLength = 2) 
 #history sequence in Rstudio

@@ -1,8 +1,8 @@
 shinyReport<-function(input, output, session,
-                          libraryPath, path, fileName,
+                          libraryPath, filePath,
                           data, reportType){
   shinySetup.list<-setupShinyParams(input, output, session,
-                                    libraryPath, path, fileName,
+                                    libraryPath, filePath,
                                     data)
   unPackList(lists = list(shinySetup.list = shinySetup.list),
              parentObj = list(NA)) 
@@ -31,10 +31,10 @@ shinyReport<-function(input, output, session,
   historySeqOut(data = NA,plotName, paramList = paramList, plotType,
                 seqType, seqLength, period = period,
                 reportTitle,outPath, outFileName,
-                libraryPath,path,fileName)
+                libraryPath,filePath)
   
   }else{#BG report
-    generateBGreport(libraryPath, path, fileName, data = data,numberDays = numberDays,
+    generateBGreport(libraryPath, filePath, data = data,numberDays = numberDays,
                      fromChange = fromChange,startDate = startDate, endDate=endDate)
     }
   

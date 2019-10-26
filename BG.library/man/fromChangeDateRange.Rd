@@ -40,9 +40,8 @@ is subsetted with \code{min(data$Date2>=startDate)} and \code{max(data$Date2)<=e
 }
 \examples{
 libraryPath<-"F:/BG.library_github/BG.library/"
-path<-"F:/BG.library_github/"
-fileName<-"exampleData.csv"
-dataImport.list<-dataImport(path,fileName,libraryPath)
+filePath<-"F:/BG.library_github/exampleData.csv"
+dataImport.list<-dataImport(filePath,libraryPath)
 data<-dataImport.list$allData
 data<-fromChangeDateRange(data,fromChange = TRUE,numberDays = NA,
                          startDate = NA, endDate = NA, libraryPath)

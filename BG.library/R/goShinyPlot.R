@@ -5,15 +5,13 @@
 #'@param output shiny output as list
 #'@param session shiny session info
 #'@param libraryPath character string path to BG.library code 
-#'@param path character path to directory in which import file is located.
-#'@param fileName charcter string csv file name
+#'@param filePath character path to csv import file
 #'@param data data.frame to be used to generate plots
 #'@examples 
 #'libraryPath<-"F:/BG.library_github/BG.library/"
-#'path<-"F:/BG.library_github/"
-#'fileName<-"exampleData.csv"
+#'filePath<-"F:/BG.library_github/exampleData.csv"
 #'#load functions
-#'dataImport.list<-dataImport(path,fileName,libraryPath)
+#'dataImport.list<-dataImport(filePath,libraryPath)
 #'data<-dataImport.list$allData
 #'shinyApp(  ui=shinyUI(
 #'fluidPage(
@@ -61,7 +59,7 @@
 #'  observe({
 #'    output$plotOne  <- renderPlotly({
 #'      goShinyPlot(input, output, session,
-#'                  libraryPath, path, fileName,
+#'                  libraryPath, filePath,
 #'                  data)
 #'    })#end renderplot
 #'  }) 
@@ -69,12 +67,12 @@
 #')#end shiny app
 
 goShinyPlot<-function(input, output, session,
-                      libraryPath, path, fileName,
+                      libraryPath, filePath,
                       data){    
   
   #setup shiny inputs for plot params
   shinySetup.list<-setupShinyParams(input, output, session,
-                             libraryPath, path, fileName,
+                             libraryPath, filePath,
                              data)
     unPackList(lists = list(shinySetup.list = shinySetup.list),
                parentObj = list(NA)) 

@@ -1,12 +1,11 @@
 ---
-title: 'This is my new BG_report'
+title: 'BG_report for Dates: 2019-10-07 to 2019-10-10'
 author: "Lillian Gorman Sanisaca, rscmb_c3@yahoo.com"
 date: "`r paste0('Report Generated : ',format(Sys.time(), '%m-%d-%Y'))`"
 output: html_document
 params:
   libraryPath: libraryPath
-  path: path
-  fileName: fileName
+  filePath: filePath
   numberDays: numberDays
   fromChange: fromChange
   startDate: startDate
@@ -21,8 +20,7 @@ knitr::opts_chunk$set(echo = TRUE,fig.width=12, fig.height=8, warning = FALSE)
 ```{r, eval=TRUE, echo=FALSE,warning=FALSE, message = FALSE}
 #setPaths
 libraryPath<-params$libraryPath
-path<-params$path
-fileName<-params$fileName
+filePath<-params$filePath
 numberDays<-params$numberDays
 fromChange<-params$fromChange
 startDate<-params$startDate
@@ -41,7 +39,7 @@ unPackList(lists = list(pumpSettings.list = pumpSettings.list),
            parentObj = list(NA)) 
 
 #metronic csv data import
-dataImport.list<-dataImport(path,fileName,libraryPath)
+dataImport.list<-dataImport(filePath,libraryPath)
 unPackList(lists = list(dataImport.list = dataImport.list),
            parentObj = list(NA)) 
 

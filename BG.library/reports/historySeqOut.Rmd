@@ -1,12 +1,11 @@
 ---
-title: 'Compare Summary Sensor Line Plot Since Last Pump Setting Change'
+title: 'Compare SG box Plot Since Last Pump Setting Change'
 author: 'Lillian Gorman Sanisaca'
 date: "`r paste0('Report Generated : ',format(Sys.time(), '%m-%d-%Y'))`"
 output: html_document
 params:
   libraryPath: libraryPath
-  path: path
-  fileName: fileName
+  filePath: filePath
   plotName: plotName
   paramList: parmList
   plotType: plotType
@@ -29,8 +28,7 @@ knitr::opts_chunk$set(echo = FALSE,fig.width=12, fig.height=8, warning = FALSE, 
 ```{r, eval=TRUE, warning=FALSE, message=FALSE, include=FALSE}
 #setPaths
 libraryPath<-params$libraryPath
-path<-params$path
-fileName<-params$fileName
+filePath<-params$filePath
 plotName<-params$plotName
 parmList<-params$parmList
 plotType<-params$plotType
@@ -47,7 +45,7 @@ unPackList(lists = list(pumpSettings.list = pumpSettings.list),
            parentObj = list(NA)) 
 
 #metronic csv data import
-dataImport.list<-dataImport(path,fileName,libraryPath)
+dataImport.list<-dataImport(filePath,libraryPath)
 unPackList(lists = list(dataImport.list = dataImport.list),
            parentObj = list(NA)) 
 data<-allData
