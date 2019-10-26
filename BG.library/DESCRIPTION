@@ -60,6 +60,7 @@ Collate:
   'named.list.R'
   'plotLine_ly.R'
   'prettyTime.R'
+  'removeDupBGs.R'
   'replaceTitle.R'
   'savedUI.R'
   'scatterUI.R'

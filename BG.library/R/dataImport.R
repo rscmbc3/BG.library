@@ -79,6 +79,10 @@ dataImport<-function(path,fileName,libraryPath){
   #make extra time date columns in allData for plotting
   allData<-prettyTime(allData,"dateTime")
   
+  #remove dup BGs
+  allData<-removeDupBGs(allData)
+  joinData<-removeDupBGs(joinData)
+  
   dataImport.list<-named.list(allData,joinData)
   return(dataImport.list)
 }
