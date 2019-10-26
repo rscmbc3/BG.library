@@ -56,8 +56,8 @@ summaryPlotDay_ly<-function(data,addBarSub,boxBar,
       
       yTitle<-ifelse(sumFunc!="length",paste0(sumFunc,"_",plotSummary),paste0("number_",plotSummary))
       dataFormat<-data
-      
-    }else{#stacked insulin
+   
+       }else{#stacked insulin
       basal$rate<-basal[[length(basal)]]
       
       #format time
@@ -70,25 +70,29 @@ summaryPlotDay_ly<-function(data,addBarSub,boxBar,
       
       #populate all days with rates
       days<-as.Date(xTicks(data, startTime,endTime,timeStep,period)$xticks,format = "%Y-%m-%d")
-      
+     
+      #get all change dates
+      allDateStr<-character(0)
       for (d in names(basal)[!names(basal) %in% c("Date2","rate","time2","time","hours","hour")]){
         basalsubDate<-basal[,names(basal)!="Date2"]
         basalsubDate<-as.data.frame(basalsubDate %>% group_by(hour) %>% summarise_all(funs(mean),na.rm=TRUE))
         dateStr<-gsub("X","",d)
         dateStr<-gsub("\\.","-",dateStr)
-        
-        for (dy in days){
-          if (as.Date(dateStr,format = "%m-%d-%Y",origin = "1970-01-01")<=as.Date(dy,format = "%Y-%m-%d",origin = "1970-01-01")){
+        allDateStr<-c(allDateStr,dateStr)
+      }
+      
+      #get rates for all days in plot
+        for (dy in days){ 
+          whichRate<-allDateStr[as.Date(allDateStr,format = "%m-%d-%Y",origin = "1970-01-01")<=as.Date(dy,format = "%Y-%m-%d",origin = "1970-01-01")]
+          whichRate<-max(as.Date(whichRate,format = "%m-%d-%Y",origin = "1970-01-01"))
+          whichName<-names(basal)[which(as.Date(allDateStr,format = "%m-%d-%Y",origin = "1970-01-01")==whichRate)]
         basalsubDate$Date2<-as.Date(dy,format = "%Y-%m-%d",origin = "1970-01-01")
-        basalsubDate$rate<-eval(parse(text = paste0("basalsubDate$",d)))
+        basalsubDate$rate<-eval(parse(text = paste0("basalsubDate$",whichName)))
         basalDate<-rbind(basalDate,basalsubDate)
-          }
-        }
-
-        
       }
       basal<-basalDate
 
+      #set up time step
       basal2<-setTimeStep(basalDate, startTime,endTime, timeStep, period)
       
       #get on only relevant columns
@@ -133,7 +137,14 @@ summaryPlotDay_ly<-function(data,addBarSub,boxBar,
       
       dataFormat<-data
 
-    }#end data setup for stacked insulin
+    }
+    
+    if (!stackedBar %in% c("","insulin")){#stacked bar BG
+      yTitle<-""
+      totalBG<-data[!is.na(data$temp),]
+      totalBG<-as.data.frame(totalBG %>% group_by(Date2) %>% summarise_all(funs(length)))
+      initYrange<-c(0,max(totalBG$temp, na.rm = TRUE))
+    }
     
     #format time in decimal hours for xaxis tick marks
     xticks.list<-xTicks(data = dataOrig, startTime,endTime,timeStep,period)
