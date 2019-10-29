@@ -1,10 +1,10 @@
 summarizeData<-function(data, colName, sumFuncs = "min, mean, max, sd", 
                         numberDays = NA, filterCond = "",
                         startTime = "00:00", endTime = "23:00",timeStep = "hour", period = 1, 
-                        startDate = NA, endDate = NA,fromChange=TRUE,libraryPath){
+                        startDate = NA, endDate = NA,fromChange=TRUE,removeDates = NA,libraryPath){
   #get dateRange
   data<-fromChangeDateRange(data,fromChange,numberDays,libraryPath = libraryPath,
-                            startDate = startDate,endDate = endDate)
+                            startDate = startDate,endDate = endDate,removeDates = removeDates)
   
   
   if (filterCond!=""){

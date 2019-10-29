@@ -1,9 +1,9 @@
 subsetData<-function(data,numberDays,startDate,endDate,filterCond,
                      startTime, endTime,timeStep,period, 
-                     fromChange = TRUE,libraryPath){
+                     fromChange = TRUE,removeDates = NA,libraryPath){
   
   
-  data<-fromChangeDateRange(data,fromChange,numberDays,startDate, endDate, libraryPath)
+  data<-fromChangeDateRange(data,fromChange,numberDays,startDate, endDate,removeDates,libraryPath)
     
   
   #apply filter condition

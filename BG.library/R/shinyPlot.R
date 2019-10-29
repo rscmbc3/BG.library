@@ -39,7 +39,7 @@ shinyPlot<-function(libraryPath, filePath){
                      selectInput("shPlotType","Select Plot Type",
                                  choices = c("scatter","bar","box","heatmap","Saved Plot")),  
                      
-                     
+                     uiOutput("dateTimeUI"),
                      uiOutput("outputUI"),
                      uiOutput("historyUI")
                      
@@ -80,6 +80,9 @@ shinyPlot<-function(libraryPath, filePath){
     observe({
       output$historyUI<-renderUI({
         historyUI()
+      })
+      output$dateTimeUI<-renderUI({
+        dateTimeUI()
       })
     })
     

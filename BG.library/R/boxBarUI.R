@@ -63,16 +63,7 @@ boxBarUI<-function(data){
   ui=shinyUI(
     fluidPage(
      
-      h3("Date and Time Parameters"),
-      checkboxInput("fromChange","Use data from most recent pump settings change to present",value = TRUE),
-      
-      conditionalPanel(#only use numberDays and start End dates if not fromChange
-        condition = "input.fromChange != 1",
-        numericInput("numberDays","Number of Days from Latest Date",value = NA),
-        dateRangeInput("daterange", "Date range",
-                       format = "mm/dd/yy",
-                       separator = " - ")
-      ),
+
       
       sliderInput("timeRange","Time Range",min = 0, max = 23, value = c(0,23)),
       fluidRow(selectInput("timeStep","Time Step",choices = c("hour","day"),selected  = "hour"),

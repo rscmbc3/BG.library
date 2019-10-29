@@ -13,6 +13,7 @@
 #'every `period` number of days)
 #'@param seqLength number of plots to output
 #'@param period number of days per plot if `seqType = 'days'`
+#'@param removeDates character vector of dates in format %Y-%m-%d to remove from data
 #'@param reportTitle character string title for html document
 #'@param outPath character string directory in which to output html document, if `outPath<-NA`
 #'temporary html document will be stored in ./BG.library/reports/historySeqOut.html
@@ -28,7 +29,7 @@
 #'              libraryPath = libraryPath, filePath = filePath)
 
 historySeqOut<-function(data = NA,plotName = NA, paramList = NA, plotType = NA,
-                        seqType = "change", seqLength = 2, period = NA,
+                        seqType = "change", seqLength = 2, period = NA,removeDates = NA,
                         reportTitle = "",outPath = NA, outFileName= NA,
                         libraryPath,filePath) {
   
@@ -51,7 +52,8 @@ if (is.na(outPath) | is.na(outFileName) | outPath=="" | outFileName == ""){
       plotType = plotType,
       seqType = seqType,
       seqLength = seqLength,
-      period = period
+      period = period,
+      removeDates = removeDates
     ),
     output_file = outFileName
   )

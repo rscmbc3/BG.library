@@ -31,11 +31,12 @@ shinyReport<-function(input, output, session,
   historySeqOut(data = NA,plotName, paramList = paramList, plotType,
                 seqType, seqLength, period = period,
                 reportTitle,outPath, outFileName,
-                libraryPath,filePath)
+                libraryPath,filePath, removeDates = removeDates)
   
   }else{#BG report
     generateBGreport(libraryPath, filePath, data = data,numberDays = numberDays,
-                     fromChange = fromChange,startDate = startDate, endDate=endDate)
+                     fromChange = fromChange,startDate = startDate, 
+                     endDate=endDate,removeDates = removeDates)
     }
   
   

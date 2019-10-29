@@ -1,6 +1,6 @@
 summaryPlotHour_ly<-function(data,addBarSub,boxBar,
                          numberDays, filterCond = "",
-                         startDate = NA, endDate = NA,
+                         startDate = NA, endDate = NA,removeDates = NA,
                          startTime = "00:00", endTime = "23:00",
                          timeStep = "hour",period = 1,fromChange,libraryPath,
                          plotSummary, sumFunc = "length", stackedBar = "",
@@ -11,7 +11,8 @@ summaryPlotHour_ly<-function(data,addBarSub,boxBar,
   
   #subset data by date and filterCond
   data<-subsetData(data,numberDays,startDate,endDate,filterCond,
-                   startTime = startTime, endTime = endTime,timeStep,period, fromChange,libraryPath)
+                   startTime = startTime, endTime = endTime,timeStep,period, 
+                   fromChange,removeDates,libraryPath)
 
   #data$time3<-as.POSIXct(round(as.POSIXct(data$time2,format="%H:%M"),"hours"))
   

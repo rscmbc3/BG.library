@@ -1,6 +1,6 @@
 #setPaths
 libraryPath<-"F:/BG.library_github/BG.library/"
-filePath<-"F:/BG.library_github/exampleData.csv"
+filePath<-"F:/CareLink-Export-1572287185792.csv"
 
 #load functions
 devtools::load_all(libraryPath,recompile = FALSE) 
@@ -16,6 +16,7 @@ unPackList(lists = list(dataImport.list = dataImport.list),
            parentObj = list(NA)) 
 #BG report
 generateBGreport(libraryPath, filePath, data = allData)
+generateBGreport(libraryPath, filePath, data = allData, removeDates = "2019-10-28")
 generateBGreport(libraryPath, filePath, data = allData,numberDays = NA,
                  fromChange = FALSE,startDate = "2019-09-08", endDate="2019-09-25")
 
@@ -24,11 +25,12 @@ generateBGreport(libraryPath, filePath, data = allData,numberDays = NA,
 shinyPlot(libraryPath, filePath)
 
 #summarize data
-BGvalue_Summary<-summarizeData(allData, colName = "BG.Reading..mg.dL.", libraryPath = libraryPath)
+BGvalue_Summary<-summarizeData(allData, colName = "BG.Reading..mg.dL.", libraryPath = libraryPath,
+                               removeDates = "2019-10-28")
 BGvalue_SummaryDaily<-summarizeData(allData, colName = "BG.Reading..mg.dL.",  timeStep = "day", libraryPath = libraryPath)
 BGpercent_Summary<-addPercentBG_ly(data = allData, p = NA,addPercentBG = c("very high","high","good","low"),
                                    addPercentType = "BG.Reading..mg.dL.",outputType = "table",
-                                   libraryPath = libraryPath)
+                                   libraryPath = libraryPath, removeDates = "2019-10-28")
 SGpercent_Summary<-addPercentBG_ly(data = allData, p = NA,addPercentBG = c("very high","high","good","low"),
                                    addPercentType = "Sensor.Glucose..mg.dL.",outputType = "table",
                                    libraryPath = libraryPath)
@@ -62,7 +64,7 @@ BGvalue_timeDaytable<-timeDayTable(allData, tcol = "time2", dcol = "Date2",
                                    sumFunc = "mean", naRemove = TRUE,
                                    includeTotals = TRUE,
                                   filterCond = "",
-                                   libraryPath = libraryPath)
+                                   libraryPath = libraryPath,removeDates = "2019-10-28")
 SGvalue_timeDaytable<-timeDayTable(allData, tcol = "time2", dcol = "Date2", 
                                    valueVar = "Sensor.Glucose..mg.dL.", 
                                    sumFunc = "mean", naRemove = TRUE,
@@ -115,7 +117,7 @@ executeSavedPlot(data = allData, plotName = "meanSGheat_hist", libraryPath = lib
 #saved plot
 historySeqOut(data = NA,libraryPath = libraryPath, filePath = filePath,reportTitle = "Compare Summary Sensor Line Plot Since Last Pump Setting Change" ,
               plotName = "lineSumSens_SGper_Sett_BG", paramList = NA, plotType = NA,
-                        seqType = "change", seqLength = 2)
+                        seqType = "change", seqLength = 2, removeDates = "2019-10-28")
 historySeqOut(data = NA,libraryPath = libraryPath, filePath = filePath,reportTitle = "Compare SG box Plot Since Last Pump Setting Change" ,
               plotName = "boxSGhour_Sett", paramList = NA, plotType = NA,
               seqType = "change", seqLength = 2)
@@ -150,7 +152,7 @@ historySeqOut(data = NA,libraryPath, filePath,reportTitle = "Bolus Type Points S
               seqType = "change", seqLength = 2) 
 #history sequence in Rstudio
 historySeq(data = allData,plotName = "lineSumSens_SGper_Sett_BG", paramList = NA, plotType = NA,
-           seqType = "change", seqLength = 2, libraryPath = libraryPath)
+           seqType = "change", seqLength = 2, libraryPath = libraryPath,removeDates = "2019-10-28")
 historySeq(data = allData,plotName = "lineSumSens_SGper_Sett_BG", paramList = NA, plotType = NA,
            seqType = "day", seqLength = 2,period = 7, libraryPath = libraryPath)
 
@@ -167,13 +169,12 @@ plotLine_ly(allData,  scatterOnly = FALSE, pointSize = 10,
             addBolusType = "Bolus.Volume.Delivered..U.",
             #addBolusType = c("Bolus.Volume.Delivered..U.","BWZ.Correction.Estimate..U.","BWZ.Food.Estimate..U."),
             #addBolusType = "",   
-            barSubPlot = FALSE,
             addBarSub = FALSE,libraryPath = libraryPath,
             plotSummary = "Sensor.Glucose..mg.dL.",
                       addSetting ="",filterCond = "",
-                      legendInset = -0.2)
+                      legendInset = -0.2, removeDates = "2019-10-28")
 #barplots
-summaryPlot_ly(p = NA, data = allData, barSubPlot = FALSE,ayCarb = NA,
+summaryPlot_ly(p = NA, data = allData, ayCarb = NA,
                         addBarSub = FALSE,boxBar = "bar",
                         numberDays = 5, filterCond = "",
                         startDate = NA, endDate = NA,
@@ -181,7 +182,7 @@ summaryPlot_ly(p = NA, data = allData, barSubPlot = FALSE,ayCarb = NA,
                         plotSummary ="Sensor.Glucose..mg.dL.", sumFunc = "mean", stackedBar = "",
                         addBG = FALSE, libraryPath = libraryPath,
                         addSetting = "",settingOverlay = FALSE,percentSetting = 30,
-                        legendInset = -0.2)
+                        legendInset = -0.2, removeDates = "2019-10-28")
 
 
 #simple with setting subplot
@@ -256,10 +257,9 @@ heatMap_ly(brks = c(0,50,80,150,240,300,400,500),
            data = allData, tcol = "time2", dcol = "Date2", 
            valueVar = "BG.Reading..mg.dL.", 
            sumFunc = "mean", naRemove = TRUE,
-           includeTotals = TRUE,
            filterCond = "",
            libraryPath = libraryPath,
-           startDate = "2019-09-23",endDate = "2019-10-01", fromChange = FALSE)
+           startDate = "2019-09-23",endDate = "2019-10-01", fromChange = FALSE, removeDates = "2019-09-25")
 heatMap_ly(brks = c(0,50,80,150,240,300,400,500), 
            brewerPallete = "RdBu", revPallete = TRUE,
            textCol = "black",

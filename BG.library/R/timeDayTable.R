@@ -2,13 +2,14 @@ timeDayTable<-function(data, tcol, dcol, valueVar,
                        sumFunc, naRemove = TRUE,
                        includeTotals = TRUE,
                        numberDays = NA, 
-                       startDate = NA, endDate = NA,
+                       startDate = NA, endDate = NA,removeDates = NA,
                        filterCond = "",replaceNAs = FALSE,
                        startTime = "00:00",endTime = "23:00",
                        timeStep = "hour", period = 1,fromChange = TRUE,libraryPath){
   
   #get dateRange
-  data<-fromChangeDateRange(data,fromChange,numberDays,startDate = startDate, endDate = endDate,libraryPath = libraryPath)
+  data<-fromChangeDateRange(data,fromChange,numberDays,startDate = startDate, 
+                            endDate = endDate,removeDates = removeDates,libraryPath = libraryPath)
   
   if (filterCond!=""){
     data<-eval(parse(text = filterCond))

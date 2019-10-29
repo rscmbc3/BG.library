@@ -62,7 +62,8 @@ plotLine_ly<-function(data,
                       addSetting ="",settingOverlay = FALSE,percentSetting = 30,
                       addBarSub = TRUE, percentBar = 30,
                       addGoodRange = TRUE,addFasting = TRUE,addFastingAnnot = TRUE,
-                      fromChange = TRUE, numberDays = NA, startDate = NA, endDate = NA,
+                      fromChange = TRUE, numberDays = NA, startDate = NA, 
+                      endDate = NA,removeDates = NA,
                       startTime = "00:00", endTime = "23:00",
                       timeStep = "hour",period = 1,filterCond = "",
                       colorPalleteDaily = "rainbow", pointSize = 10,
@@ -72,7 +73,8 @@ plotLine_ly<-function(data,
 
   #subset data by date and filterCond
   data<-subsetData(data,numberDays,startDate,endDate,filterCond,
-                   startTime = startTime, endTime = endTime,timeStep,period, fromChange,libraryPath)
+                   startTime = startTime, endTime = endTime,timeStep,period, 
+                   fromChange,removeDates,libraryPath)
 
   #subset settings
   pumpSettings.list<-subsetSetting(data,libraryPath)

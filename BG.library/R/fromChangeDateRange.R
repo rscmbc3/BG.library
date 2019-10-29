@@ -17,6 +17,7 @@
 #'if `numberDays = NA` and `fromChange = FALSE`
 #'@param endDate Latest date included in data.  This setting will only be applied 
 #'if `numberDays = NA` and `fromChange = FALSE`
+#'@param removeDates character vector of dates in format %Y-%m-%d to remove from data
 #'@param libraryPath character string path to BG.library code 
 #'@return `data` data.frame subsetted by date
 #'@examples
@@ -28,7 +29,8 @@
 #'                          startDate = NA, endDate = NA, libraryPath)
 #'range(data$Date2)
 
-fromChangeDateRange<-function(data,fromChange,numberDays,startDate = NA, endDate = NA, libraryPath){
+fromChangeDateRange<-function(data,fromChange,numberDays,startDate = NA, endDate = NA,
+                              removeDates = NA, libraryPath){
   if (!fromChange){
     #set date range, numberDays overrules start/endDates
     if (!is.na(numberDays)){
@@ -67,6 +69,12 @@ fromChangeDateRange<-function(data,fromChange,numberDays,startDate = NA, endDate
     #subset data
     data<-data[data$Date2>=lastChange,]
 
-}
+  }
+  
+  if (!is.na(removeDates)[1]){
+    removeDates<-as.Date(removeDates, format = "%Y-%m-%d" )
+    data<-data[!data$Date2 %in% removeDates,]
+  }
+  
 return(data)
 }

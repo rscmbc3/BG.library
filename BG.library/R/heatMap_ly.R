@@ -4,6 +4,7 @@
 #'@param data data.frame with data to plot
 #'@param tcol character string indicating 'time' column name
 #'@param dcol character string indicating 'date' column name
+#'@param removeDates character vector of dates in format %Y-%m-%d to remove from data
 #'@param valuevar character string indicating column name to plot
 #'@param sumFunc character string indicating function to aggregate data for plot
 #'@param naRemove TRUE/FALSE whether missing values should be removed
@@ -25,7 +26,7 @@
 #'           libraryPath = libraryPath)
 
 
-heatMap_ly<-function(data, tcol = "time2", dcol = "Date2", valueVar, 
+heatMap_ly<-function(data, tcol = "time2", dcol = "Date2", removeDates = NA,valueVar, 
                      sumFunc, naRemove = TRUE,replaceNAs = FALSE,
                      fromChange = TRUE,numberDays = NA, 
                      startDate = NA, endDate = NA,
@@ -48,7 +49,7 @@ heatMap_ly<-function(data, tcol = "time2", dcol = "Date2", valueVar,
                      filterCond = filterCond,replaceNAs = replaceNAs,
                      startTime = startTime,endTime = endTime,
                      timeStep = timeStep, period = period,fromChange = fromChange,
-                     libraryPath = libraryPath)
+                     libraryPath = libraryPath,removeDates = removeDates)
   
   
   

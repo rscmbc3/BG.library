@@ -8,7 +8,8 @@ endDate<-as.character(dateSeq[d])
     
     changeParam.list<-list(startDate = startDate,
                            endDate = endDate,
-                           fromChange = FALSE)
+                           fromChange = FALSE,
+                           removeDates = removeDates)
     if (!is.na(plotName)){
          executeSavedPlot(data, numberDays =NA, plotName,changeParam.list, libraryPath)
 

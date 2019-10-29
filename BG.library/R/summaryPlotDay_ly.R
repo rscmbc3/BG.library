@@ -1,6 +1,6 @@
 summaryPlotDay_ly<-function(data,addBarSub,boxBar,
                          numberDays, filterCond = "",
-                         startDate = NA, endDate = NA,
+                         startDate = NA, endDate = NA,removeDates = NA,
                          startTime = "00:00", endTime = "23:00",
                          timeStep = "day",period = 1,fromChange,libraryPaths,
                          plotSummary, sumFunc = "length", stackedBar = "",
@@ -9,7 +9,8 @@ summaryPlotDay_ly<-function(data,addBarSub,boxBar,
   
   #subset data by date and filterCond
   data<-subsetData(data,numberDays,startDate,endDate,filterCond,
-                   startTime = startTime, endTime = endTime,timeStep,period, fromChange,libraryPath)
+                   startTime = startTime, endTime = endTime,timeStep,period, 
+                   fromChange,removeDates,libraryPath)
 
   #subset settings
   pumpSettings.list<-subsetSetting(data,libraryPath)

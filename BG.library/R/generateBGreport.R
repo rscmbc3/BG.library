@@ -18,6 +18,7 @@
 #'if `numberDays = NA` and `fromChange = FALSE`
 #'@param endDate Latest date included in data.  This setting will only be applied 
 #'if `numberDays = NA` and `fromChange = FALSE`
+#'@param removeDates character vector of dates in format %Y-%m-%d to remove from data
 #'@param data data.frame to be used to generate tables and plots
 #'@examples
 #'libraryPath<-"F:/BG.library_github/BG.library/"
@@ -29,10 +30,11 @@
 generateBGreport<-function(libraryPath, filePath,
                            outPath = NA, outFileName= NA,
                            fromChange = TRUE,  numberDays = NA, 
-                           startDate = NA, endDate = NA,
+                           startDate = NA, endDate = NA,removeDates = NA,
                            data){
   #get dateRange
-  data<-fromChangeDateRange(data,fromChange,numberDays,libraryPath = libraryPath,startDate = startDate,endDate = endDate)
+  data<-fromChangeDateRange(data,fromChange,numberDays,libraryPath = libraryPath,
+                            startDate = startDate,endDate = endDate, removeDates = removeDates)
   
   reportTitle<-paste0("BG_report for Dates: ",min(data$Date2)," to ",max(data$Date2))
   
@@ -52,7 +54,8 @@ generateBGreport<-function(libraryPath, filePath,
       numberDays = numberDays,
       fromChange = fromChange,
       startDate = startDate,
-      endDate = endDate
+      endDate = endDate,
+      removeDates = removeDates
     ),
     output_file = outFileName
   )

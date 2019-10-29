@@ -12,6 +12,7 @@
 #'every `period` number of days)
 #'@param seqLength number of plots to output
 #'@param period number of days per plot if `seqType = 'days'`
+#'@param removeDates character vector of dates in format %Y-%m-%d to remove from data
 #'@param libraryPath character string path to BG.library code 
 #'@examples
 #'libraryPath<-"F:/BG.library_github/BG.library/"
@@ -23,7 +24,7 @@
 
 
 historySeq<-function(data, plotName, paramList, plotType,
-                     seqType, seqLength, period = NA, libraryPath){
+                     seqType, seqLength, period = NA, removeDates = NA,libraryPath){
 
   
   if (seqType=="change"){
@@ -71,7 +72,8 @@ historySeq<-function(data, plotName, paramList, plotType,
 
     changeParam.list<-list(startDate = startDate,
                            endDate = endDate,
-                           fromChange = FALSE)
+                           fromChange = FALSE,
+                           removeDates = removeDates)
     
 
     if (!is.na(plotName)){

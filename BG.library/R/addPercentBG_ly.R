@@ -22,6 +22,7 @@
 #'include c("hour","day")
 #'@param period numeric value indicating number of `timeSteps` to aggregate into single step
 #'for example : `timeStep = 'hour'`  and `period = 3` outputs plots with tick marks every 3 hours.
+#'@param removeDates character vector of dates in format %Y-%m-%d to remove from data
 #'@param filterCond character string of R syntax to be applied to filter the data, 
 #'example `data[data$BG.Reading..mg.dL.>150 & !is.na(data$BG.Reading..mg.dL.),]`
 #'@param outputType character string indicating type of output, options are "plot_ly", or "table"
@@ -49,12 +50,13 @@ addPercentBG_ly<-function(p,data,addPercentBG = c("low","good","high","very high
                           fromChange = TRUE,numberDays = NA, 
                           startDate = NA,endDate = NA,
                           startTime = "00:00", endTime = "23:00",timeStep = "hour",period = 1,
-                          filterCond = "",outputType = "plot_ly",libraryPath){
+                          removeDates = NA,filterCond = "",outputType = "plot_ly",libraryPath){
   if (addPercentBG[1]!=""){
     if (outputType != "plot_ly"){
     #subset data by date and filterCond
     data<-subsetData(data,numberDays,startDate,endDate,filterCond,
-                     startTime = startTime, endTime = endTime,timeStep,period, fromChange, libraryPath)
+                     startTime = startTime, endTime = endTime,timeStep,period, fromChange, 
+                     removeDates = removeDates,libraryPath)
     }
 
     if (addPercentType=="BG.Reading..mg.dL."){

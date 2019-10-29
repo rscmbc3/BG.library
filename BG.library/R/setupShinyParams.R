@@ -29,6 +29,12 @@ if (shPlotType=="scatter"){
 }
 startDate<-as.character(daterange[1])
 endDate<-as.character(daterange[2])
+if (exists("removeDates")){
+removeDates<-as.character(removeDates)  
+}else{
+  removeDates<-NA
+}
+
 
 if (shPlotType!='heatmap'){
 startTime<-ifelse(nchar(as.character(timeRange[1]))==1,paste0("0",timeRange[1],":00"),paste0(timeRange[1],":00"))

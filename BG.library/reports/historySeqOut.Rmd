@@ -1,5 +1,5 @@
 ---
-title: 'Compare SG box Plot Since Last Pump Setting Change'
+title: ''
 author: 'Lillian Gorman Sanisaca'
 date: "`r paste0('Report Generated : ',format(Sys.time(), '%m-%d-%Y'))`"
 output: html_document
@@ -12,6 +12,7 @@ params:
   seqType: seqType
   seqLength: seqLength
   period: period
+  removeDates: removeDates
 ---
 <style>
     body .main-container {
@@ -35,6 +36,7 @@ plotType<-params$plotType
 seqType<-params$seqType
 seqLength<-params$seqLength
 period<-params$period
+removeDates<-params$removeDates
 
 #load functions
 suppressWarnings(suppressMessages(devtools::load_all(libraryPath,recompile = FALSE)))
