@@ -1,3 +1,27 @@
+#'@title removeDupBGs
+#'@description remove duplicate BG values within 10 minute intervals
+#'@param data data.frame with BG values in BG.Reading..mg.dL.
+#'@return `data` data.frame with duplicates removed
+#'@examples
+#'libraryPath<-"F:/BG.library_github/BG.library/"
+#'filePath<-"F:/BG.library_github/exampleData.csv"
+#'#readBG
+#'data<-read.csv(filePath, header = FALSE)
+#'
+#'#get pump table
+#'pumpStartRow<-which(data[,1]=="Index")[1]
+#'pumpEndRow<-which(data[,1]=="-------" & as.numeric(rownames(data))>pumpStartRow)-1
+#'pumpData<-data[pumpStartRow:pumpEndRow,]
+#'
+#'#fix tables
+#'pumpData<-fixtables(pumpData,libraryPath)
+#'nrow(pumpData)
+#'
+#'#remove duplicates
+#'pumpData<-removeDupBGs(pumpData)
+#'nrow(pumpData)
+
+
 removeDupBGs<-function(data){
   #get bg data
   bgData<-data[!is.na(data$BG.Reading..mg.dL.),]

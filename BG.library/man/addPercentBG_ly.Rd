@@ -8,7 +8,8 @@ addPercentBG_ly(p, data, addPercentBG = c("low", "good", "high",
   "very high"), addPercentType = "BG.Reading..mg.dL.",
   fromChange = TRUE, numberDays = NA, startDate = NA, endDate = NA,
   startTime = "00:00", endTime = "23:00", timeStep = "hour",
-  period = 1, filterCond = "", outputType = "plot_ly", libraryPath)
+  period = 1, removeDates = NA, filterCond = "",
+  outputType = "plot_ly", libraryPath)
 }
 \arguments{
 \item{p}{current plot_ly plot}
@@ -43,6 +44,8 @@ include c("hour","day")}
 
 \item{period}{numeric value indicating number of \code{timeSteps} to aggregate into single step
 for example : \code{timeStep = 'hour'}  and \code{period = 3} outputs plots with tick marks every 3 hours.}
+
+\item{removeDates}{character vector of dates in format %Y-%m-%d to remove from data}
 
 \item{filterCond}{character string of R syntax to be applied to filter the data,
 example \code{data[data$BG.Reading..mg.dL.>150 & !is.na(data$BG.Reading..mg.dL.),]}}

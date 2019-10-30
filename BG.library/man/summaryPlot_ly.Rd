@@ -6,9 +6,9 @@
 \usage{
 summaryPlot_ly(p, data, ayCarb, addBarSub = FALSE, boxBar = "bar",
   numberDays, filterCond = "", startDate = NA, endDate = NA,
-  startTime = "00:00", endTime = "23:00", timeStep = "hour",
-  period = 1, fromChange = TRUE, libraryPath, plotSummary,
-  sumFunc = "length", stackedBar = "", uniqueDT = TRUE,
+  removeDates = NA, startTime = "00:00", endTime = "23:00",
+  timeStep = "hour", period = 1, fromChange = TRUE, libraryPath,
+  plotSummary, sumFunc = "length", stackedBar = "", uniqueDT = TRUE,
   replaceNAs = TRUE, ignoreNAs = FALSE, addBG = TRUE,
   pointSize = 10, addSetting = "", settingOverlay = FALSE,
   percentSetting = 30, legendInset = -0.2, description = "",

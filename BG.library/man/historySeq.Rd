@@ -5,7 +5,7 @@
 \title{historySeq}
 \usage{
 historySeq(data, plotName, paramList, plotType, seqType, seqLength,
-  period = NA, libraryPath)
+  period = NA, removeDates = NA, libraryPath)
 }
 \arguments{
 \item{data}{data.frame to be plotted}
@@ -26,6 +26,8 @@ every \code{period} number of days)}
 \item{seqLength}{number of plots to output}
 
 \item{period}{number of days per plot if \code{seqType = 'days'}}
+
+\item{removeDates}{character vector of dates in format %Y-%m-%d to remove from data}
 
 \item{libraryPath}{character string path to BG.library code}
 }

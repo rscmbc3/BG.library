@@ -12,11 +12,11 @@ plotLine_ly(data, scatterOnly = FALSE, addBG = TRUE,
   settingOverlay = FALSE, percentSetting = 30, addBarSub = TRUE,
   percentBar = 30, addGoodRange = TRUE, addFasting = TRUE,
   addFastingAnnot = TRUE, fromChange = TRUE, numberDays = NA,
-  startDate = NA, endDate = NA, startTime = "00:00",
-  endTime = "23:00", timeStep = "hour", period = 1,
-  filterCond = "", colorPalleteDaily = "rainbow", pointSize = 10,
-  legendInset = -0.2, description = "", descInset = -0.15,
-  libraryPath)
+  startDate = NA, endDate = NA, removeDates = NA,
+  startTime = "00:00", endTime = "23:00", timeStep = "hour",
+  period = 1, filterCond = "", colorPalleteDaily = "rainbow",
+  pointSize = 10, legendInset = -0.2, description = "",
+  descInset = -0.15, libraryPath)
 }
 \arguments{
 \item{data}{data.frame with BG values in BG.Reading..mg.dL. and SG values in Sensor.Glucose..mg.dL.}

@@ -1,3 +1,14 @@
+#'@title shinyPlot
+#'@description Shiny application for generating interactive plotly plots, BG_report, and 
+#'historical sequence plots with user-friendly shiny user inputs
+#'@param libraryPath character string path to BG.library code
+#'@param filePath character path to csv import file 
+#'@examples
+#'libraryPath<-"F:/BG.library_github/BG.library/"
+#'filePath<-"F:/BG.library_github/exampleData.csv"
+#'shinyPlot(libraryPath, filePath)
+
+
 shinyPlot<-function(libraryPath, filePath){
   #load functions
   devtools::load_all(libraryPath,recompile = FALSE) 
@@ -19,6 +30,7 @@ shinyPlot<-function(libraryPath, filePath){
   #load plotList
   load(file = plotListFile)
   
+  #start shiny app
   shinyApp(  ui=shinyUI(
     
     fluidPage(tags$head(
@@ -30,7 +42,7 @@ shinyPlot<-function(libraryPath, filePath){
         sidebarPanel(width=4,
                      #plot actionButtons
                      fluidRow(actionButton("goPlot","Generate Plot"),
-                       actionButton("goHistory","Generate History Report"),
+                              actionButton("goHistory","Generate History Report"),
                               actionButton("goReport","Generate BG Report")),
                      
                      h4("Plot Specifications                     "),
@@ -53,7 +65,7 @@ shinyPlot<-function(libraryPath, filePath){
     )#end fluid page
   ),#end shiny ui
   
-  
+  #shiny server function
   server=shinyServer(function(input, output,session) {
     #render UIs
     observe({
@@ -77,6 +89,7 @@ shinyPlot<-function(libraryPath, filePath){
       
     })
     
+    #set ui's common to all plots
     observe({
       output$historyUI<-renderUI({
         historyUI()
@@ -94,46 +107,42 @@ shinyPlot<-function(libraryPath, filePath){
     })
     
     
-
-
+    
+    
     #plot
     p<-eventReactive(input$goPlot,{
       goShinyPlot(input, output, session,
                   libraryPath, filePath,
                   data)
     })   
-        #interactive plot
+    #interactive plot
     observe({
-          output$plotOne  <- renderPlotly({
-        #goShinyPlot(input, output, session,
-        #            libraryPath, filePath,
-        #            data)
-            p()
+      output$plotOne  <- renderPlotly({
+        p()
       })#end renderplot
     }) 
     
     #generate reports
     hs<-eventReactive(input$goHistory,{
       shinyReport(input, output, session,
-                  libraryPath, filePath,
-                  data, reportType = "history")
+                  libraryPath = libraryPath, filePath = filePath,
+                  data = data, reportType = "history")
     })      
     
     bg<-eventReactive(input$goReport,{
       shinyReport(input, output, session,
-                  libraryPath, filePath,
-                  data,reportType = "BG")
+                  libraryPath = libraryPath, filePath = filePath,
+                  data = data,reportType = "BG")
     })
     
-    observe({   
+    observe({ 
+
       hs()
+    })
+    observe({ 
       bg()
       
     })
-    
-    
-    
-    
     
     
   })#end shiny server

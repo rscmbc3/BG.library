@@ -6,8 +6,8 @@
 \usage{
 historySeqOut(data = NA, plotName = NA, paramList = NA,
   plotType = NA, seqType = "change", seqLength = 2, period = NA,
-  reportTitle = "", outPath = NA, outFileName = NA, libraryPath,
-  filePath)
+  removeDates = NA, reportTitle = "", outPath = NA,
+  outFileName = NA, libraryPath, filePath)
 }
 \arguments{
 \item{data}{data.frame to be plotted}
@@ -28,6 +28,8 @@ every \code{period} number of days)}
 \item{seqLength}{number of plots to output}
 
 \item{period}{number of days per plot if \code{seqType = 'days'}}
+
+\item{removeDates}{character vector of dates in format %Y-%m-%d to remove from data}
 
 \item{reportTitle}{character string title for html document}
 

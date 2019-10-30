@@ -5,7 +5,7 @@
 \title{fromChangeDateRange}
 \usage{
 fromChangeDateRange(data, fromChange, numberDays, startDate = NA,
-  endDate = NA, libraryPath)
+  endDate = NA, removeDates = NA, libraryPath)
 }
 \arguments{
 \item{data}{data.frame to be subsetted.}
@@ -24,6 +24,8 @@ if \code{numberDays = NA} and \code{fromChange = FALSE}}
 
 \item{endDate}{Latest date included in data.  This setting will only be applied
 if \code{numberDays = NA} and \code{fromChange = FALSE}}
+
+\item{removeDates}{character vector of dates in format %Y-%m-%d to remove from data}
 
 \item{libraryPath}{character string path to BG.library code}
 }

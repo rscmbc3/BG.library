@@ -4,12 +4,12 @@
 \alias{heatMap_ly}
 \title{heatMap_ly}
 \usage{
-heatMap_ly(data, tcol = "time2", dcol = "Date2", valueVar, sumFunc,
-  naRemove = TRUE, replaceNAs = FALSE, fromChange = TRUE,
-  numberDays = NA, startDate = NA, endDate = NA, filterCond = "",
-  timeStep = "hour", period = 1, brks = seq(0, 450, 50),
-  brewerPallete = "RdBu", revPallete = TRUE, textCol = "black",
-  addHist = TRUE, libraryPath)
+heatMap_ly(data, tcol = "time2", dcol = "Date2", removeDates = NA,
+  valueVar, sumFunc, naRemove = TRUE, replaceNAs = FALSE,
+  fromChange = TRUE, numberDays = NA, startDate = NA, endDate = NA,
+  filterCond = "", timeStep = "hour", period = 1, brks = seq(0,
+  450, 50), brewerPallete = "RdBu", revPallete = TRUE,
+  textCol = "black", addHist = TRUE, libraryPath)
 }
 \arguments{
 \item{data}{data.frame with data to plot}
@@ -17,6 +17,8 @@ heatMap_ly(data, tcol = "time2", dcol = "Date2", valueVar, sumFunc,
 \item{tcol}{character string indicating 'time' column name}
 
 \item{dcol}{character string indicating 'date' column name}
+
+\item{removeDates}{character vector of dates in format %Y-%m-%d to remove from data}
 
 \item{sumFunc}{character string indicating function to aggregate data for plot}
 

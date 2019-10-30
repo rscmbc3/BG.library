@@ -6,7 +6,7 @@
 \usage{
 generateBGreport(libraryPath, filePath, outPath = NA, outFileName = NA,
   fromChange = TRUE, numberDays = NA, startDate = NA, endDate = NA,
-  data)
+  removeDates = NA, data)
 }
 \arguments{
 \item{libraryPath}{character string path to BG.library code}
@@ -33,6 +33,8 @@ if \code{numberDays = NA} and \code{fromChange = FALSE}}
 
 \item{endDate}{Latest date included in data.  This setting will only be applied
 if \code{numberDays = NA} and \code{fromChange = FALSE}}
+
+\item{removeDates}{character vector of dates in format %Y-%m-%d to remove from data}
 
 \item{data}{data.frame to be used to generate tables and plots}
 }
