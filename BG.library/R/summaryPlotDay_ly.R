@@ -165,7 +165,7 @@ summaryPlotDay_ly<-function(data,addBarSub,boxBar,
     xaxisStr<-makeXaxis(xDomain)
     
     #make title str
-    titleStr<-paste0(min(data$Date2)," -to- ",max(data$Date2))
+    titleStr<-paste0(min(data$Date2, na.rm = TRUE)," -to- ",max(data$Date2, na.rm = TRUE))
     
     ##make layoutstr
     layoutStr<-makeLayout(titleStr,xDomain,xaxisStr,yaxisStr,addGoodRange = FALSE,stackedBar = stackedBar,

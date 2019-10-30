@@ -4,7 +4,7 @@ subsetSetting<-function(data,libraryPath){
   unPackList(lists = list(pumpSettings.list = pumpSettings.list),
              parentObj = list(NA)) 
   
-  endDate<-max(data$Date2)#data has already been subsetted either by startEndDate or numberdays
+  endDate<-max(data$Date2, na.rm = TRUE)#data has already been subsetted either by startEndDate or numberdays
   
    #get only relavant pump settings
 for (s in c("basal","corrFactor","carbRatio")){

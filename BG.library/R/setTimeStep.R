@@ -52,7 +52,7 @@ setTimeStep<-function(data,startTime = "00:00",endTime = "23:00", timeStep, peri
     data$time2<-format(data$time2,"%H:%M")
     data<-data[,regexpr("timeNew",names(data))<0]
   }else if (timeStep=="day"){
-    seqDate<-seq.Date(from = min(data$Date2),to = max(data$Date2),by=paste0(period," day"))
+    seqDate<-seq.Date(from = min(data$Date2, na.rm = TRUE),to = max(data$Date2, na.rm = TRUE),by=paste0(period," day"))
     data$dateNew<-data$Date2
     data$dateNew2<-as.Date(rep(NA,nrow(data)),origin = "1970-01-01")
     for (s in 2:length(seqDate)){

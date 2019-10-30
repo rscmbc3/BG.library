@@ -36,7 +36,7 @@ generateBGreport<-function(libraryPath, filePath,
   data<-fromChangeDateRange(data,fromChange,numberDays,libraryPath = libraryPath,
                             startDate = startDate,endDate = endDate, removeDates = removeDates)
   
-  reportTitle<-paste0("BG_report for Dates: ",min(data$Date2)," to ",max(data$Date2))
+  reportTitle<-paste0("BG_report for Dates: ",min(data$Date2, na.rm = TRUE)," to ",max(data$Date2, na.rm = TRUE))
   
   replaceTitle(libraryPath, reportTitle,reportName = "BG_report")
   

@@ -105,7 +105,7 @@ plotLine_ly<-function(data,
     xaxisStr<-makeXaxis(xDomain)
     
     #make title str
-    titleStr<-paste0(min(data$Date2)," -to- ",max(data$Date2))
+    titleStr<-paste0(min(data$Date2, na.rm = TRUE)," -to- ",max(data$Date2, na.rm = TRUE))
 
     ##make layoutstr
     layoutStr<-makeLayout(titleStr,xDomain,xaxisStr,yaxisStr,addGoodRange,
@@ -119,7 +119,7 @@ plotLine_ly<-function(data,
 
     if (plotSummary!="Sensor.Glucose..mg.dL." & !scatterOnly){#daily sensor data
         if (is.na(numberDays)){
-        numberDays<-as.numeric(max(data$Date2)-min(data$Date2))
+        numberDays<-as.numeric(max(data$Date2, na.rm = TRUE)-min(data$Date2, na.rm = TRUE))
       }
       #daily colors
       eval(parse(text = paste0("cl <- ",colorPalleteDaily,"(numberDays)")))

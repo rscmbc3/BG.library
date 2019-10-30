@@ -22,7 +22,7 @@ xTicks<-function(data, startTime,endTime,timeStep,period){
 
 }else if (timeStep=="day"){#timeStep Day
   
-  xticks<-seq.Date(min(data$Date2),max(data$Date2),by=paste0(period," day"))
+  xticks<-seq.Date(min(data$Date2, na.rm = TRUE),max(data$Date2, na.rm = TRUE),by=paste0(period," day"))
   xticks<-format(xticks,"%Y-%m-%d")
 
   data$time3<-as.POSIXlt(data$time2,format="%H:%M")

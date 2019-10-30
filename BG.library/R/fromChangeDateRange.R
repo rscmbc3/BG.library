@@ -34,7 +34,7 @@ fromChangeDateRange<-function(data,fromChange,numberDays,startDate = NA, endDate
   if (!fromChange){
     #set date range, numberDays overrules start/endDates
     if (!is.na(numberDays)){
-      data<-data[data$Date2>=max(data$Date2)-numberDays+1,]
+      data<-data[data$Date2>=max(data$Date2,na.rm = TRUE)-numberDays+1,]
     }else if (!is.na(startDate) | !is.na(endDate)){
       if (!is.na(startDate)){
         startDate<-as.Date(startDate, format = "%Y-%m-%d" )
@@ -62,7 +62,7 @@ fromChangeDateRange<-function(data,fromChange,numberDays,startDate = NA, endDate
     }
     
     #get max dates in data
-    maxDate<-max(data$Date2)
+    maxDate<-max(data$Date2, na.rm = TRUE)
     lastChange<-allChanges[allChanges<=maxDate]
     lastChange<-lastChange[length(lastChange)]
     

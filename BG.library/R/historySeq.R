@@ -44,9 +44,9 @@ historySeq<-function(data, plotName, paramList, plotType,
   dateSeq<-c(as.Date(max(data$Date), format = "%Y-%m-%d"),dateSeq) 
   dateSeq<-unique(dateSeq)
   dateSeq<-dateSeq[order(dateSeq, decreasing = TRUE)]
-  dateSeq<-dateSeq[dateSeq<=max(data$Date2)]
+  dateSeq<-dateSeq[dateSeq<=max(data$Date2, na.rm = TRUE)]
   }else{#if seqType = days
-    dateSeq<-seq.Date(from = max(data$Date2),to = min(data$Date2),by=paste0('-',period,' day'))
+    dateSeq<-seq.Date(from = max(data$Date2, na.rm = TRUE),to = min(data$Date2, na.rm = TRUE),by=paste0('-',period,' day'))
   }
 
 
