@@ -54,9 +54,11 @@ addPercentBG_ly<-function(p,data,addPercentBG = c("low","good","high","very high
   if (addPercentBG[1]!=""){
     if (outputType != "plot_ly"){
     #subset data by date and filterCond
-    data<-subsetData(data,numberDays,startDate,endDate,filterCond,
-                     startTime = startTime, endTime = endTime,timeStep,period, fromChange, 
-                     removeDates = removeDates,libraryPath)
+    data<-subsetData(data,numberDays = numberDays,startDate = startDate,
+                     endDate = endDate,filterCond = filterCond,
+                     startTime = startTime, endTime = endTime,
+                     timeStep = timeStep,period = period, fromChange = fromChange, 
+                     removeDates = removeDates,libraryPath =libraryPath)
     }
 
     if (addPercentType=="BG.Reading..mg.dL."){

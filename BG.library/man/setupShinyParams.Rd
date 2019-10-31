@@ -28,7 +28,7 @@ Shiny server function that formats shiny inputs for use in plotting functions
 \examples{
 libraryPath<-"F:/BG.library_github/BG.library/"
 filePath<-"F:/BG.library_github/exampleData.csv"
-dataImport.list<-dataImport(path,fileName,libraryPath)
+dataImport.list<-dataImport(filePath,libraryPath)
 data<-dataImport.list$allData
 #file path to plotList
 plotListFile<-paste0(libraryPath,"/data/plotList")

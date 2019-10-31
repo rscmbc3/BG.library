@@ -8,9 +8,11 @@ summaryPlotDay_ly<-function(data,addBarSub,boxBar,
                          legendInset = -0.2,description,descInset){
   
   #subset data by date and filterCond
-  data<-subsetData(data,numberDays,startDate,endDate,filterCond,
-                   startTime = startTime, endTime = endTime,timeStep,period, 
-                   fromChange,removeDates,libraryPath)
+  data<-subsetData(data,numberDays = numberDays,startDate = startDate,
+                   endDate = endDate,filterCond = filterCond,
+                   startTime = startTime, endTime = endTime,
+                   timeStep = timeStep,period = period, fromChange = fromChange, 
+                   removeDates = removeDates,libraryPath =libraryPath)
 
   #subset settings
   pumpSettings.list<-subsetSetting(data,libraryPath)
