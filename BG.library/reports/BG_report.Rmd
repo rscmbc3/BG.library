@@ -1,5 +1,5 @@
 ---
-title: 'BG_report for Dates: 2019-10-07 to 2019-10-10'
+title: 'BG_report for Dates: 2019-10-24 to 2019-10-28'
 author: "Lillian Gorman Sanisaca, rscmb_c3@yahoo.com"
 date: "`r paste0('Report Generated : ',format(Sys.time(), '%m-%d-%Y'))`"
 output: html_document
