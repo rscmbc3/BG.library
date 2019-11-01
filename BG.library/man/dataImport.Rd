@@ -8,6 +8,8 @@ dataImport(filePath, libraryPath)
 }
 \arguments{
 \item{filePath}{character path to csv import file}
+
+\item{libraryPath}{character string path to BG.library code}
 }
 \value{
 \code{dataImport.list} list containing 2 data.frames (allData and joinData)

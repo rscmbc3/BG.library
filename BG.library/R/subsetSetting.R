@@ -1,3 +1,19 @@
+#'@title subsetData
+#'@description subset settings showing only settings <= max(data$Date2) \\cr \\cr
+#'@param data data.frame to be subsetted.
+#'@param libraryPath character string path to BG.library code
+#'@return `pumpSettings.list` named list of all pump settings
+#'@examples
+#'libraryPath<-"F:/BG.library_github/BG.library/"
+#'filePath<-"F:/BG.library_github/exampleData.csv"
+#'dataImport.list<-dataImport(filePath,libraryPath)
+#'data<-dataImport.list$allData
+#'pumpSettings.list<-makePumpSettings(libraryPath)
+#'print(names(pumpSettings.list$basal))
+#'pumpSettings.list<-subsetSetting(data = data,libraryPath = libraryPath)
+#'print(names(pumpSettings.list$basal))
+
+
 subsetSetting<-function(data,libraryPath){
   #get pumpSettings
   pumpSettings.list<-makePumpSettings(libraryPath)

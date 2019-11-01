@@ -3,6 +3,7 @@
 #'allData is pump and sensor data rbinded
 #'joinData is a roll join of pump and sensor data on datetime.\\cr \\cr
 #'@param filePath character path to csv import file
+#'@param libraryPath character string path to BG.library code
 #'@return `dataImport.list` list containing 2 data.frames (allData and joinData)
 #'@examples
 #'libraryPath<-"F:/BG.library_github/BG.library/"

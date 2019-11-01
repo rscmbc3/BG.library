@@ -1,4 +1,24 @@
-summaryLinePlot_ly<-function(data, plotSummary, p){
+#'@title summaryLinePlot_ly
+#'@description Adds summary glucose value lines (min, mean, and max) to plotly plot for column
+#'defined in `plotSummary` \\cr \\cr
+#'@param p current plot_ly plot
+#'@param data data.frame with data to use for summary plot lines
+#'@param plotSummary glucose values to summarise outputing min, mean, and max lines to plot
+#'common options are 'BG.Reading..mg.dL.' or 'Sensor.Glucose..mg.dL.'
+#'@return `p` plotly plot object
+#'@examples
+#'libraryPath<-"F:/BG.library_github/BG.library/"
+#'filePath<-"F:/BG.library_github/exampleData.csv"
+#'dataImport.list<-dataImport(filePath,libraryPath)
+#'data<-dataImport.list$allData
+#'data<-subsetData(data,numberDays = NA,startDate = NA,endDate = NA,filterCond = "",
+#'                 startTime = "00:00", endTime = "23:00",timeStep = "hour",period = 1, 
+#'                 fromChange = TRUE,libraryPath = libraryPath)
+#'p<-plot_ly()
+#'p<-addBGpoints_ly(p, data)
+#'summaryLinePlot_ly(p, data, plotSummary = "Sensor.Glucose..mg.dL.")
+
+summaryLinePlot_ly<-function(p, data, plotSummary){
   
   
   sumdata<-data[c("time2",plotSummary)]

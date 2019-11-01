@@ -141,7 +141,7 @@ plotLine_ly<-function(data,
       
       
     }else if (!scatterOnly & plotSummary!=""){#min, max, mean #if daily sensor
-      p<-summaryLinePlot_ly(data, plotSummary, p)
+      p<-summaryLinePlot_ly(p, data, plotSummary)
       
     }
    

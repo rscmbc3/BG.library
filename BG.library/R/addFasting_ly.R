@@ -16,8 +16,8 @@
 #'                startTime = "00:00", endTime = "23:00",timeStep = "hour",period = 1, 
 #'                fromChange = TRUE,libraryPath = libraryPath)
 #'p<-plot_ly()
-#'p<-addBGpoints_ly(data, p)
-#'addBGpoints_ly(p, data)
+#'p<-addBGpoints_ly(p, data)
+#'addFasting_ly(p, data)
 
 
 addFasting_ly<-function(p, data, addFasting = TRUE, addFastingAnnot = TRUE){

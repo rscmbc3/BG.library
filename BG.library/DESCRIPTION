@@ -39,6 +39,7 @@ Collate:
   'convertClass.R'
   'createSavedPlot.R'
   'dataImport.R'
+  'dateTimeUI.R'
   'executeSavedPlot.R'
   'findCodeStr.R'
   'fixtables.R'
