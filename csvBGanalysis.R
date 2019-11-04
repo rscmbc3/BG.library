@@ -1,6 +1,6 @@
 #setPaths
 libraryPath<-"F:/BG.library_github/BG.library/"
-filePath<-"F:/CareLink-Export-1572287185792.csv"
+filePath<-"F:/BG.library_github/exampleData.csv"
 
 #load functions
 devtools::load_all(libraryPath,recompile = FALSE) 
@@ -16,7 +16,7 @@ unPackList(lists = list(dataImport.list = dataImport.list),
            parentObj = list(NA)) 
 #BG report
 generateBGreport(libraryPath, filePath, data = allData)
-generateBGreport(libraryPath, filePath, data = allData, removeDates = "2019-10-28")
+generateBGreport(libraryPath, filePath, data = allData, removeDates = c("2019-10-31","2019-11-01"))
 generateBGreport(libraryPath, filePath, data = allData,numberDays = NA,
                  fromChange = FALSE,startDate = "2019-09-08", endDate="2019-09-25")
 
@@ -117,7 +117,7 @@ executeSavedPlot(data = allData, plotName = "meanSGheat_hist", libraryPath = lib
 #saved plot
 historySeqOut(data = NA,libraryPath = libraryPath, filePath = filePath,reportTitle = "Compare Summary Sensor Line Plot Since Last Pump Setting Change" ,
               plotName = "lineSumSens_SGper_Sett_BG", paramList = NA, plotType = NA,
-                        seqType = "change", seqLength = 2, removeDates = "2019-10-28")
+                        seqType = "change", seqLength = 2, removeDates = c("2019-10-31","2019-11-01"))
 historySeqOut(data = NA,libraryPath = libraryPath, filePath = filePath,reportTitle = "Compare SG box Plot Since Last Pump Setting Change" ,
               plotName = "boxSGhour_Sett", paramList = NA, plotType = NA,
               seqType = "change", seqLength = 2)
