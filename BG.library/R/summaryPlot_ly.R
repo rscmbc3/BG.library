@@ -17,7 +17,7 @@ summaryPlot_ly<-function(p, data,
                      timeStep = "hour",period = 1,fromChange = TRUE,libraryPath,
                      plotSummary, sumFunc = "length", stackedBar = "",
                      uniqueDT = TRUE,replaceNAs = TRUE,ignoreNAs = FALSE,
-                     addBG = TRUE, pointSize = 10,
+                     addGoodRange = FALSE,addBG = TRUE, pointSize = 10,
                      addSetting = "",settingOverlay = FALSE,percentSetting = 30,
                      legendInset = -0.2,description = "",descInset = -0.15){
 
@@ -41,7 +41,7 @@ summaryPlot_ly<-function(p, data,
                         timeStep,period,fromChange,libraryPath,
                         plotSummary, sumFunc, stackedBar,
                         uniqueDT,replaceNAs,ignoreNAs,
-                        addBG, pointSize,
+                        addGoodRange,addBG, pointSize,
                         addSetting,settingOverlay,percentSetting,
                         legendInset,description,descInset)
       p
@@ -52,7 +52,7 @@ summaryPlot_ly<-function(p, data,
                             startTime, endTime,
                             timeStep,period,fromChange,libraryPath,
                             plotSummary, sumFunc, stackedBar,
-                            uniqueDT,replaceNAs,ignoreNAs,
+                            uniqueDT,replaceNAs,ignoreNAs,addGoodRange,
                             legendInset,description,descInset)
       p
   }else{

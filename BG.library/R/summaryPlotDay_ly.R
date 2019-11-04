@@ -4,7 +4,7 @@ summaryPlotDay_ly<-function(data,addBarSub,boxBar,
                          startTime = "00:00", endTime = "23:00",
                          timeStep = "day",period = 1,fromChange,libraryPaths,
                          plotSummary, sumFunc = "length", stackedBar = "",
-                         uniqueDT = TRUE,replaceNAs = TRUE,ignoreNAs = FALSE,
+                         uniqueDT = TRUE,replaceNAs = TRUE,ignoreNAs = FALSE,addGoodRange = FALSE,
                          legendInset = -0.2,description,descInset){
   
   #subset data by date and filterCond
@@ -170,7 +170,7 @@ summaryPlotDay_ly<-function(data,addBarSub,boxBar,
     titleStr<-paste0(min(data$Date2, na.rm = TRUE)," -to- ",max(data$Date2, na.rm = TRUE))
     
     ##make layoutstr
-    layoutStr<-makeLayout(titleStr,xDomain,xaxisStr,yaxisStr,addGoodRange = FALSE,stackedBar = stackedBar,
+    layoutStr<-makeLayout(titleStr,xDomain,xaxisStr,yaxisStr,addGoodRange = addGoodRange,stackedBar = stackedBar,
                           description = description,descInset = descInset)
     
     #initialize plot

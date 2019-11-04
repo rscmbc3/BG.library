@@ -5,7 +5,7 @@ summaryPlotHour_ly<-function(data,addBarSub,boxBar,
                          timeStep = "hour",period = 1,fromChange,libraryPath,
                          plotSummary, sumFunc = "length", stackedBar = "",
                          uniqueDT = TRUE,replaceNAs = TRUE,ignoreNAs = FALSE,
-                         addBG = TRUE, pointSize = 10,
+                         addGoodRange = FALSE,addBG = TRUE, pointSize = 10,
                          addSetting = "",settingOverlay = FALSE,percentSetting = 30,
                          legendInset = -0.2,description,descInset){
   
@@ -139,7 +139,7 @@ summaryPlotHour_ly<-function(data,addBarSub,boxBar,
     titleStr<-paste0(min(data$Date2, na.rm = TRUE)," -to- ",max(data$Date2, na.rm = TRUE))
     
     ##make layoutstr
-    layoutStr<-makeLayout(titleStr,xDomain,xaxisStr,yaxisStr,addGoodRange = FALSE,stackedBar = stackedBar,
+    layoutStr<-makeLayout(titleStr,xDomain,xaxisStr,yaxisStr,addGoodRange = addGoodRange,stackedBar = stackedBar,
                           description = description,descInset = descInset)
     
     #initialize plot

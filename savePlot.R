@@ -34,3 +34,5 @@ for (n in names(plotList)){
 }
 
 plotList$meanBGheat_hist$paramList<-plotList$meanBGheat_hist$paramList[names(plotList$meanBGheat_hist$paramList)!="includeTotals"]
+
+plotList$boxSGdaily$paramList$addGoodRange<-FALSE
