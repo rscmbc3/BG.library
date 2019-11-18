@@ -1,3 +1,5 @@
 ﻿Date,basal,carbRatio,corrFactor
 10/30/2019,"lows causing highs overnight -> reduce before 03:00, increase overnight start 03:00 also change suspend settings reduce threshold and don’t suspend before low only on low, lows mid-day -> reduce high morning , highs late evening -> increase late afternoon ",lows mid-day and early afternoon -> raise morning ,lows after bolus overnight and evening -> increase
 11/5/2019,"highs overnight -> increase before 3:00, highs late evening -> increase after 20:00",highs early afternoon -> lower mid-day,
+11/11/2019,"highs evening -> increase basal start 11:00 end 20:00, lows overnight -> decrease 0:00-3:00",highs evening - > lower mid-day,
+11/19/2019,"highs from previous change overcorrected -> cut changes in half, still low overnight -> decrease before 3:00 by 0.025",,
