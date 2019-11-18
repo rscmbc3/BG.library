@@ -85,7 +85,8 @@ goShinyPlot<-function(input, output, session,
   }else{#saved plot
     changeParam.list = list(fromChange = fromChange,
                             startDate = startDate,
-                            endDate = endDate)
+                            endDate = endDate,
+                            removeDates = removeDates)
     executeSavedPlot(data = data, plotName = plotName, libraryPath = libraryPath,numberDays = numberDays,
                      changeParam.list = changeParam.list)
   }

@@ -116,7 +116,7 @@ setupShinyParams<-function(input, output, session,
   }else{
     removeDates<-NA
   }
-  
+
   #format time parameters
   if (shPlotType!='heatmap'){
     startTime<-ifelse(nchar(as.character(timeRange[1]))==1,paste0("0",timeRange[1],":00"),paste0(timeRange[1],":00"))
@@ -156,7 +156,7 @@ setupShinyParams<-function(input, output, session,
     #return workspace
     workSpace.list<-named.list(paramStr,plotType)
   }else{
-    allArgs<-c("startDate","endDate","fromChange","numberDays","plotName")
+    allArgs<-c("startDate","endDate","fromChange","numberDays","plotName","removeDates")
     workSpace.list<-list() 
   }
   for (n in allArgs){
