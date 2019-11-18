@@ -1,5 +1,5 @@
 ---
-title: 'Compare Summary Sensor Line Plot Since Last Pump Setting Change'
+title: ''
 author: 'Lillian Gorman Sanisaca'
 date: "`r paste0('Report Generated : ',format(Sys.time(), '%m-%d-%Y'))`"
 output: html_document
